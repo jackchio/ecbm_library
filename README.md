@@ -39,34 +39,6 @@ ECBM项目的使用者定位是单片机新手和电子DIY爱好者。这一点�
 * ECBM板子是否开源？  
     * 板子的电路就是基本的最小系统+一定的外设。自己去打板、焊接所花的钱和时间还不如购入一款STC8开发板。任意STC8开发板都能使用ECBM库，但肯定只有官方出的板子兼容性最好，而且也不算太贵(ノ￣▽￣)。这是[购买地址](https://shop179570892.taobao.com/index.htm?spm=2013.1.w5002-21430097888.2.54374be8ul78Pw)，您的一份支持便是对我的极大鼓励。
 
-### 比如我们可以在多行文本框里输入一段代码,来一个Java版本的HelloWorld吧  
-    public class HelloWorld {  
-  
-      /**  
-      * @param args  
-   */  
-   public static void main(String[] args) {  
-   System.out.println("HelloWorld!");  
-  
-   }  
-  
-    } 
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
-
 #### 参与贡献
 
 1. Fork 本仓库
