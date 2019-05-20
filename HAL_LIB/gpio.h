@@ -45,13 +45,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>P3口使能
 #define ECBM_GPIO3_EN 1
 //<q>P4口使能
-#define ECBM_GPIO4_EN 0
+#define ECBM_GPIO4_EN 1
 //<q>P5口使能
 #define ECBM_GPIO5_EN 1
 //<q>P6口使能
-#define ECBM_GPIO6_EN 0
+#define ECBM_GPIO6_EN 1
 //<q>P7口使能
-#define ECBM_GPIO7_EN 0
+#define ECBM_GPIO7_EN 1
 //</h>
 //<<< end of configuration section >>>
 //-------------------------------以上是图形设置界面，可在Configuration Wizard界面设置----------------------------------------------------------

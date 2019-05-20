@@ -37,17 +37,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o>OLED横坐标像素
 //<0-128:1>
 //<i>本库基于SSD1306，最大支持128。
-#define OLED_X_MAX 128
+#define OLED_X_MAX 72
 //<o>OLED纵坐标像素
 //<16-64:8>
 //<i>本库基于SSD1306，最大支持64，该数值必须是8的倍数且大于16（SSD1306要求）。
-#define OLED_Y_MAX 64
-#define OLED_PAGE_MAX OLED_Y_MAX/8
+#define OLED_Y_MAX 40
+#define OLED_PAGE_MAX (OLED_Y_MAX/8)
 //<o>OLED对比度
 //<0-255:1>
 //<i>对于单色屏来说也是亮度,可输入0~255。
 #define OLED_CONTRAST 250
-//<o>OLED的逻辑引脚相对于硬件引脚的偏移量
+//<o>OLED的X轴相对于实际屏幕的偏移量
+//<0-127:1>
+//<i>该设置不会更改硬件配置，只会在软件上加一个偏移。通常只有X轴像素不到128时才使用。
+#define OLED_OFFSET_XPIN 28
+//<o>OLED的逻辑引脚(Y轴)相对于硬件引脚的偏移量
 //<0-63:1>
 //<i>移动逻辑引脚时，RAM的内容也会跟着移动,可输入0~63。仅当OLED的纵坐标像素小于64时设置该选项。
 #define OLED_OFFSET_LOGIC 0
@@ -59,7 +63,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<0-15:1>
 //<i>输入值范围为0~15。模式变量由三个参数构成，为了方便打包在一起，通过oled_display_mode_test函数测出当前的oled屏是何种显示模式，然后回来设置。
 //<i>测试时屏幕上会显示0~f的代号对应0~15。将正确显示的代号输入该参数即可。比如4号模式下，oled是正常显示的。于是显示模式为4。
-#define OLED_DISPLAY_MODE 4
+#define OLED_DISPLAY_MODE 7
 //</h>
 //<h>不常用的设置
 //<i>这些设置涉及OLED驱动芯片的工作状态，通常不需要更改。
@@ -92,7 +96,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<15=>402375Hz  
 //<o.0..3>OLED的时钟分频N
 //<i>分频系数N，可输入0~15，对应分频1~16分频。
-#define OLED_SYSCLK 240
+#define OLED_SYSCLK 128
 //<q>OLED升压泵开关
 //<i>OLED可以额外提供VCC，也可以使用自身的升压泵产生7.5V的电压供给VCC。
 #define OLED_DC_DC 1
@@ -113,87 +117,87 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<<< end of configuration section >>>
 //-------------------------------以上是图形设置界面，可在Configuration Wizard界面设置----------------------------------------------------------
 #include "ecbm.h"
+#define oled_cmd 0x00
+#define oled_dat 0x40
 
-void (* oled_write_cmd)(u8 cmd);
-void (* oled_write_dat)(u8 dat);
+void (* oled_write)(u8 cd,u8 buf);
 void oled_on(){//打开oled电源
-	oled_write_cmd(0xaf);
+	oled_write(oled_cmd,0xaf);
 }
 void oled_off(){//关闭oled电源
-	oled_write_cmd(0xae);
+	oled_write(oled_cmd,0xae);
 }
 void oled_set_com(u8 num){//设置OLED使用的COM口数量
-	oled_write_cmd(0xa8);
-	oled_write_cmd(num);
+	oled_write(oled_cmd,0xa8);
+	oled_write(oled_cmd,num);
 }
 void oled_set_contrast(u8 val){//设置对比度，对于单色屏来说就是亮度。
-	oled_write_cmd(0x81);
-	oled_write_cmd(val); 
+	oled_write(oled_cmd,0x81);
+	oled_write(oled_cmd,val); 
 }
 void oled_set_pos(u8 x,u8 y){
-	oled_write_cmd(0xb0+y);
-	oled_write_cmd(((x&0xf0)>>4)|0x10);
-	oled_write_cmd(x&0x0f);
+	oled_write(oled_cmd,0xb0+y);
+	oled_write(oled_cmd,((x&0xf0)>>4)|0x10);
+	oled_write(oled_cmd,x&0x0f);
 }
 void oled_set_offset_logic(u8 offset){//设置逻辑引脚相对于硬件引脚的偏移
-	oled_write_cmd(0xd3);
-	oled_write_cmd(offset);
+	oled_write(oled_cmd,0xd3);
+	oled_write(oled_cmd,offset);
 }
 void oled_set_offset_ram(u8 offset){//设置RAM相对逻辑引脚的偏移
-	oled_write_cmd(0x40|offset);
+	oled_write(oled_cmd,0x40|offset);
 }
 void oled_fill(u8 dat){
 	unsigned char y,x;
 	for(y=0;y<OLED_PAGE_MAX;y++)
 	{
-		oled_write_cmd(0xb0+y);
-		oled_write_cmd(0x00);
-		oled_write_cmd(0x10);
+		oled_write(oled_cmd,0xb0+y);
+		oled_write(oled_cmd,0x00);
+		oled_write(oled_cmd,0x10);
 		for(x=0;x<OLED_X_MAX;x++)
-		oled_write_dat(dat);
+		oled_write(oled_dat,dat);
 	}
 }
 void oled_set_display_mode(u8 mode){
 	if(mode&0x01){
-		oled_write_cmd(0xa0);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
+		oled_write(oled_cmd,0xa0);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
 	
 	}else{
-		oled_write_cmd(0xa1);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
+		oled_write(oled_cmd,0xa1);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
 	}
 	if(mode&0x02){
-		oled_write_cmd(0xc0);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常	
+		oled_write(oled_cmd,0xc0);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常	
 	}else{
-		oled_write_cmd(0xc8);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常	
+		oled_write(oled_cmd,0xc8);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常	
 	}
-	oled_write_cmd(0xda);//--set com pins hardware configuration
-	oled_write_cmd(0x02|((mode&0x0C)<<2));
+	oled_write(oled_cmd,0xda);//--set com pins hardware configuration
+	oled_write(oled_cmd,0x02|((mode&0x0C)<<2));
 }
 void oled_set_display(u8 cmd){
-	oled_write_cmd(cmd);
+	oled_write(oled_cmd,cmd);
 }
 void oled_set_vcomh(u8 v){
-	oled_write_cmd(0xdb);//--set vcomh
-	oled_write_cmd(v);//Set VCOM Deselect Level
+	oled_write(oled_cmd,0xdb);//--set vcomh
+	oled_write(oled_cmd,v);//Set VCOM Deselect Level
 }
 void oled_set_dcdc(u8 en){
-	oled_write_cmd(0x8d);//--set Charge Pump enable/disable
-	oled_write_cmd(0x10|(en<<2));//--set(0x10) disable
+	oled_write(oled_cmd,0x8d);//--set Charge Pump enable/disable
+	oled_write(oled_cmd,0x10|(en<<2));//--set(0x10) disable
 }
 void oled_set_pcc(u8 clk){
-	oled_write_cmd(0xd9);//--set pre-charge period
-	oled_write_cmd(clk);//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
+	oled_write(oled_cmd,0xd9);//--set pre-charge period
+	oled_write(oled_cmd,clk);//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
 }
 void oled_set_adress_mode(u8 mode){
-	oled_write_cmd(0x20);//-Set Page Addressing Mode (0x00/0x01/0x02)
-	oled_write_cmd(mode);//
+	oled_write(oled_cmd,0x20);//-Set Page Addressing Mode (0x00/0x01/0x02)
+	oled_write(oled_cmd,mode);//
 }
 void oled_set_clk(u8 clk){
-	oled_write_cmd(0xd5);
-	oled_write_cmd(clk);
+	oled_write(oled_cmd,0xd5);
+	oled_write(oled_cmd,clk);
 }
-void oled_init(void (* cmd)(u8),void (* dat)(u8)){  
-	oled_write_cmd=cmd;
-	oled_write_dat=dat;
+void oled_init(void (* fun)(u8,u8)){  
+	oled_write=fun;
 	oled_off();
 	oled_set_com(OLED_Y_MAX-1);
 	oled_set_contrast(OLED_CONTRAST);
@@ -237,7 +241,7 @@ void oled_display_mode_test(u8 mode){
 	for(y=0;y<8;y++){        //在测试阶段，直接写满8个page
 		oled_set_pos(x,y);
 		for(x=0;x<128;x++){  //在测试阶段，直接写满128像素
-			LCD_WrDat(oled_display_mode_test_buf[x%16+mode*16]);
+			oled_write(oled_dat,oled_display_mode_test_buf[x%16+mode*16]);
 		}
 	}
 }
@@ -343,7 +347,7 @@ void oled_char(u8 x,u8 y,char ch){
 	c=ch-' ';
 	oled_set_pos(x,y);
 	for(i=0;i<6;i++){
-		oled_write_dat(F6x8[c*6+i]);
+		oled_write(oled_dat,F6x8[c*6+i]);
 	}
 }
 #include "stdio.h"

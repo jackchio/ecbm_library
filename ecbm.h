@@ -24,8 +24,8 @@ typedef   signed long s32;
 //<h>ECBM默认设置与基础功能加载
 //<o>主控芯片的选择
 //<i>列表提供的芯片类型都是测试通过能使用的。当然目前只能基于STC8系列。
-//<0=>STC8F2K16S2 <1=>STC8F2K32S2 <2=>STC8F1K08
-#define ECBM_MCU 0
+//<0=>STC8F2K16S2 <1=>STC8F2K32S2 <2=>STC8F1K08 <3=>STC8A8K64S4A12
+#define ECBM_MCU 3
 //<o>IRC频率选择
 //<i>定义单片机运行的时钟频率。设置成和STC-ISP工具上的一样的频率即可。
 //<i>由于30MHz以上的速度不是每一个型号都能达到，故只提供到30MHz。可以在文本区手动修改该值（单位Hz）
@@ -33,7 +33,7 @@ typedef   signed long s32;
 //<18432000=>18.432MHz <20000000=>20.000MHz <22118400=>22.1184MHz <24000000=>24.000MHz
 //<27000000=>27.000MHz <30000000=>30.000MHz <33000000=>33.000MHz <33177600=>33.1776MHz
 //<35000000=>35.000MHz
-#define SYS_CLK 24000000
+#define SYS_CLK 27000000
 //<e>串口1基本功能和自动下载功能
 //<i>勾选此选项，就能使用自动下载功能。同时包含了串口1相关函数，可直接使用串口1进行调试。
 //<i>开启此功能，会占用串口1和定时器1的资源。编写代码时请注意！
@@ -63,6 +63,9 @@ typedef   signed long s32;
 //<i>该库提供了关于STC8的外部中断相关操作函数和外部中断的函数。
 //<i>该库依赖GPIO库。
 #define ECBM_EXIT_EN 0
+//<q>ADC库
+//<i>该库提供了关于STC8的模数转换器操作相关函数。
+#define ECBM_ADC_EN 1
 //<q>TIMER库
 //<i>该库提供了关于STC8的定时器操作相关函数。
 #define ECBM_TIMER_EN 0
@@ -73,6 +76,10 @@ typedef   signed long s32;
 //<i>该库提供了关于STC8内置IIC的操作相关函数。
 //<i>该库依赖GPIO库。
 #define ECBM_IIC_EN 1
+//<q>软件IIC库
+//<i>该库提供了关于STC8用IO模拟IIC主机的操作相关函数。
+//<i>该库依赖GPIO库。
+#define ECBM_SOFT_IIC_EN 1
 //<q>CMP库
 //<i>该库提供了关于STC8内置比较器的操作相关函数。
 #define ECBM_CMP_EN 0
@@ -103,6 +110,8 @@ typedef   signed long s32;
 #include "mcu/stc8f2k32s2.h"
 #elif ECBM_MCU == 2
 #include "mcu/stc8f1k08.h"
+#elif ECBM_MCU == 3
+#include "mcu/stc8a8k64s4a12.h"
 #endif
 //引脚定义
 sbit    LED=P5^5;
@@ -266,7 +275,12 @@ void system_init(void){
 #if ECBM_IIC_EN
 #include "HAL_LIB/iic.h"
 #endif
-
+#if ECBM_SOFT_IIC_EN
+#include "HAL_LIB/soft_iic.h"
+#endif
+#if ECBM_ADC_EN
+#include "HAL_LIB/adc.h"
+#endif
 
 #endif
 

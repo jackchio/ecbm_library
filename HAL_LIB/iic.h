@@ -40,11 +40,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<0-63:1>
 //<i>可输入0~63。该数字越小，即等待时钟越少，IIC的速度越快。如果目标器件的速度跟得上，可以设为0以获取最大的IIC通信速度。
 //<i>如果目标器件的速度跟不上（一般通信出现乱码或直接通信失败），可以从63开始一步一步减少以获得最佳性能。嫌麻烦也可直接设为63。
-#define ECBM_IIC_WAIT 1
+#define ECBM_IIC_WAIT 10
 //<o>IIC默认管脚
 //<i>此设置只会改动初始化的管脚，在实际应用中随时可以使用iic_set_pin函数修改IIC管脚，达到分时复用的效果。
 //<0=>SCL-P15|SDA-P14 <1=>SCL-P25|SDA-P24 <2=>SCL-P77|SDA-P76 <3=>SCL-P32|SDA-P33
-#define ECBM_IIC_IO 3
+#define ECBM_IIC_IO 0
 //</h>
 //<<< end of configuration section >>>
 //-------------------------------以上是图形设置界面，可在Configuration Wizard界面设置----------------------------------------------------------
@@ -63,6 +63,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define s32   signed long
 #endif
 /*-----------------------------------------------------------------------------------------------------------*/
+__IO u8 xdata iic_set_back;
 bit iic_busy;
 void iic_isr() interrupt 24
 {
@@ -237,7 +238,8 @@ void iic_master_init(){
 	#endif
 	I2CCFG=0x80|0x40|ECBM_IIC_WAIT; //开启IIC|主机|等待时钟
 	I2CMSST=0x00;                   //清除所有标志位
-	iic_set_pin(ECBM_IIC_IO);                 //默认使用0组，即P14和P15
+	iic_set_pin(ECBM_IIC_IO);       //默认使用0组，即P14和P15
+	iic_set_back=ECBM_IIC_IO;
 }
 void iic_slave_init(){
 	#if ECBM_IIC_LINK_EN == 0       //如果是独立使用，则需要打开外扩寄存器的使能
@@ -247,6 +249,7 @@ void iic_slave_init(){
 	I2CCFG=0x80|0x00|ECBM_IIC_WAIT; //开启IIC|从机|等待时钟
 	I2CMSST=0x00;                   //清除所有标志位
 	iic_set_pin(ECBM_IIC_IO);
+	iic_set_back=ECBM_IIC_IO;
 }
 
 #endif
