@@ -1,8 +1,7 @@
 #ifndef _US_CODE_H_
 #define _US_CODE_H_
-
-#include "ecbm.h"
-#if SYS_CLK == 5529600
+#include "ecbm_core.h"
+#if (SYS_CLK_SET == 0)||(SYS_CLK_SET == 1)
 #define	_5us	2 
 #define	_10us	4 
 #define	_20us	10 
@@ -105,7 +104,110 @@
 #define	_990us	546 
 #define	_1000us	551 
 #endif
-#if SYS_CLK == 6000000
+#if SYS_CLK_SET == 5529600L
+#define	_5us	2 
+#define	_10us	4 
+#define	_20us	10 
+#define	_30us	15 
+#define	_40us	21 
+#define	_50us	26 
+#define	_60us	32 
+#define	_70us	37 
+#define	_80us	43 
+#define	_90us	48 
+#define	_100us	54 
+#define	_110us	59 
+#define	_120us	65 
+#define	_130us	70 
+#define	_140us	76 
+#define	_150us	81 
+#define	_160us	87 
+#define	_170us	93 
+#define	_180us	98 
+#define	_190us	104 
+#define	_200us	109 
+#define	_210us	115 
+#define	_220us	120 
+#define	_230us	126 
+#define	_240us	131 
+#define	_250us	137 
+#define	_260us	142 
+#define	_270us	148 
+#define	_280us	153 
+#define	_290us	159 
+#define	_300us	164 
+#define	_310us	170 
+#define	_320us	175 
+#define	_330us	181 
+#define	_340us	187 
+#define	_350us	192 
+#define	_360us	198 
+#define	_370us	203 
+#define	_380us	209 
+#define	_390us	214 
+#define	_400us	220 
+#define	_410us	225 
+#define	_420us	231 
+#define	_430us	236 
+#define	_440us	242 
+#define	_450us	247 
+#define	_460us	253 
+#define	_470us	258 
+#define	_480us	264 
+#define	_490us	269 
+#define	_500us	275 
+#define	_510us	281 
+#define	_520us	286 
+#define	_530us	292 
+#define	_540us	297 
+#define	_550us	303 
+#define	_560us	308 
+#define	_570us	314 
+#define	_580us	319 
+#define	_590us	325 
+#define	_600us	330 
+#define	_610us	336 
+#define	_620us	341 
+#define	_630us	347 
+#define	_640us	352 
+#define	_650us	358 
+#define	_660us	363 
+#define	_670us	369 
+#define	_680us	375 
+#define	_690us	380 
+#define	_700us	386 
+#define	_710us	391 
+#define	_720us	397 
+#define	_730us	402 
+#define	_740us	408 
+#define	_750us	413 
+#define	_760us	419 
+#define	_770us	424 
+#define	_780us	430 
+#define	_790us	435 
+#define	_800us	441 
+#define	_810us	446 
+#define	_820us	452 
+#define	_830us	457 
+#define	_840us	463 
+#define	_850us	469 
+#define	_860us	474 
+#define	_870us	480 
+#define	_880us	485 
+#define	_890us	491 
+#define	_900us	496 
+#define	_910us	502 
+#define	_920us	507 
+#define	_930us	513 
+#define	_940us	518 
+#define	_950us	524 
+#define	_960us	529 
+#define	_970us	535 
+#define	_980us	540 
+#define	_990us	546 
+#define	_1000us	551 
+#endif
+#if SYS_CLK_SET == 6000000L
 #define	_5us	2 
 #define	_10us	5 
 #define	_20us	11 
@@ -208,7 +310,7 @@
 #define	_990us	593 
 #define	_1000us	599 
 #endif
-#if SYS_CLK == 11059200
+#if SYS_CLK_SET == 11059200L
 #define	_5us	5 
 #define	_10us	10 
 #define	_20us	21 
@@ -311,7 +413,7 @@
 #define	_990us	1093 
 #define	_1000us	1104 
 #endif
-#if SYS_CLK == 12000000
+#if SYS_CLK_SET == 12000000L
 #define	_5us	5
 #define	_10us	11 
 #define	_20us	23 
@@ -414,7 +516,7 @@
 #define	_990us	1187 
 #define	_1000us	1199 
 #endif
-#if SYS_CLK == 18432000
+#if SYS_CLK_SET == 18432000L
 #define	_5us	8 
 #define	_10us	17 
 #define	_20us	35 
@@ -517,7 +619,7 @@
 #define	_990us	1823 
 #define	_1000us	1842 
 #endif
-#if SYS_CLK == 20000000
+#if SYS_CLK_SET == 20000000L
 #define	_5us	9 
 #define	_10us	19 
 #define	_20us	39 
@@ -620,7 +722,7 @@
 #define	_990us	1979 
 #define	_1000us	1999 
 #endif
-#if SYS_CLK == 22118400
+#if SYS_CLK_SET == 22118400L
 #define	_5us	10 
 #define	_10us	21 
 #define	_20us	43 
@@ -723,7 +825,7 @@
 #define	_990us	2188 
 #define	_1000us	2210 
 #endif
-#if SYS_CLK == 24000000
+#if SYS_CLK_SET == 24000000L
 #define	_5us	11 
 #define	_10us	23 
 #define	_20us	47 
@@ -826,7 +928,7 @@
 #define	_990us	2375 
 #define	_1000us	2399 
 #endif
-#if SYS_CLK == 27000000
+#if SYS_CLK_SET == 27000000L
 #define	_5us	13 
 #define	_10us	26 
 #define	_20us	53 
@@ -929,7 +1031,7 @@
 #define	_990us	2672 
 #define	_1000us	2699 
 #endif
-#if SYS_CLK == 30000000
+#if SYS_CLK_SET == 30000000L
 #define	_5us	14 
 #define	_10us	29 
 #define	_20us	59 
@@ -1032,7 +1134,7 @@
 #define	_990us	2969 
 #define	_1000us	2999 
 #endif
-#if SYS_CLK == 33000000
+#if SYS_CLK_SET == 33000000L
 #define	_5us	16 
 #define	_10us	32 
 #define	_20us	65 
@@ -1135,7 +1237,7 @@
 #define	_990us	3266 
 #define	_1000us	3299 
 #endif
-#if SYS_CLK == 33177600
+#if SYS_CLK_SET == 33177600L
 #define	_5us	16 
 #define	_10us	32 
 #define	_20us	65 
@@ -1238,7 +1340,7 @@
 #define	_990us	3283 
 #define	_1000us	3316 
 #endif
-#if SYS_CLK == 35000000
+#if SYS_CLK_SET == 35000000L
 #define	_5us	17 
 #define	_10us	34 
 #define	_20us	69 

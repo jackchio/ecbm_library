@@ -1,9 +1,9 @@
-#ifndef _OLED_H_
-#define _OLED_H_
+#ifndef _OLED_H_ //头文件防止重加载必备，先看看有没有定义过这个，定义说明已经加载过一次了。
+#define _OLED_H_ //没定义说明是首次加载，那么往下执行。并且定义这个宏定义，防止下一次被加载。
 /*-------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2018 奈特
+Copyright (c) 2020 奈特
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -25,48 +25,50 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 免责说明：
 	本软件库以MIT开源协议免费向大众提供。作者只保证原始版本是由作者在维护修BUG，
 其他通过网络传播的版本也许被二次修改过，由此出现的BUG与作者无关。而当您使用原始
-版本出现BUG时，请联系作者解决。联系方式：进群778916610
+版本出现BUG时，请联系作者解决。
+                             **************************
+                             * 联系方式：进群778916610 *
+							 ************************** 
 ------------------------------------------------------------------------------------*/
-
-//-------------------------------以下是图形设置界面，可在Configuration Wizard界面设置----------------------------------------------------------
+//-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
 //<h>基于SSD1306的OLED初始化库
-//<i>目前为试做型，仅支持一个设备。
-//<h>常用的设置
-//<i>这些设置涉及OLED屏幕的规格，请根据实际情况来修改。
+//<i>本OLED库大量依靠ECBM主库，请不要脱离主库使用。当然自己移植出去也是可以的。
+//<h>面板参数
+//<i>这些参数是和屏幕面板息息相关的，不同尺寸的oled参数一定不一样。相同尺寸的oled也有可能因为厂家不一样而不同。请根据实际情况来修改。
 //<o>OLED横坐标像素
 //<0-128:1>
 //<i>本库基于SSD1306，最大支持128。
-#define OLED_X_MAX 72
+#define OLED_X_MAX 128
 //<o>OLED纵坐标像素
 //<16-64:8>
 //<i>本库基于SSD1306，最大支持64，该数值必须是8的倍数且大于16（SSD1306要求）。
-#define OLED_Y_MAX 40
+#define OLED_Y_MAX 64
 #define OLED_PAGE_MAX (OLED_Y_MAX/8)
-//<o>OLED对比度
-//<0-255:1>
-//<i>对于单色屏来说也是亮度,可输入0~255。
-#define OLED_CONTRAST 250
 //<o>OLED的X轴相对于实际屏幕的偏移量
 //<0-127:1>
 //<i>该设置不会更改硬件配置，只会在软件上加一个偏移。通常只有X轴像素不到128时才使用。
-#define OLED_OFFSET_XPIN 28
+#define OLED_OFFSET_XPIN 0
 //<o>OLED的逻辑引脚(Y轴)相对于硬件引脚的偏移量
 //<0-63:1>
 //<i>移动逻辑引脚时，RAM的内容也会跟着移动,可输入0~63。仅当OLED的纵坐标像素小于64时设置该选项。
 #define OLED_OFFSET_LOGIC 0
-//<o>OLED的RAM内容相对于逻辑引脚的偏移量
-//<0-63:1>
-//<i>输入值范围为0~63，但通常不需要改动这个值，因为调节逻辑引脚时，RAM的内容会跟着移动。该值推荐为0。
-#define OLED_OFFSET_RAM 0
 //<o>OLED的显示模式
 //<0-15:1>
 //<i>输入值范围为0~15。模式变量由三个参数构成，为了方便打包在一起，通过oled_display_mode_test函数测出当前的oled屏是何种显示模式，然后回来设置。
 //<i>测试时屏幕上会显示0~f的代号对应0~15。将正确显示的代号输入该参数即可。比如4号模式下，oled是正常显示的。于是显示模式为4。
 #define OLED_DISPLAY_MODE 7
 //</h>
-//<h>不常用的设置
-//<i>这些设置涉及OLED驱动芯片的工作状态，通常不需要更改。
+//<h>驱动芯片设置
+//<i>这些设置对于所有基于SSD1306的屏幕都适用，除了对比度外，别的参数通常不需要更改。
+//<o>OLED对比度
+//<0-255:1>
+//<i>对于单色屏来说也是亮度,可输入0~255。
+#define OLED_CONTRAST 128
+//<o>OLED的RAM内容相对于逻辑引脚的偏移量
+//<0-63:1>
+//<i>输入值范围为0~63，但通常不需要改动这个值，因为调节逻辑引脚时，RAM的内容会跟着移动。该值推荐为0。
+#define OLED_OFFSET_RAM 0
 //<o>OLED显示的内容
 //<0xa4=>显示RAM <0xa5=>全亮
 //<i>只有在第一次点亮时，为了检测oled好坏才会选择“全亮”选项。正常使用请选择“显示RAM”。
@@ -87,7 +89,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o>OLED屏的地址寻址模式
 //<0x00=>水平寻址 <0x01=>垂直寻址 <0x02=>页面寻址
 //<i>试做版只有页面寻址模式下的写入函数，就保持默认吧。
-#define OLED_ADRESS 2
+#define OLED_ADRESS 0
 //<o.4..7>OLED的时钟设置
 //<i>时钟为参考值，由于制造精度和环境温飘等原因，会有一定的误差。
 //<0=>333000Hz  <1=>337625Hz <2=>342250Hz <3=>346875Hz <4=>351500Hz 
@@ -96,7 +98,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<15=>402375Hz  
 //<o.0..3>OLED的时钟分频N
 //<i>分频系数N，可输入0~15，对应分频1~16分频。
-#define OLED_SYSCLK 128
+#define OLED_SYSCLK 192
 //<q>OLED升压泵开关
 //<i>OLED可以额外提供VCC，也可以使用自身的升压泵产生7.5V的电压供给VCC。
 #define OLED_DC_DC 1
@@ -106,295 +108,557 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>可以把一些代码优化掉节省空间。
 //<q>显示模式测试代码
 //<i>该函数oled_display_mode_test只是在不明白当前OLED屏工作状态时使用。测试过之后就可以优化掉了。
-#define OLED_DISPLAY_MODE_EN 0
+#define OLED_DISPLAY_MODE_EN 1
 //<q>OLED设置信息显示
 //<i>该函数oled_information的用处是在调试时，能看到设置的信息。设置好了以后就可以优化掉了。
 #define OLED_INFORMATION_EN 0
 //<q>oled_printf函数
 //<i>当你使用OLED仅仅是用于调试的时候，可以使用oled_printf函数。如果OLED只是UI库的一个组件，可以优化掉所有关于OLED库中显示字符的代码，转而去用UI库的显示代码。
-#define OLED_PRINTF_EN 1
+#define OLED_PRINTF_EN 0
 //</h>
 //<<< end of configuration section >>>
-//-------------------------------以上是图形设置界面，可在Configuration Wizard界面设置----------------------------------------------------------
-#include "ecbm.h"
+//-----------------以上是图形设置界面，可在Configuration Wizard界面设置-----------------
+/*---------------------------------------头文件------------------------------------*/
+#include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
+/*---------------------------------------宏定义------------------------------------*/
 #define oled_cmd 0x00
 #define oled_dat 0x40
 
-void (* oled_write)(u8 cd,u8 buf);
-void oled_on(){//打开oled电源
-	oled_write(oled_cmd,0xaf);
-}
-void oled_off(){//关闭oled电源
-	oled_write(oled_cmd,0xae);
-}
-void oled_set_com(u8 num){//设置OLED使用的COM口数量
-	oled_write(oled_cmd,0xa8);
-	oled_write(oled_cmd,num);
-}
-void oled_set_contrast(u8 val){//设置对比度，对于单色屏来说就是亮度。
-	oled_write(oled_cmd,0x81);
-	oled_write(oled_cmd,val); 
-}
-void oled_set_pos(u8 x,u8 y){
-	oled_write(oled_cmd,0xb0+y);
-	oled_write(oled_cmd,((x&0xf0)>>4)|0x10);
-	oled_write(oled_cmd,x&0x0f);
-}
-void oled_set_offset_logic(u8 offset){//设置逻辑引脚相对于硬件引脚的偏移
-	oled_write(oled_cmd,0xd3);
-	oled_write(oled_cmd,offset);
-}
-void oled_set_offset_ram(u8 offset){//设置RAM相对逻辑引脚的偏移
-	oled_write(oled_cmd,0x40|offset);
-}
-void oled_fill(u8 dat){
-	unsigned char y,x;
-	for(y=0;y<OLED_PAGE_MAX;y++)
-	{
-		oled_write(oled_cmd,0xb0+y);
-		oled_write(oled_cmd,0x00);
-		oled_write(oled_cmd,0x10);
-		for(x=0;x<OLED_X_MAX;x++)
-		oled_write(oled_dat,dat);
-	}
-}
-void oled_set_display_mode(u8 mode){
-	if(mode&0x01){
-		oled_write(oled_cmd,0xa0);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
-	
-	}else{
-		oled_write(oled_cmd,0xa1);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
-	}
-	if(mode&0x02){
-		oled_write(oled_cmd,0xc0);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常	
-	}else{
-		oled_write(oled_cmd,0xc8);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常	
-	}
-	oled_write(oled_cmd,0xda);//--set com pins hardware configuration
-	oled_write(oled_cmd,0x02|((mode&0x0C)<<2));
-}
-void oled_set_display(u8 cmd){
-	oled_write(oled_cmd,cmd);
-}
-void oled_set_vcomh(u8 v){
-	oled_write(oled_cmd,0xdb);//--set vcomh
-	oled_write(oled_cmd,v);//Set VCOM Deselect Level
-}
-void oled_set_dcdc(u8 en){
-	oled_write(oled_cmd,0x8d);//--set Charge Pump enable/disable
-	oled_write(oled_cmd,0x10|(en<<2));//--set(0x10) disable
-}
-void oled_set_pcc(u8 clk){
-	oled_write(oled_cmd,0xd9);//--set pre-charge period
-	oled_write(oled_cmd,clk);//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
-}
-void oled_set_adress_mode(u8 mode){
-	oled_write(oled_cmd,0x20);//-Set Page Addressing Mode (0x00/0x01/0x02)
-	oled_write(oled_cmd,mode);//
-}
-void oled_set_clk(u8 clk){
-	oled_write(oled_cmd,0xd5);
-	oled_write(oled_cmd,clk);
-}
-void oled_init(void (* fun)(u8,u8)){  
-	oled_write=fun;
-	oled_off();
-	oled_set_com(OLED_Y_MAX-1);
-	oled_set_contrast(OLED_CONTRAST);
-	oled_set_offset_logic(OLED_OFFSET_LOGIC);
-	oled_set_offset_ram(OLED_OFFSET_RAM);
-	oled_set_display_mode(OLED_DISPLAY_MODE);
-	oled_set_display(OLED_DISPLAY_SOURCE);
-	oled_set_display(OLED_DISPLAY_LED);
-	oled_set_clk(OLED_SYSCLK);
-	oled_set_pcc(OLED_PCC);//--set pre-charge period//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
-	oled_set_vcomh(OLED_VCOMH);
-	oled_set_adress_mode(OLED_ADRESS);
-	oled_set_dcdc(OLED_DC_DC);
-	oled_fill(0);  //初始清屏
-	oled_on();
-	oled_set_pos(0,0); 	
-} 
-#if OLED_DISPLAY_MODE_EN
-u8 code oled_display_mode_test_buf[]={
-0x00,0x3E,0x41,0x41,0x41,0x3E,0x00,0x00,/*"0"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x00,0x02,0x7F,0x00,0x00,0x00,0x00,/*"1"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x62,0x51,0x49,0x46,0x00,0x00,0x00,/*"2"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x00,0x41,0x49,0x49,0x36,0x00,0x00,/*"3"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x30,0x2C,0x22,0x7F,0x20,0x00,0x00,/*"4"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x00,0x4F,0x49,0x49,0x31,0x00,0x00,/*"5"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x3C,0x46,0x45,0x45,0x39,0x00,0x00,/*"6"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x01,0x61,0x1D,0x03,0x00,0x00,0x00,/*"7"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x36,0x49,0x49,0x49,0x36,0x00,0x00,/*"8"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x4E,0x51,0x51,0x71,0x1E,0x00,0x00,/*"9"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x60,0x1C,0x13,0x17,0x38,0x40,0x00,/*"A"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x00,0x7F,0x49,0x49,0x37,0x00,0x00,/*"B"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x3C,0x62,0x41,0x41,0x41,0x00,0x00,/*"C"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x00,0x7F,0x41,0x41,0x63,0x1E,0x00,/*"D"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x00,0x7F,0x49,0x49,0x49,0x00,0x00,/*"E"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-0x00,0x00,0x7F,0x09,0x09,0x00,0x00,0x00,/*"F"*/0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,
-/* (8 X 8 , Segoe UI Symbol )*/
-};
-void oled_display_mode_test(u8 mode){
-	u8 x=0,y=0;
-	oled_set_display_mode(mode);
-	for(y=0;y<8;y++){        //在测试阶段，直接写满8个page
-		oled_set_pos(x,y);
-		for(x=0;x<128;x++){  //在测试阶段，直接写满128像素
-			oled_write(oled_dat,oled_display_mode_test_buf[x%16+mode*16]);
-		}
-	}
-}
-#endif
-#if OLED_PRINTF_EN
-unsigned char code F6x8[] =		
-{
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00,// sp
-0x00, 0x00, 0x00, 0x2f, 0x00, 0x00,// !
-0x00, 0x00, 0x07, 0x00, 0x07, 0x00,// "
-0x00, 0x14, 0x7f, 0x14, 0x7f, 0x14,// #
-0x00, 0x24, 0x2a, 0x7f, 0x2a, 0x12,// $
-0x00, 0x62, 0x64, 0x08, 0x13, 0x23,// %
-0x00, 0x36, 0x49, 0x55, 0x22, 0x50,// &
-0x00, 0x00, 0x05, 0x03, 0x00, 0x00,// '
-0x00, 0x00, 0x1c, 0x22, 0x41, 0x00,// (
-0x00, 0x00, 0x41, 0x22, 0x1c, 0x00,// )
-0x00, 0x14, 0x08, 0x3E, 0x08, 0x14,// *
-0x00, 0x08, 0x08, 0x3E, 0x08, 0x08,// +
-0x00, 0x00, 0x00, 0xA0, 0x60, 0x00,// ,
-0x00, 0x08, 0x08, 0x08, 0x08, 0x08,// -
-0x00, 0x00, 0x60, 0x60, 0x00, 0x00,// .
-0x00, 0x20, 0x10, 0x08, 0x04, 0x02,// /
-0x00, 0x3E, 0x51, 0x49, 0x45, 0x3E,// 0
-0x00, 0x00, 0x42, 0x7F, 0x40, 0x00,// 1
-0x00, 0x42, 0x61, 0x51, 0x49, 0x46,// 2
-0x00, 0x21, 0x41, 0x45, 0x4B, 0x31,// 3
-0x00, 0x18, 0x14, 0x12, 0x7F, 0x10,// 4
-0x00, 0x27, 0x45, 0x45, 0x45, 0x39,// 5
-0x00, 0x3C, 0x4A, 0x49, 0x49, 0x30,// 6
-0x00, 0x01, 0x71, 0x09, 0x05, 0x03,// 7
-0x00, 0x36, 0x49, 0x49, 0x49, 0x36,// 8
-0x00, 0x06, 0x49, 0x49, 0x29, 0x1E,// 9
-0x00, 0x00, 0x36, 0x36, 0x00, 0x00,// :
-0x00, 0x00, 0x56, 0x36, 0x00, 0x00,// ;
-0x00, 0x08, 0x14, 0x22, 0x41, 0x00,// <
-0x00, 0x14, 0x14, 0x14, 0x14, 0x14,// =
-0x00, 0x00, 0x41, 0x22, 0x14, 0x08,// >
-0x00, 0x02, 0x01, 0x51, 0x09, 0x06,// ?
-0x00, 0x32, 0x49, 0x59, 0x51, 0x3E,// @
-0x00, 0x7C, 0x12, 0x11, 0x12, 0x7C,// A
-0x00, 0x7F, 0x49, 0x49, 0x49, 0x36,// B
-0x00, 0x3E, 0x41, 0x41, 0x41, 0x22,// C
-0x00, 0x7F, 0x41, 0x41, 0x22, 0x1C,// D
-0x00, 0x7F, 0x49, 0x49, 0x49, 0x41,// E
-0x00, 0x7F, 0x09, 0x09, 0x09, 0x01,// F
-0x00, 0x3E, 0x41, 0x49, 0x49, 0x7A,// G
-0x00, 0x7F, 0x08, 0x08, 0x08, 0x7F,// H
-0x00, 0x00, 0x41, 0x7F, 0x41, 0x00,// I
-0x00, 0x20, 0x40, 0x41, 0x3F, 0x01,// J
-0x00, 0x7F, 0x08, 0x14, 0x22, 0x41,// K
-0x00, 0x7F, 0x40, 0x40, 0x40, 0x40,// L
-0x00, 0x7F, 0x02, 0x0C, 0x02, 0x7F,// M
-0x00, 0x7F, 0x04, 0x08, 0x10, 0x7F,// N
-0x00, 0x3E, 0x41, 0x41, 0x41, 0x3E,// O
-0x00, 0x7F, 0x09, 0x09, 0x09, 0x06,// P
-0x00, 0x3E, 0x41, 0x51, 0x21, 0x5E,// Q
-0x00, 0x7F, 0x09, 0x19, 0x29, 0x46,// R
-0x00, 0x46, 0x49, 0x49, 0x49, 0x31,// S
-0x00, 0x01, 0x01, 0x7F, 0x01, 0x01,// T
-0x00, 0x3F, 0x40, 0x40, 0x40, 0x3F,// U
-0x00, 0x1F, 0x20, 0x40, 0x20, 0x1F,// V
-0x00, 0x3F, 0x40, 0x38, 0x40, 0x3F,// W
-0x00, 0x63, 0x14, 0x08, 0x14, 0x63,// X
-0x00, 0x07, 0x08, 0x70, 0x08, 0x07,// Y
-0x00, 0x61, 0x51, 0x49, 0x45, 0x43,// Z
-0x00, 0x00, 0x7F, 0x41, 0x41, 0x00,// [
-0x00, 0x55, 0x2A, 0x55, 0x2A, 0x55,// 55
-0x00, 0x00, 0x41, 0x41, 0x7F, 0x00,// ]
-0x00, 0x04, 0x02, 0x01, 0x02, 0x04,// ^
-0x00, 0x40, 0x40, 0x40, 0x40, 0x40,// _
-0x00, 0x00, 0x01, 0x02, 0x04, 0x00,// '
-0x00, 0x20, 0x54, 0x54, 0x54, 0x78,// a
-0x00, 0x7F, 0x48, 0x44, 0x44, 0x38,// b
-0x00, 0x38, 0x44, 0x44, 0x44, 0x20,// c
-0x00, 0x38, 0x44, 0x44, 0x48, 0x7F,// d
-0x00, 0x38, 0x54, 0x54, 0x54, 0x18,// e
-0x00, 0x08, 0x7E, 0x09, 0x01, 0x02,// f
-0x00, 0x18, 0xA4, 0xA4, 0xA4, 0x7C,// g
-0x00, 0x7F, 0x08, 0x04, 0x04, 0x78,// h
-0x00, 0x00, 0x44, 0x7D, 0x40, 0x00,// i
-0x00, 0x40, 0x80, 0x84, 0x7D, 0x00,// j
-0x00, 0x7F, 0x10, 0x28, 0x44, 0x00,// k
-0x00, 0x00, 0x41, 0x7F, 0x40, 0x00,// l
-0x00, 0x7C, 0x04, 0x18, 0x04, 0x78,// m
-0x00, 0x7C, 0x08, 0x04, 0x04, 0x78,// n
-0x00, 0x38, 0x44, 0x44, 0x44, 0x38,// o
-0x00, 0xFC, 0x24, 0x24, 0x24, 0x18,// p
-0x00, 0x18, 0x24, 0x24, 0x18, 0xFC,// q
-0x00, 0x7C, 0x08, 0x04, 0x04, 0x08,// r
-0x00, 0x48, 0x54, 0x54, 0x54, 0x20,// s
-0x00, 0x04, 0x3F, 0x44, 0x40, 0x20,// t
-0x00, 0x3C, 0x40, 0x40, 0x20, 0x7C,// u
-0x00, 0x1C, 0x20, 0x40, 0x20, 0x1C,// v
-0x00, 0x3C, 0x40, 0x30, 0x40, 0x3C,// w
-0x00, 0x44, 0x28, 0x10, 0x28, 0x44,// x
-0x00, 0x1C, 0xA0, 0xA0, 0xA0, 0x7C,// y
-0x00, 0x44, 0x64, 0x54, 0x4C, 0x44,// z
-0x14, 0x14, 0x14, 0x14, 0x14, 0x14,// horiz lines
-};
-void oled_char(u8 x,u8 y,char ch){
-	u8 i,c;
-	c=ch-' ';
-	oled_set_pos(x,y);
-	for(i=0;i<6;i++){
-		oled_write(oled_dat,F6x8[c*6+i]);
-	}
-}
+#define OLED_SERIAL_PARALLEL_MASK 0X80//通信形式位
+#define OLED_SERIAL               0x80//串行通信
+#define OLED_PARALLEL             0x7F//并行通信
+
+#define OLED_HARD_SOFT_WARE_MASK  0X40//软/硬件选择位
+#define OLED_HARDWARE_SERIAL      0X40//硬件
+#define OLED_SOFTWARE_SERIAL      0XBF//软件
+
+#define OLED_SERIAL_IIC_SPI_MASK  0x20//IIC/SPI选择位
+#define OLED_SERIAL_IIC           0x20//IIC
+#define OLED_SERIAL_SPI           0xDF//SPI
+
+#define OLED_CS_EN_MASK           0x10//CS脚使能位
+#define OLED_CS_ENABLE            0x10//使能CS脚
+#define OLED_CS_DISABLE           0xEF//不使能CS脚
+
+#define OLED_HARD_SPI (OLED_SERIAL|OLED_HARDWARE_SERIAL)                  //用硬件SPI驱动OLED
+#define OLED_HARD_IIC (OLED_SERIAL|OLED_HARDWARE_SERIAL|OLED_SERIAL_IIC)  //用硬件IIC驱动OLED
+#define OLED_SOFT_SPI (OLED_SERIAL)                                       //用软件SPI驱动OLED
+#define OLED_SOFT_IIC (OLED_SERIAL|OLED_SERIAL_IIC)                       //用软件IIC驱动OLED
+/*--------------------------------------变量定义-----------------------------------*/
+typedef struct{
+	u8 w;		//宽度（物理屏幕尺寸）。
+	u8 h;		//高度（物理屏幕尺寸）。
+	u8 x;		//X轴偏移（物理屏幕）。
+	u8 y;		//Y轴偏移（物理屏幕）。
+	u8 mode;	//显示模式（物理屏幕）。
+	u8 buf_w;	//缓存的总宽度（虚拟屏幕尺寸）。
+	u8 buf_h;	//缓存的总高度（虚拟屏幕尺寸）。
+	u8 buf_x;	//缓存的X轴偏移（虚拟屏幕）。
+	u8 buf_y;	//缓存的Y轴偏移（虚拟屏幕）。
+//|  D7  | D6  |  D5   |  D4 |  D3  |  D2  |  D1  |  D0  |	
+//|SP/PP |HW/SW|IIC/SPI|CS_EN|  --  |  --  |  --  |  --  |
+	u8 scl_pin;
+	u8 sda_pin; 
+	u8 dc_port;//DC的操作会在循环之中，所以是需要优化的。
+	u8 dc_pin;
+	u8 rst_pin;
+	u8 cs_pin;
+	u8 id;
+}oled_def;
+/*--------------------------------------程序定义-----------------------------------*/
+/*程序区折叠专用***********************底层驱动模块****************************/#if 1
+/*-------------------------------------------------------
+函数名：oled_set_soft_iic
+描  述：OLED设置引脚函数，用于软件IIC模式。
+输  入：
+		dev  -  OLED器件的信息包。
+		scl  -  IIC模式下的时钟脚。
+		sda  -  IIC模式下的数据脚。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+2020-03-01：修复了在多器件下，由于scl脚和sda脚没有保存导致的通信问题。
+-------------------------------------------------------*/
+extern void oled_set_soft_iic(oled_def * dev,u8 scl,u8 sda);
+/*-------------------------------------------------------
+函数名：oled_set_hard_iic
+描  述：OLED设置引脚函数，用于硬件IIC模式。
+输  入：
+		dev  -  OLED器件的信息包。
+		scl  -  IIC模式下的时钟脚。
+		sda  -  IIC模式下的数据脚。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_hard_iic(oled_def * dev,u8 scl,u8 sda);
+/*-------------------------------------------------------
+函数名：oled_set_soft_spi
+描  述：OLED设置引脚函数，用于软件SPI模式。
+输  入：
+		dev  -  OLED器件的信息包。
+		scl  -  SPI模式下的时钟脚。
+		sda  -  SPI模式下的数据脚。
+		dc   -  SPI模式下的数据/指令选择脚。
+		rst  -  SPI模式下的复位脚。
+		cs   -  SPI模式下的片选脚。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+2020-03-01：修复了在多器件下，由于scl脚和sda脚没有保存导致的通信问题。
+-------------------------------------------------------*/
+extern void oled_set_soft_spi(oled_def * dev,u8 scl,u8 sda,u8 dc,u8 rst,u8 cs);
+/*-------------------------------------------------------
+函数名：oled_set_hard_spi
+描  述：OLED设置引脚函数，用于硬件SPI模式。
+输  入：
+		dev  -  OLED器件的信息包。
+		scl  -  SPI模式下的时钟脚。
+		sda  -  SPI模式下的数据脚。
+		dc   -  SPI模式下的数据/指令选择脚。
+		rst  -  SPI模式下的复位脚。
+		cs   -  SPI模式下的片选脚。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_hard_spi(oled_def * dev,u8 scl,u8 sda,u8 dc,u8 rst,u8 cs);
+/*-------------------------------------------------------
+函数名：oled_write_hard_spi
+描  述：OLED的写函数，用于硬件SPI模式。
+输  入：
+		dev  -  OLED器件的信息包。
+		cd   -  指定缓存里存的是指令还是数据，可输入oled_cmd或oled_dat。
+		buf  -  存放指令或数据的缓存。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_write_hard_spi(oled_def * dev,u8 cd,u8 buf);
+/*-------------------------------------------------------
+函数名：oled_write_soft_spi
+描  述：OLED的写函数，用于软件SPI模式。
+输  入：
+		dev  -  OLED器件的信息包。
+		cd   -  指定缓存里存的是指令还是数据，可输入oled_cmd或oled_dat。
+		buf  -  存放指令或数据的缓存。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_write_soft_spi(oled_def * dev,u8 cd,u8 buf);
+/*-------------------------------------------------------
+函数名：oled_write_hard_iic
+描  述：OLED的写函数，用于硬件IIC模式。
+输  入：
+		dev  -  OLED器件的信息包。
+		cd   -  指定缓存里存的是指令还是数据，可输入oled_cmd或oled_dat。
+		buf  -  存放指令或数据的缓存。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_write_hard_iic(oled_def * dev,u8 cd,u8 buf);
+/*-------------------------------------------------------
+函数名：oled_write_soft_iic
+描  述：OLED的写函数，用于软件IIC模式。
+输  入：
+		dev  -  OLED器件的信息包。
+		cd   -  指定缓存里存的是指令还是数据，可输入oled_cmd或oled_dat。
+		buf  -  存放指令或数据的缓存。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_write_soft_iic(oled_def * dev,u8 cd,u8 buf);
+/*-------------------------------------------------------
+函数名：oled_write
+描  述：OLED的写函数，通用。
+输  入：
+		dev  -  OLED器件的信息包。
+		cd   -  指定缓存里存的是指令还是数据，可输入oled_cmd或oled_dat。
+		buf  -  存放指令或数据的缓存。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无，这是内部调用的函数。
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_write(oled_def * dev,u8 cd,u8 buf);
+/*程序区折叠专用**************************************************************/#endif
+
+
+/*程序区折叠专用***********************系统操作模块****************************/#if 1
+/*-------------------------------------------------------
+函数名：oled_on
+描  述：开启OLED函数，用于打开OLED的电源。
+输  入：
+		dev  -  OLED器件的信息包。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_on              (oled_def * dev);
+/*-------------------------------------------------------
+函数名：oled_off
+描  述：关闭OLED函数，用于关闭OLED的电源。
+输  入：
+		dev  -  OLED器件的信息包。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_off             (oled_def * dev);
+/*-------------------------------------------------------
+函数名：oled_set_com
+描  述：OLED设置COM引脚数函数。
+输  入：
+		dev  -  OLED器件的信息包。
+		num  -  纵向像素-1，比如128x64就填63。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_com         (oled_def * dev,u8 num);
+/*-------------------------------------------------------
+函数名：oled_set_contrast
+描  述：OLED设置对比度函数，对于单色屏来说也可以称之为亮度。
+输  入：
+		dev  -  OLED器件的信息包。
+		val  -  可输入0~255。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_contrast    (oled_def * dev,u8 val);
+/*-------------------------------------------------------
+函数名：oled_set_pos
+描  述：OLED设置数据指针函数，写画面数据的时候要用。
+输  入：
+		dev  -  OLED器件的信息包。
+		x    -  X轴的位置，也就是横坐标。可输入0~128（针对12864屏）。
+		y    -  Y轴的位置，也就是纵坐标。可输入0~8（页地址，每8个行整合为一页，针对12864就是64/8=8）。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_pos         (oled_def * dev,u8 x,u8 y);
+/*-------------------------------------------------------
+函数名：oled_set_offset_logic
+描  述：OLED设置逻辑引脚偏移函数，修改逻辑引脚到物理引脚的映射顺序。
+输  入：
+		dev    -  OLED器件的信息包。
+		offset -  请根据实际情况输入。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_offset_logic(oled_def * dev,u8 offset);
+/*-------------------------------------------------------
+函数名：oled_set_offset_ram
+描  述：OLED设置RAM偏移函数，修改RAM到逻辑引脚的映射顺序。
+输  入：
+		dev    -  OLED器件的信息包。
+		offset -  请根据实际情况输入。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_offset_ram  (oled_def * dev,u8 offset);
+/*-------------------------------------------------------
+函数名：oled_fill
+描  述：OLED全显函数，用于在屏幕显示一个数据。
+输  入：
+		dev  -  OLED器件的信息包。
+		dat  -  其实也只有0x00和0xff有点作用。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_fill            (oled_def * dev,u8 dat);
+/*-------------------------------------------------------
+函数名：oled_set_display_mode
+描  述：OLED显示模式设置函数，用于设置屏幕的显示模式。
+输  入：
+		dev   -  OLED器件的信息包。
+		mode  -  可输入0~15，根据具体情况输入。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_display_mode(oled_def * dev,u8 mode);
+/*-------------------------------------------------------
+函数名：oled_set_display
+描  述：OLED设置函数，用于普通单指令的设置。
+输  入：
+		dev  -  OLED器件的信息包。
+		cmd  -  根据具体情况输入。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_display     (oled_def * dev,u8 cmd);
+/*-------------------------------------------------------
+函数名：oled_set_vcomh
+描  述：OLED设置Vcomh电压函数。
+输  入：
+		dev  -  OLED器件的信息包。
+		v    -  根据具体情况输入。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_vcomh       (oled_def * dev,u8 v);
+/*-------------------------------------------------------
+函数名：oled_set_dcdc
+描  述：OLED设置DC-DC电路函数。
+输  入：
+		dev  -  OLED器件的信息包。
+		en   -  使能标志位。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_dcdc        (oled_def * dev,u8 en);
+/*-------------------------------------------------------
+函数名：oled_set_pcc
+描  述：OLED设置扫频时序函数。
+输  入：
+		dev  -  OLED器件的信息包。
+		clk  -  请谨慎输入。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_pcc         (oled_def * dev,u8 clk);
+/*-------------------------------------------------------
+函数名：oled_set_address_mode
+描  述：OLED设置地址模式函数，内置函数，不用考虑怎么用。
+输  入：
+		dev  -  OLED器件的信息包。
+		mode -  3个模式影响不大。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_address_mode(oled_def * dev,u8 mode);
+/*-------------------------------------------------------
+函数名：oled_set_clk
+描  述：OLED设置内置RC参数函数。
+输  入：
+		dev  -  OLED器件的信息包。
+		clk  -  请谨慎输入。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_set_clk         (oled_def * dev,u8 clk);
+/*程序区折叠专用**************************************************************/#endif
+/*-------------------------------------------------------
+函数名：oled_show
+描  述：OLED显示函数，用于把一个显存显示到屏幕上。
+输  入：
+		dev   -  OLED器件的信息包。
+		dat[] -  显存数组。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_show(oled_def * dev,u8 dat[]);
+/*-------------------------------------------------------
+函数名：oled_init
+描  述：OLED初始化函数。
+输  入：
+		dev  -  OLED器件的信息包。
+		w    -  横像素数量，比如128。
+		h    -  纵像素数量，比如64。
+		xoffset - 横坐标偏移。
+		yoffset - 纵坐标偏移。
+		mode -  显示模式。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_init(oled_def * dev,u8 w,u8 h,u8 xoffset,u8 yoffset,u8 mode);
+/*-------------------------------------------------------
+函数名：oled_auto_init
+描  述：OLED自动初始化函数，只需要描述一下硬件连接就行了。
+输  入：
+		dev  -  OLED器件的信息包。
+		str  -  描述硬件设置的字符串。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_auto_init(oled_def * dev,char * str);
+/*程序区折叠专用***********************调试测试模块*********/#if OLED_DISPLAY_MODE_EN
+extern u8 code oled_display_mode_test_buf[];//测试专用字模。仅在测试的时候才定义。
+extern u8 code x_start[];//测试专用字模。仅在测试的时候才定义。
+/*-------------------------------------------------------
+函数名：oled_display_mode_test
+描  述：OLED显示模式测试函数。当你不清楚OLED的实际内部连接的时候，可以通过该函数试出来。
+输  入：dev  -  需要操作的器件。
+		mode -  需要做测试得模式号。一共有16种模式，即0x00~0x0f。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_display_mode_test(oled_def * dev,u8 mode);
+/*-------------------------------------------------------
+函数名：oled_display_y_test
+描  述：OLED的Y轴偏移测试函数。当你不清楚OLED从第几行开始显示的时候，可以通过该函数试出来。
+输  入：dev  -  需要操作的器件。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_display_y_test   (oled_def * dev);
+/*-------------------------------------------------------
+函数名：oled_display_x_test
+描  述：OLED的X轴偏移测试函数。当你不清楚OLED从第几列开始显示的时候，可以通过该函数试出来。
+输  入：dev      -  需要操作的器件。
+		x_offset -  X轴的偏移量。 
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_display_x_test   (oled_def * dev,u8 x_offset);
+/*程序区折叠专用************************************************************/#endif
+/*程序区折叠专用************************printf模块***************/#if OLED_PRINTF_EN
 #include "stdio.h"
-void oled_printf(u8 x,u8 y,char * str,...){
-	char xdata buf[64];
-	u8 len,i,x0,y0;
-	va_list vp;
-    va_start(vp, str);
-    len=vsprintf(buf,str,vp);
-    va_end(vp);
-	x0=x;
-	y0=y;
-	for(i=0;i<len;i++){
-		
-		if(buf[i]=='\r'){
-			x0=0;
-			continue;
-		}
-		if(buf[i]=='\n'){
-			y0++;
-			continue;
-		}
-		
-		if(x0>(OLED_X_MAX-6)){
-			x0=0;
-			y0++;
-		}
-		if(y0>=OLED_PAGE_MAX){
-			break;
-		}
-		oled_char(x0,y0,buf[i]);
-		x0+=6;
-	}
-}
-#endif
-#if OLED_INFORMATION_EN 
-void oled_information(){
-	oled_printf(16,0,"OLED Information");
-	oled_printf(0,2,"Pixel   :%d X %d",(u16)OLED_X_MAX,(u16)OLED_Y_MAX);
-	oled_printf(0,3,"Contrast:%d",(u16)OLED_CONTRAST);
-	oled_printf(0,4,"Offset  :%d(%d)",(u16)OLED_OFFSET_LOGIC,(u16)OLED_OFFSET_RAM);
-	oled_printf(0,5,"Mode    :%d",(u16)OLED_DISPLAY_MODE);
-	if(OLED_DC_DC)
-		oled_printf(0,6,"Vcomh   :%0.2fV",(0.65f+(float)(OLED_VCOMH>>4)*0.06f)*7.5);
-	else 
-		oled_printf(0,6,"Vcomh   :%0.2f*VCC",(0.65f+(float)(OLED_VCOMH>>4)*0.06f));
-	oled_printf(0,7,"Rate    :%ld FPS",((u32)((OLED_SYSCLK&0xf0)>>4)*4625+333000)/((OLED_SYSCLK&0x0f)+1)/(OLED_Y_MAX)/(50+(OLED_PCC&0xf0>>4)+(OLED_PCC&0x0f)));
-}
-#endif
+extern unsigned char code F6x8[];//6x8的字模，当选用printf功能的时候，需要定义。
+/*-------------------------------------------------------
+函数名：oled_char
+描  述：显示一个字符函数，用于裸屏显示。
+输  入：dev  -  需要操作的器件。
+		x   -   显示的位置的X轴坐标。
+		y   -   显示的位置的Y轴坐标。注意裸屏的Y轴是8个小数一个坐标值。
+		ch  -   显示的字符。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_char(oled_def * dev,u8 x,u8 y,char ch);
+/*-------------------------------------------------------
+函数名：oled_printf
+描  述：格式化显示字符串函数，用于裸屏显示。
+输  入：dev   -  需要操作的器件。
+		x     -  显示的位置的X轴坐标。
+		y     -  显示的位置的Y轴坐标。注意裸屏的Y轴是8个小数一个坐标值。
+		str   -  格式化的字符串。
+		...   -   字符串里需要替代的变量的值。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_printf(oled_def * dev,u8 x,u8 y,char * str,...);
+/*程序区折叠专用**************************************************************/#endif
+/*程序区折叠专用***********************显示信息模块***********/#if OLED_INFORMATION_EN 
+/*-------------------------------------------------------
+函数名：oled_information
+描  述：显示当前的OLED的各种信息。当然由于信息较多，只能在128x64的屏幕上才能完整显示完。
+输  入：dev   -  需要操作的器件。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2019-10-23
+修改记录：
+-------------------------------------------------------*/
+extern void oled_information(oled_def * dev);
+/*程序区折叠专用**************************************************************/#endif
 #endif

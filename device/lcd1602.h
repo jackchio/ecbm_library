@@ -25,14 +25,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ÃâÔðËµÃ÷£º
 	±¾Èí¼þ¿âÒÔMIT¿ªÔ´Ð­ÒéÃâ·ÑÏò´óÖÚÌá¹©¡£×÷ÕßÖ»±£Ö¤Ô­Ê¼°æ±¾ÊÇÓÉ×÷ÕßÔÚÎ¬»¤ÐÞBUG£¬
 ÆäËûÍ¨¹ýÍøÂç´«²¥µÄ°æ±¾Ò²Ðí±»¶þ´ÎÐÞ¸Ä¹ý£¬ÓÉ´Ë³öÏÖµÄBUGÓë×÷ÕßÎÞ¹Ø¡£¶øµ±ÄúÊ¹ÓÃÔ­Ê¼
-°æ±¾³öÏÖBUGÊ±£¬ÇëÁªÏµ×÷Õß½â¾ö¡£ÁªÏµ·½Ê½£º½øÈº778916610
-------------------------------------------------------------------------------------*/
+°æ±¾³öÏÖBUGÊ±£¬ÇëÁªÏµ×÷Õß½â¾ö¡£
+                             **************************
+                             * ÁªÏµ·½Ê½£º½øÈº778916610 *
+							 ************************** 
+------------------------------------------------------------------------------------*///ÕâÊÇ¿ªÔ´Ð­Òé£¬ÏÂÃæÊÇÍ¼ÐÎ½çÃæÑ¡Ïî¡£
 //-------------------------------ÒÔÏÂÊÇÍ¼ÐÎÉèÖÃ½çÃæ£¬¿ÉÔÚConfiguration Wizard½çÃæÉèÖÃ----------------------------------------------------------
 //<<< Use Configuration Wizard in Context Menu >>>
 //<q>ECBMÖ÷¿âÁ¬½ÓÊ¹ÄÜ
 //<i>´ËÑ¡Ïî´ò¹´£¬ÒâÎ¶×ÅLCD1602¿â»áÊ¹ÓÃECBM¿âµÄÆäËûº¯Êý£¨±ÈÈçgpio¿âµÄgpio_modeº¯Êý£©¡£Ö»ÒªECBM¿âÍêÕû£¬¾Í²»»áÓÐ±àÒëÉÏµÄÎÊÌâ¡£²¢ÇÒÖ§³Ö¶àÆ÷¼þÏÂµÄ´úÂë¸´ÓÃ¡£
 //<i>´ËÑ¡Ïî²»´ò¹´£¬ÒâÎ¶×ÅLCD1602¿âÄÜµ¥¶ÀÊ¹ÓÃ£¬²»»áÔÙÒÀÀµÆäËûECBM¿âº¯Êý¡£ÐèÒªÒÆÖ²»ù±¾µÄ¹¹Ôìº¯Êý¡£µ«´ËÊ±ÈôÔÙ¼ÓÔØECBM¿â»áÓÐÖØ¶¨Òå±¨´íµÄ¿ÉÄÜ£¬Çë×¢Òâ¡£
-#define ECBM_LCD1602_LINK_EN 0 //ºÍECBM¿âÁ¬½ÓµÄÊ¹ÄÜ£¬Èç¹ûÏëÍÑÀëÖ÷¿âµ¥¶ÀÊ¹ÓÃLCD1602ÍâÉè£¬ÇëÉèÎª0¡£
+#define ECBM_LINK_LCD1602_BIT 1 //ºÍECBM¿âÁ¬½ÓµÄÊ¹ÄÜ£¬Èç¹ûÏëÍÑÀëÖ÷¿âµ¥¶ÀÊ¹ÓÃLCD1602ÍâÉè£¬ÇëÉèÎª0¡£
 //<<< end of configuration section >>>
 //-------------------------------ÒÔÉÏÊÇÍ¼ÐÎÉèÖÃ½çÃæ£¬¿ÉÔÚConfiguration Wizard½çÃæÉèÖÃ----------------------------------------------------------
 
@@ -45,8 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LCD_CURSOR_LEFT      0x10//¹â±ê×óÒÆ
 #define LCD_CURSOR_RIGHT     0x14//¹â±êÓÒÒÆ
 
-#if ECBM_LCD1602_LINK_EN     //Èç¹ûÐèÒª¼ÓÔØÖ÷¿â
-#include "ecbm.h"            //¼ÓÔØecbmÍ·ÎÄ¼þ
+#if ECBM_LINK_LCD1602_BIT     //Èç¹ûÐèÒª¼ÓÔØÖ÷¿â
+#include "ecbm_core.h"            //¼ÓÔØecbmÍ·ÎÄ¼þ
 typedef struct{
 	u8 lcd_rs_port;          //¶ÔÓ¦RS½Å
 	u8 lcd_rs_pin;
@@ -90,12 +93,12 @@ void lcd1602_printf(lcd1602_def * dev,u8 hang,u8 lie,char * str,...){//´òÓ¡º¯Êý£
 	}
 }
 void lcd1602_init(lcd1602_def * dev,u8 rs,u8 rw,u8 en,u8 port){//³õÊ¼»¯º¯Êý£¬ÐèÒªÌá¹©Ê¹ÓÃµÄIOµÈÐÅÏ¢
-	dev->lcd_rs_port=rs>>4;
-	dev->lcd_rs_pin=0x01<<(rs&0x0f);
-	dev->lcd_rw_port=rw>>4;
-	dev->lcd_rw_pin=0x01<<(rw&0x0f);
-	dev->lcd_en_port=en>>4;
-	dev->lcd_en_pin=0x01<<(en&0x0f);
+	dev->lcd_rs_port=io2port(rs);
+	dev->lcd_rs_pin=io2pin(rs);
+	dev->lcd_rw_port=io2port(rw);
+	dev->lcd_rw_pin=io2pin(rw);
+	dev->lcd_en_port=io2port(en);
+	dev->lcd_en_pin=io2pin(en);
 	dev->lcd_data_port=port;
 	lcd_write(dev,LCD_CMD,0x38);//8Î»Êý¾Ý£¬Ë«ÁÐ£¬5*7×ÖÐÎ 
 	lcd_write(dev,LCD_CMD,0x0C);//¿ªÆôÏÔÊ¾ÆÁ£¬¹Ø¹â±ê£¬¹â±ê²»ÉÁË¸ 
