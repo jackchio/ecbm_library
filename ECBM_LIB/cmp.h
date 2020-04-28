@@ -48,7 +48,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>独立比较器基本都会有两个输入和一个输出，但是内置比较器可以选择不对外输出，只用中断法或查询法处理比较结果。
 //<i>当输入的“+”端电压值比“-”端电压值大时，寄存器的结果为1！若选择了正向输出，则输出脚输出高电平。若选择了反向输出，则输出脚输出低电平。
 //<i>当输入的“+”端电压值比“-”端电压值小时，寄存器的结果为0！若选择了正向输出，则输出脚输出低电平。若选择了反向输出，则输出脚输出高电平。
-#define ECBM_CMP_CMPCR1 0x36
+#define ECBM_CMP_CMPCR1 0x34
 //<o.3>输出引脚
 //<0=>P3.4 <1=>P4.1 
 #define ECBM_CMP_IO 0x00
@@ -62,7 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<0-63>
 //<i>所谓数字滤波就是等待信号稳定了1~63时钟的时间后才认为数据是有效的。
 //<i>不过对于24M的主频来说，也就2.6us左右。输入0代表不开启这个功能。
-#define ECBM_CMP_CMPCR2 255
+#define ECBM_CMP_CMPCR2 129
 //<q>初始化的时候开启比较器？
 //<i>勾选此选项，将会在执行cmp_init函数时开启比较器。若想在某个特定的时候才开启，就不勾选此选项。然后在那个特定的时候调用CMP_ON即可。
 #define ECBM_CMP_INIT_ON 1

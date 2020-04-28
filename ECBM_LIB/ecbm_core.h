@@ -39,21 +39,25 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_RVN 0
 //<o>STC8ÏµÁÐÇ°×ººÍRAMÑ¡Ôñ
 //<i>ÁÐ±íÌá¹©µÄÐ¾Æ¬ÀàÐÍ¶¼ÊÇ²âÊÔÍ¨¹ýÄÜÊ¹ÓÃµÄ¡£°´ÕÕ¼ÓÈëecbm¿âµÄÊ±¼äÅÅÐò¡£
-//<0=>STC8F2K <1=>STC8A8K 
-#define ECBM_MCU_MAIN_RAM 0
+//<0=>STC8F2K <1=>STC8A8K <2=>STC8G2K
+#define ECBM_MCU_MAIN_RAM 2
 //<o>ROMÑ¡Ôñ
 //<i>Ñ¡Ôñµ¥Æ¬»úµÄflashÈÝÁ¿´óÐ¡£¬Ö÷ÒªÓ°ÏìÎ¨Ò»IDµÄ¶ÁÈ¡ºÍEEPROM¿Õ¼äµÄ´óÐ¡¡£
 //<8192=>08 <16384=>16 <24576=>24 <32768=>32 <40960=>40 
 //<49152=>48 <57344=>56 <61440=>60 <65024=>64
-#define ECBM_MCU_ROM 32768
+#define ECBM_MCU_ROM 65024
 //<o>´®¿Úºó×º
 //<i>Õâ¸öÑ¡Ïî»áÓ°Ïìuart.hµÄÊ¹ÄÜÇé¿ö¡£Çë¸ù¾ÝÊµ¼ÊÐ¾Æ¬Ñ¡Ôñ¡£
 //< 1=>ÎÞ  < 2=>S2 < 4=>S4
-#define ECBM_MCU_UART 2
+#define ECBM_MCU_UART 4
 //<o>ADCºó×º
 //<i>Õâ¸öÑ¡Ïî»áÓ°Ïìadc.hµÄ¼ÆËã½á¹û¡£Çë¸ù¾ÝÊµ¼ÊÐ¾Æ¬Ñ¡Ôñ¡£
-//< 0=>ÎÞ <1024=>A10 <4096=>A12
+//< 0=>ÎÞ <10=>A10 <12=>A12
 #define ECBM_MCU_ADC 0
+//<o>ÆäËûºó×º
+//<i>Õâ¸öÑ¡Ïî¸ù¾ÝÐÍºÅµÄ²»Í¬»áÓ°Ïì²»Í¬µÄÍâÉè¡£Çë¸ù¾ÝÊµ¼ÊÐ¾Æ¬Ñ¡Ôñ¡£
+//< 0=>ÎÞ <1=>-48PIN
+#define ECBM_MCU_OTHER 0
 //<h>µ¥Æ¬»úÏµÍ³ÉèÖÃ
 //<i>¸Ã¿òÄÚµÄÑ¡ÏîÓÐ»¥³âµÄÑ¡Ïî£¬Çë×ÐÏ¸ÔÄ¶ÁÁË½âÁË½á¹ûÔÙÑ¡Ôñ¡£
 //<o>µ¥Æ¬»úÏµÍ³Ê±ÖÓÉèÖÃ
@@ -72,17 +76,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 <18432000L=>18.432MHz <20000000L=>20.000MHz <22118400L=>22.1184MHz <24000000L=>24.000MHz
 <27000000L=>27.000MHz <30000000L=>30.000MHz <33000000L=>33.000MHz  <33177600L=>33.1776MHz
 <35000000L=>35.000MHz*/
-#define SYS_CLK_SET 24000000L
+#define SYS_CLK_SET 6000000L
 //<e>ÏµÍ³Ê±ÖÓÊä³ö
 //<i>¿ÉÒÔÊä³öÊ±ÖÓÆµÂÊÓÃÓÚÇý¶¯ÆäËûÍâÉè£¬»òÕßÓÃÓÚ¼ì²âÄÚ²¿µÄ¹¤×÷ÆµÂÊ¡£
-#define SYSCLK_OUT_EN 0
+#define SYSCLK_OUT_EN 1
 //<o.4..7>Êä³ö·ÖÆµ
 //< 1=>SYSCLK/ 1  < 2=>SYSCLK/ 2 < 4=>SYSCLK/ 4 
 //< 6=>SYSCLK/ 8  < 8=>SYSCLK/16 <10=>SYSCLK/32 
 //<12=>SYSCLK/64  <14=>SYSCLK/128
 //<o.3>Êä³öÒý½Å
 //<0=>Êä³öµ½P54 <1=>Êä³öµ½P16
-#define SYSCLK_OUT 0x18
+#define SYSCLK_OUT 0x68
 //</e>
 //</h>
 
@@ -133,9 +137,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>EEPROM¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8Ê¹ÓÃÄÚÖÃFLASHÄ£ÄâµÄEEPROMÏà¹Ø²Ù×÷º¯Êý¡£
 #define ECBM_EEPROM_EN 0
-//<q>EXIT¿â
+//<q>EXTI¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÍâ²¿ÖÐ¶ÏÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_EXIT_EN 0
+#define ECBM_EXTI_EN 0
 //<q>SOFT_IIC¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8»ùÓÚGPIO¿âµÄÈí¼þIICÏà¹Ø²Ù×÷º¯Êý¡£
 #define ECBM_SOFT_IIC_EN 0
@@ -153,7 +157,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_ADC_EN 0
 //<q>PWM¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þPWMÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_PWM_EN 0
+#define ECBM_PWM_EN 1
 //<q>UART¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þUARTÏà¹Ø²Ù×÷º¯Êý¡£
 #define ECBM_UART_EN 1
@@ -163,6 +167,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>TIMER¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þTIMERÏà¹Ø²Ù×÷º¯Êý¡£
 #define ECBM_TIMER_EN 0
+
+//<q>MDU16¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8GµÄÓ²¼þ³Ë³ý·¨Ïà¹Ø²Ù×÷º¯Êý¡£
+#define ECBM_MDU16_EN 0
 //</h>
 //<<< end of configuration section >>>
 //-----------------ÒÔÉÏÊÇÍ¼ÐÎÉèÖÃ½çÃæ£¬¿ÉÔÚConfiguration Wizard½çÃæÉèÖÃ-----------------
@@ -211,8 +219,29 @@ extern u16 xdata ecbm_delay_base;
 #define A13 0x05
 #define A14 0x06
 
-#endif
 
+#elif   ECBM_MCU_MAIN_RAM == 2 //STC8G2K
+#define ECBM_MCU_NAME        "STC8G2K"
+#define ECBM_MCU_XDATA       2048
+#define ECBM_MCU_EEPROM      (65536-ECBM_MCU_ROM)
+
+#define A00 0x10
+#define A01 0x11
+#define A02 0x12
+#define A03 0x13
+#define A04 0x14
+#define A05 0x15
+#define A06 0x16
+#define A07 0x17
+#define A08 0x00
+#define A09 0x01
+#define A10 0x02
+#define A11 0x03
+#define A12 0x04
+#define A13 0x05
+#define A14 0x06
+
+#endif
 
 /*------------------------------------Í¨ÓÃÅäÖÃÉè¶¨----------------------------------*/
 sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡£
@@ -242,23 +271,23 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 
 #define io2port(n) (n)>>4           //È¡Òý½ÅËùÔÚµÄP¿Ú£¬Òý½Å¸ñÊ½Ðè·ûºÏ0xXXµÄ¸ñÊ½¡£
 #define io2pin(n)  0x01<<((n)&0x0f) //È¡Òý½ÅËùÔÚµÄPIN£¬Òý½Å¸ñÊ½Ðè·ûºÏ0xXXµÄ¸ñÊ½¡£
-#define read_idata_u8(x)  (*((u8  idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu8 ±äÁ¿¡£
-#define read_idata_u16(x) (*((u16 idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu16±äÁ¿¡£
-#define read_idata_u32(x) (*((u32 idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu32±äÁ¿¡£
-#define read_xdata_u8(x)  (*((u8  xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu8 ±äÁ¿¡£
-#define read_xdata_u16(x) (*((u16 xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu16±äÁ¿¡£
-#define read_xdata_u32(x) (*((u32 xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu32±äÁ¿¡£
-#define read_idata_s8(x)  (*((s8  idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös8 ±äÁ¿¡£
-#define read_idata_s16(x) (*((s16 idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös16±äÁ¿¡£
-#define read_idata_s32(x) (*((s32 idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös32±äÁ¿¡£
-#define read_xdata_s8(x)  (*((s8  xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös8 ±äÁ¿¡£
-#define read_xdata_s16(x) (*((s16 xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös16±äÁ¿¡£
-#define read_xdata_s32(x) (*((s32 xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös32±äÁ¿¡£
+#define read_idata_u8(x)  (*((u8  volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu8 ±äÁ¿¡£
+#define read_idata_u16(x) (*((u16 volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu16±äÁ¿¡£
+#define read_idata_u32(x) (*((u32 volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu32±äÁ¿¡£
+#define read_xdata_u8(x)  (*((u8  volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu8 ±äÁ¿¡£
+#define read_xdata_u16(x) (*((u16 volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu16±äÁ¿¡£
+#define read_xdata_u32(x) (*((u32 volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu32±äÁ¿¡£
+#define read_idata_s8(x)  (*((s8  volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös8 ±äÁ¿¡£
+#define read_idata_s16(x) (*((s16 volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös16±äÁ¿¡£
+#define read_idata_s32(x) (*((s32 volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös32±äÁ¿¡£
+#define read_xdata_s8(x)  (*((s8  volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös8 ±äÁ¿¡£
+#define read_xdata_s16(x) (*((s16 volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös16±äÁ¿¡£
+#define read_xdata_s32(x) (*((s32 volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös32±äÁ¿¡£
 /*-----------------------------------¿âº¯Êý¼ÓÔØ-----------------------------------*/
 #include "power.h"
 #include "gpio.h"
 #include "eeprom.h"
-#include "exit.h"
+#include "exti.h"
 #include "soft_iic.h"
 #include "iic.h"
 #include "soft_spi.h"
@@ -268,6 +297,7 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 #include "uart.h"
 #include "cmp.h"
 #include "timer.h"
+#include "mdu16.h"
 /*--------------------------------------³ÌÐò¶¨Òå-----------------------------------*/
 /*-------------------------------------------------------
 º¯ÊýÃû£ºdelay_ms

@@ -383,22 +383,22 @@ void oled_init(oled_def * dev,u8 w,u8 h,u8 xoffset,u8 yoffset,u8 mode){
 		delay_ms(50);
 		gpio_out(dev->rst_pin,1);
 	}
-	oled_off(dev);
-	oled_set_com(dev,h-1);
-	oled_set_contrast(dev,OLED_CONTRAST);
+	oled_off             (dev);
+	oled_set_com         (dev,h-1);
+	oled_set_contrast    (dev,OLED_CONTRAST);
 	oled_set_offset_logic(dev,yoffset);
-	oled_set_offset_ram(dev,OLED_OFFSET_RAM);
+	oled_set_offset_ram  (dev,OLED_OFFSET_RAM);
 	oled_set_display_mode(dev,mode);
-	oled_set_display(dev,OLED_DISPLAY_SOURCE);
-	oled_set_display(dev,OLED_DISPLAY_LED);
-	oled_set_clk(dev,OLED_SYSCLK);
-	oled_set_pcc(dev,OLED_PCC);//--set pre-charge period//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
-	oled_set_vcomh(dev,OLED_VCOMH);
+	oled_set_display     (dev,OLED_DISPLAY_SOURCE);
+	oled_set_display     (dev,OLED_DISPLAY_LED);
+	oled_set_clk         (dev,OLED_SYSCLK);
+	oled_set_pcc         (dev,OLED_PCC);//--set pre-charge period//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
+	oled_set_vcomh       (dev,OLED_VCOMH);
 	oled_set_address_mode(dev,OLED_ADRESS);
-	oled_set_dcdc(dev,OLED_DC_DC);
-	oled_fill(dev,0);  //初始清屏
-	oled_on(dev);
-	oled_set_pos(dev,0,0); 	
+	oled_set_dcdc        (dev,OLED_DC_DC);
+	oled_fill            (dev,0);  //初始清屏
+	oled_on              (dev);
+	oled_set_pos         (dev,0,0); 	
 	if((dev->mode)&OLED_CS_EN_MASK){
 		gpio_out(dev->cs_pin,1);
 	}
@@ -424,7 +424,7 @@ void oled_auto_init(oled_def * dev,char * str){
 	}
 	pos=str_find(str,"gnd=");
 	if(pos!=0xffff){
-		vcc=str_read_pin(str,pos);
+		gnd=str_read_pin(str,pos);
 		gpio_mode(gnd,GPIO_PP);
 		gpio_out(gnd,0);
 	}	
@@ -722,12 +722,12 @@ void oled_printf(oled_def * dev,u8 x,u8 y,char * str,...){
     va_start(vp, str);
     len=vsprintf(buf,str,vp);
     va_end(vp);
-	x0=x+dev->x_offset;
+	x0=x+dev->x;
 	y0=y;
 	for(i=0;i<len;i++){
 		
 		if(buf[i]=='\r'){
-			x0=dev->x_offset;
+			x0=dev->x;
 			continue;
 		}
 		if(buf[i]=='\n'){
@@ -736,7 +736,7 @@ void oled_printf(oled_def * dev,u8 x,u8 y,char * str,...){
 		}
 		
 		if(x0>(OLED_X_MAX-6)){
-			x0=dev->x_offset;
+			x0=dev->x;
 			y0++;
 		}
 		if(y0>=OLED_PAGE_MAX){

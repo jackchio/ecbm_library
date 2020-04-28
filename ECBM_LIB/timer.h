@@ -53,23 +53,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<1=>16位不自动重载模式
 //<2=>8位自动重载模式（不推荐、鸡肋）
 //<3=>16位自动重载（不可屏蔽中断）模式 
-#define ECBM_TIMER0_TMOD 0x00
+#define ECBM_TIMER0_TMOD 0x04
 //<o.7>时钟分频
 //<i>就相当于STC-ISP工具里的12T模式和1T模式。
 //<0=>系统时钟12分频（Fosc/12） <1=>系统时钟不分频
 #define ECBM_TIMER0_AUXR 0x80
 //<o.0>对外输出时钟
 //<i>勾选该选项后，每次定时器0发生溢出时，T0CLKO（P35）脚的电平自动发生翻转。
-#define ECBM_TIMER0_INTCLKO 0x00
+#define ECBM_TIMER0_INTCLKO 0x01
 //<o>定时时间/计数数量
 //<0-65535>
 //<i>在这里填入脉冲数（在定时模式下，脉冲数=定时时间/时间基准。在计数模式下，就是你想计数的最大值）。
 //<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001/1/24000000=2400。那么输入2400就行了。
 //<i>时间基准计算比较麻烦，做定时器应用时可以直接调用timer_set_timer_mode函数。
 //<i>如果是在计数模式下，希望统计到100个脉冲就触发中断，那么输入100就行了。
-#define ECBM_TIMER0_COUNT 2400
+#define ECBM_TIMER0_COUNT 10
 //<e>定时器0的中断使能
-#define ECBM_TIMER0_IT_EN 1
+#define ECBM_TIMER0_IT_EN 0
 //<o>定时器0的中断优先级
 //<i>四级中断优先可选，总体的优先级可在it库里查询。 
 //<0=>0级（最低级） <1=>1级（较低级）
@@ -273,7 +273,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 创建日期：2019-12-16
 修改记录：
 -------------------------------------------------------*/
-void timer_start(u8 id);
+extern void timer_start(u8 id);
 /*-------------------------------------------------------
 函数名：timer_stop
 描  述：定时器停止函数。用于关闭一个定时器。
@@ -285,7 +285,7 @@ void timer_start(u8 id);
 创建日期：2019-12-16
 修改记录：
 -------------------------------------------------------*/
-void timer_stop(u8 id);
+extern void timer_stop(u8 id);
 /*-------------------------------------------------------
 函数名：timer_init
 描  述：定时器初始化函数。
@@ -297,7 +297,7 @@ void timer_stop(u8 id);
 创建日期：2019-12-17
 修改记录：
 -------------------------------------------------------*/
-void timer_init(void);
+extern void timer_init(void);
 /*-------------------------------------------------------
 函数名：timer_set_timer_mode
 描  述：定时器设定定时模式函数。可将指定的定时器设定成指定的时间中断。
@@ -310,7 +310,7 @@ void timer_init(void);
 创建日期：2019-01-07
 修改记录：
 -------------------------------------------------------*/
-void timer_set_timer_mode(u8 id,u16 us);
+extern void timer_set_timer_mode(u8 id,u16 us);
 /*-------------------------------------------------------
 函数名：timer_set_value
 描  述：定时器设定初值函数。可向指定的定时器装填定时初值，推荐先停止定时器再写。
@@ -323,7 +323,7 @@ void timer_set_timer_mode(u8 id,u16 us);
 创建日期：2019-01-07
 修改记录：
 -------------------------------------------------------*/
-void timer_set_value(u8 id,u16 value);
+extern void timer_set_value(u8 id,u16 value);
 /*-------------------------------------------------------
 函数名：timer_get_value
 描  述：定时器计数值获取函数。可读出指定的定时器当前的计数值，推荐先停止定时器再读。
@@ -336,5 +336,5 @@ void timer_set_value(u8 id,u16 value);
 创建日期：2019-01-07
 修改记录：
 -------------------------------------------------------*/
-u16 timer_get_value(u8 id);
+extern u16 timer_get_value(u8 id);
 #endif

@@ -33,7 +33,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
 //<e>手动输入eeprom大小
-#define ECBM_EEPROM_SIZE_EN 0
+#define ECBM_EEPROM_SIZE_EN 1
 //<i>针对某些型号的EEPROM的空间大小是可以在STC-ISP设置的，所以用到这些型号的时候，可打开此设置，手动填入EEPROM空间大小。
 //<o>eeprom空间
 //<i>单位是字节，如果是0.5K就填512
@@ -43,33 +43,33 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*---------------------------------------头文件------------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
 /*---------------------------------------宏定义------------------------------------*/
-#if   SYS_CLK_SET == 5529600L  //根据时钟频率来选择内部eeprom的等待时间。
-#define EEPROM_WAIT 4
-#elif SYS_CLK_SET == 6000000L
-#define EEPROM_WAIT 4
-#elif SYS_CLK_SET == 11059200L
-#define EEPROM_WAIT 3
-#elif SYS_CLK_SET == 12000000L
-#define EEPROM_WAIT 3
-#elif SYS_CLK_SET == 18432000L
-#define EEPROM_WAIT 2
-#elif SYS_CLK_SET == 20000000L
-#define EEPROM_WAIT 2
-#elif SYS_CLK_SET == 22118400L
+//#if   SYS_CLK_SET == 5529600L  //根据时钟频率来选择内部eeprom的等待时间。
+//#define EEPROM_WAIT 4
+//#elif SYS_CLK_SET == 6000000L
+//#define EEPROM_WAIT 4
+//#elif SYS_CLK_SET == 11059200L
+//#define EEPROM_WAIT 3
+//#elif SYS_CLK_SET == 12000000L
+//#define EEPROM_WAIT 3
+//#elif SYS_CLK_SET == 18432000L
+//#define EEPROM_WAIT 2
+//#elif SYS_CLK_SET == 20000000L
+//#define EEPROM_WAIT 2
+//#elif SYS_CLK_SET == 22118400L
+//#define EEPROM_WAIT 1
+//#elif SYS_CLK_SET == 24000000L
 #define EEPROM_WAIT 1
-#elif SYS_CLK_SET == 24000000L
-#define EEPROM_WAIT 1
-#elif SYS_CLK_SET == 27000000L
-#define EEPROM_WAIT 1
-#elif SYS_CLK_SET == 30000000L
-#define EEPROM_WAIT 0
-#elif SYS_CLK_SET == 33000000L
-#define EEPROM_WAIT 0
-#elif SYS_CLK_SET == 33177600L
-#define EEPROM_WAIT 0
-#elif SYS_CLK_SET == 35000000L
-#define EEPROM_WAIT 0
-#endif
+//#elif SYS_CLK_SET == 27000000L
+//#define EEPROM_WAIT 1
+//#elif SYS_CLK_SET == 30000000L
+//#define EEPROM_WAIT 0
+//#elif SYS_CLK_SET == 33000000L
+//#define EEPROM_WAIT 0
+//#elif SYS_CLK_SET == 33177600L
+//#define EEPROM_WAIT 0
+//#elif SYS_CLK_SET == 35000000L
+//#define EEPROM_WAIT 0
+//#endif
 /*--------------------------------------程序定义-----------------------------------*/
 /*-------------------------------------------------------
 函数名：eeprom_erase

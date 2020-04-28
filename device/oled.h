@@ -114,7 +114,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define OLED_INFORMATION_EN 0
 //<q>oled_printf函数
 //<i>当你使用OLED仅仅是用于调试的时候，可以使用oled_printf函数。如果OLED只是UI库的一个组件，可以优化掉所有关于OLED库中显示字符的代码，转而去用UI库的显示代码。
-#define OLED_PRINTF_EN 0
+#define OLED_PRINTF_EN 1
 //</h>
 //<<< end of configuration section >>>
 //-----------------以上是图形设置界面，可在Configuration Wizard界面设置-----------------
@@ -568,6 +568,7 @@ extern void oled_init(oled_def * dev,u8 w,u8 h,u8 xoffset,u8 yoffset,u8 mode);
 调用例程：无
 创建日期：2019-10-23
 修改记录：
+2020-03-07:修复GND引脚不能正确读取的BUG。
 -------------------------------------------------------*/
 extern void oled_auto_init(oled_def * dev,char * str);
 /*程序区折叠专用***********************调试测试模块*********/#if OLED_DISPLAY_MODE_EN

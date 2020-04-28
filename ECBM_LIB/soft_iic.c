@@ -69,10 +69,12 @@ u8	soft_iic_start(void){
 	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
 	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
 	if(gpio_in_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin)==0)return -1;/* SDA线为低电平则总线忙,退出 */
-	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
+	gpio_toggle_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin);
+	//gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
 	if(gpio_in_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin)==1)return -1;/* SDA线为高电平则总线出错,退出 */
-	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
-	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
+//	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
+	gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+	//gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
 	return 0;
 }
 /*-------------------------------------------------------
@@ -81,8 +83,11 @@ u8	soft_iic_start(void){
 void soft_iic_stop(void){
 	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
 	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
-	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
-	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
+	gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+	gpio_toggle_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin);
+	
+//	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
+//	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
 }
 /*-------------------------------------------------------
 软件IIC主机写ACK函数。
@@ -90,8 +95,10 @@ void soft_iic_stop(void){
 void soft_iic_write_ack(void){
 	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
 	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
-	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
-	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
+	gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+	gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+//	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
+//	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
 }
 /*-------------------------------------------------------
 软件IIC主机写NO ACK函数。
@@ -99,8 +106,10 @@ void soft_iic_write_ack(void){
 void soft_iic_write_nack(void){
 	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
 	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
-	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
-	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
+	gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+	gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+//	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
+//	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
 }
 /*-------------------------------------------------------
 软件IIC主机读ACK函数。
@@ -108,36 +117,55 @@ void soft_iic_write_nack(void){
 u8 soft_iic_read_ack(void){
 	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
 	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
-	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
+	gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+//	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
 	if(gpio_in_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin)==1){
-		gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
+		gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+		//gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
 		return -1;
 	}
-	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
+	gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+//	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
 	return 0;
 }
 /*-------------------------------------------------------
 软件IIC主机写函数。
 -------------------------------------------------------*/
 void soft_iic_write(u8 dat){
-	unsigned char i;
-	for(i=0;i<8;i++){
-		if(dat&0x80){
-			gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
-		}
-		else{
-			gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
-		}
-		gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
-		gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
-		dat<<=1;
+	u8 i,old;
+	old=dat;
+	if(dat&0x80){
+		gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
+	}else{
+		gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
 	}
+	gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
+	for(i=0;i<8;i++){
+		if((old^dat)&0x80){
+			gpio_toggle_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin);
+		}
+		gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+		old=dat;
+		dat<<=1;
+		gpio_toggle_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin);
+	}
+//旧程序保留
+//	for(i=0;i<8;i++){
+//		if(dat&0x80){
+//			gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
+//		}else{
+//			gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,0);
+//		}
+//		gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,1);
+//		gpio_out_fast(soft_iic_def_scl_port,soft_iic_def_scl_pin,0);
+//		dat<<=1;
+//	}
 }
 /*-------------------------------------------------------
 软件IIC主机读函数。
 -------------------------------------------------------*/
 u8 soft_iic_read(void){
-	unsigned char i,dat;
+	u8 i,dat;
 	dat=0;
 	gpio_out_fast(soft_iic_def_sda_port,soft_iic_def_sda_pin,1);
 	for(i=0;i<8;i++){

@@ -133,8 +133,8 @@ void system_set_clock(u8 source){
 	switch(source){
 		case SYS_HSI_S:
 		case SYS_HSI_C:{
-			IRC24MCR=0x80;          //使能HSI，即内部24M的IRC。
-			while(!(IRC24MCR&0x01));//等待时钟稳定。
+			HIRCCR=0x80;          //使能HSI，即内部24M的IRC。
+			while(!(HIRCCR&0x01));//等待时钟稳定。
 			CKSEL&=0xFC;            //切换到HSI。
 			XOSCCR=0x00;            //关闭其他时钟源，省电。
 			IRC32KCR=0x00;          //关闭其他时钟源，省电。
@@ -144,21 +144,21 @@ void system_set_clock(u8 source){
 			while(!(IRC32KCR&0x01));//等待时钟稳定。
 			CKSEL|=0x03;            //切换到LSI。
 			XOSCCR=0x00;            //关闭其他时钟源，省电。
-			IRC24MCR=0x00;          //关闭其他时钟源，省电。
+			HIRCCR=0x00;          //关闭其他时钟源，省电。
 		}break;
 		case SYS_HSE_A:{
 			XOSCCR=0x80;            //使能HSE（有源晶振）。
 			while(!(XOSCCR&0x01));  //等待时钟稳定。
 			CKSEL=(CKSEL&0xFC)|0x01;//切换到HSE（有源晶振）。
 			IRC32KCR=0x00;          //关闭其他时钟源，省电。
-			IRC24MCR=0x00;          //关闭其他时钟源，省电。
+			HIRCCR=0x00;          //关闭其他时钟源，省电。
 		}break;
 		case SYS_HSE_P:{
 			XOSCCR=0xC0;            //使能HSE（无源晶振）。
 			while(!(XOSCCR&0x01));  //等待时钟稳定。
 			CKSEL=(CKSEL&0xFC)|0x02;//切换到HSE（无源晶振）。
 			IRC32KCR=0x00;          //关闭其他时钟源，省电。
-			IRC24MCR=0x00;          //关闭其他时钟源，省电。
+			HIRCCR=0x00;          //关闭其他时钟源，省电。
 		}break;
 	}
 }
