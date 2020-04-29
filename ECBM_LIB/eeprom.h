@@ -33,44 +33,34 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
 //<e>手动输入eeprom大小
-#define ECBM_EEPROM_SIZE_EN 1
+#define ECBM_EEPROM_SIZE_EN 0
 //<i>针对某些型号的EEPROM的空间大小是可以在STC-ISP设置的，所以用到这些型号的时候，可打开此设置，手动填入EEPROM空间大小。
 //<o>eeprom空间
 //<i>单位是字节，如果是0.5K就填512
 #define ECBM_EEPROM_SIZE 512
 //</e>
+//<q>开放EEPROM延伸函数？
+//<i>延伸函数会占用512字节的XDATA空间，空间紧张的时候可以不开放。
+//<i>开放的话，会通过建立512字节的缓存，使得内置eeprom可以直接写任意字节，而且不用手动擦除。
+#define ECBM_EEPROM_EX_EN 0
 //<<< end of configuration section >>>
 /*---------------------------------------头文件------------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
-/*---------------------------------------宏定义------------------------------------*/
-//#if   SYS_CLK_SET == 5529600L  //根据时钟频率来选择内部eeprom的等待时间。
-//#define EEPROM_WAIT 4
-//#elif SYS_CLK_SET == 6000000L
-//#define EEPROM_WAIT 4
-//#elif SYS_CLK_SET == 11059200L
-//#define EEPROM_WAIT 3
-//#elif SYS_CLK_SET == 12000000L
-//#define EEPROM_WAIT 3
-//#elif SYS_CLK_SET == 18432000L
-//#define EEPROM_WAIT 2
-//#elif SYS_CLK_SET == 20000000L
-//#define EEPROM_WAIT 2
-//#elif SYS_CLK_SET == 22118400L
-//#define EEPROM_WAIT 1
-//#elif SYS_CLK_SET == 24000000L
-#define EEPROM_WAIT 1
-//#elif SYS_CLK_SET == 27000000L
-//#define EEPROM_WAIT 1
-//#elif SYS_CLK_SET == 30000000L
-//#define EEPROM_WAIT 0
-//#elif SYS_CLK_SET == 33000000L
-//#define EEPROM_WAIT 0
-//#elif SYS_CLK_SET == 33177600L
-//#define EEPROM_WAIT 0
-//#elif SYS_CLK_SET == 35000000L
-//#define EEPROM_WAIT 0
-//#endif
+/*--------------------------------------变量定义-----------------------------------*/
+extern u8 eeprom_wait;//EEPROM的等待时间。
 /*--------------------------------------程序定义-----------------------------------*/
+/*-------------------------------------------------------
+函数名：eeprom_init
+描  述：eeprom初始化函数。
+输  入：无
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2020-04-29
+修改记录：
+-------------------------------------------------------*/
+extern void eeprom_init(void);
 /*-------------------------------------------------------
 函数名：eeprom_erase
 描  述：eeprom擦除函数，stc的eeprom都是由flash虚拟出来的，所以再写之前要擦除。
@@ -119,4 +109,32 @@ extern void eeprom_write(u16 addr,u8 dat);
 修改记录：
 -------------------------------------------------------*/
 extern u8 eeprom_read(u16 addr);
+/*-------------------------------------------------------
+函数名：eeprom_read_ex
+描  述：eeprom读函数延伸版(extension)。
+输  入：addr		-	起始地址，
+		dat		-	要读的数据的缓存，
+		num		-	要读的数据的数量。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2020-04-29
+修改记录：
+-------------------------------------------------------*/
+void eeprom_read_ex(u16 addr,u8 * dat,u16 num);
+/*-------------------------------------------------------
+函数名：eeprom_write_ex
+描  述：eeprom写函数延伸版(extension)。
+输  入：addr		-	起始地址，
+		dat		-	要写的数据的缓存，
+		num		-	要写的数据的数量。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2020-04-29
+修改记录：
+-------------------------------------------------------*/
+void eeprom_write_ex(u16 addr,u8 * dat,u16 num);
 #endif
