@@ -32,20 +32,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------*/
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
-//<e>手动输入eeprom大小
-#define ECBM_EEPROM_SIZE_EN 0
-//<i>针对某些型号的EEPROM的空间大小是可以在STC-ISP设置的，所以用到这些型号的时候，可打开此设置，手动填入EEPROM空间大小。
-//<o>eeprom空间
-//<i>单位是字节，如果是0.5K就填512
-#define ECBM_EEPROM_SIZE 512
-//</e>
+
 //<q>开放EEPROM延伸函数？
 //<i>延伸函数会占用512字节的XDATA空间，空间紧张的时候可以不开放。
 //<i>开放的话，会通过建立512字节的缓存，使得内置eeprom可以直接写任意字节，而且不用手动擦除。
-#define ECBM_EEPROM_EX_EN 0
+#define ECBM_EEPROM_EX_EN 1
 //<<< end of configuration section >>>
 /*---------------------------------------头文件------------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
+/*---------------------------------------宏定义------------------------------------*/
+#if	ECBM_MCU_ROM == 65024
+#define ECBM_EEPROM_SIZE ECBM_MCU_EEPROM
+#else
+#define ECBM_EEPROM_SIZE (65536-ECBM_MCU_ROM)	//这样定义常量型宏定义。
+#endif
 /*--------------------------------------变量定义-----------------------------------*/
 extern u8 eeprom_wait;//EEPROM的等待时间。
 /*--------------------------------------程序定义-----------------------------------*/

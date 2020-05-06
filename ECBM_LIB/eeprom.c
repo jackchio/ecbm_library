@@ -7,6 +7,7 @@ u8 eeprom_wait;//EEPROM的等待时间。
 eeprom初始化函数。
 -------------------------------------------------------*/
 void eeprom_init(void){
+	#if  ((ECBM_MCU_MAIN_RAM == 0)||(ECBM_MCU_MAIN_RAM == 1))
 	u32 pro,cls;
 //7
 	pro=ecbm_sys_clk/7;
@@ -76,6 +77,11 @@ void eeprom_init(void){
 	pro=0;
 	cls=0;
 //	debug("wait=%u\r\n",(u16)eeprom_wait);
+	#elif ECBM_MCU_MAIN_RAM == 2
+	eeprom_wait=ecbm_sys_clk/1000000;
+	IAP_TPS=eeprom_wait;
+	eeprom_wait=0;
+	#endif
 }
 /*-------------------------------------------------------
 eeprom关闭函数。
@@ -91,11 +97,7 @@ void eeprom_off(){
 eeprom擦除函数。
 -------------------------------------------------------*/
 void eeprom_erase(u16 addr){
-#if ECBM_EEPROM_SIZE_EN
 	if(addr<ECBM_EEPROM_SIZE){		 //地址在范围内才会擦除
-#else
-	if(addr<ECBM_MCU_EEPROM){		     //地址在范围内才会擦除
-#endif
 		IAP_CONTR = eeprom_wait|0x80;//使能IAP
 		IAP_CMD   = 3;               //设置IAP擦除命令
 		IAP_ADDRL = addr;            //设置IAP低地址
@@ -110,11 +112,7 @@ void eeprom_erase(u16 addr){
 eeprom写函数。
 -------------------------------------------------------*/
 void eeprom_write(u16 addr,u8 dat){
-#if ECBM_EEPROM_SIZE_EN
 	if(addr<ECBM_EEPROM_SIZE){		 //地址在范围内才会写入
-#else
-	if(addr<ECBM_MCU_EEPROM){		     //地址在范围内才会写入
-#endif
 		IAP_CONTR = eeprom_wait|0x80;//使能IAP
 		IAP_CMD   = 2;               //设置IAP写命令
 		IAP_ADDRL = addr;            //设置IAP低地址
@@ -131,11 +129,7 @@ eeprom读函数。
 -------------------------------------------------------*/
 u8 eeprom_read(u16 addr){
     u8 dat;
-#if ECBM_EEPROM_SIZE_EN
 	if(addr>=ECBM_EEPROM_SIZE)return 0xff;//地址超出之后，返回FF
-#else
-	if(addr>=ECBM_MCU_EEPROM)return 0xff;//地址超出之后，返回FF
-#endif	
     IAP_CONTR = eeprom_wait|0x80;    //使能IAP
     IAP_CMD   = 1;                   //设置IAP读命令
     IAP_ADDRL = addr;                //设置IAP低地址

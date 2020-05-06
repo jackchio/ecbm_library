@@ -35,21 +35,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //Frame Version Number ¿ò¼Ü°æ±¾ºÅ
 #define ECBM_FVN 2
 //Release Version Number ·¢²¼°æ±¾ºÅ
-//Ã¿´Î·¢²¼µ½ÍøÉÏÊ±£¬°æ±¾ºÅ¼ÓÒ»¡£
-#define ECBM_RVN 0
+//µ±·¢Éú¹Ø¼ü¿âÎÄ¼þÔö¼õÊ±£¬¸Ã°æ±¾ºÅ¼ÓÒ»¡£
+#define ECBM_RVN 1
+//BUG Version Number ·¢²¼°æ±¾ºÅ
+//Ã¿´Î·¢²¼µ½ÍøÉÏÊ±£¬ÈôÖ»ÊÇÐÞ¸ÄBUG£¬¸Ã°æ±¾ºÅ¼ÓÒ»¡£
+#define ECBM_BVN 2
 //<o>STC8ÏµÁÐÇ°×ººÍRAMÑ¡Ôñ
 //<i>ÁÐ±íÌá¹©µÄÐ¾Æ¬ÀàÐÍ¶¼ÊÇ²âÊÔÍ¨¹ýÄÜÊ¹ÓÃµÄ¡£°´ÕÕ¼ÓÈëecbm¿âµÄÊ±¼äÅÅÐò¡£
 //<0=>STC8F2K <1=>STC8A8K <2=>STC8G2K
-#define ECBM_MCU_MAIN_RAM 2
+#define ECBM_MCU_MAIN_RAM 0
 //<o>ROMÑ¡Ôñ
 //<i>Ñ¡Ôñµ¥Æ¬»úµÄflashÈÝÁ¿´óÐ¡£¬Ö÷ÒªÓ°ÏìÎ¨Ò»IDµÄ¶ÁÈ¡ºÍEEPROM¿Õ¼äµÄ´óÐ¡¡£
 //<8192=>08 <16384=>16 <24576=>24 <32768=>32 <40960=>40 
 //<49152=>48 <57344=>56 <61440=>60 <65024=>64
-#define ECBM_MCU_ROM 65024
+#define ECBM_MCU_ROM 32768
 //<o>´®¿Úºó×º
 //<i>Õâ¸öÑ¡Ïî»áÓ°Ïìuart.hµÄÊ¹ÄÜÇé¿ö¡£Çë¸ù¾ÝÊµ¼ÊÐ¾Æ¬Ñ¡Ôñ¡£
 //< 1=>ÎÞ  < 2=>S2 < 4=>S4
-#define ECBM_MCU_UART 4
+#define ECBM_MCU_UART 2
 //<o>ADCºó×º
 //<i>Õâ¸öÑ¡Ïî»áÓ°Ïìadc.hµÄ¼ÆËã½á¹û¡£Çë¸ù¾ÝÊµ¼ÊÐ¾Æ¬Ñ¡Ôñ¡£
 //< 0=>ÎÞ <10=>A10 <12=>A12
@@ -58,6 +61,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>Õâ¸öÑ¡Ïî¸ù¾ÝÐÍºÅµÄ²»Í¬»áÓ°Ïì²»Í¬µÄÍâÉè¡£Çë¸ù¾ÝÊµ¼ÊÐ¾Æ¬Ñ¡Ôñ¡£
 //< 0=>ÎÞ <1=>-48PIN
 #define ECBM_MCU_OTHER 0
+//<o>EEPROMÑ¡Ôñ
+//<i>ÓÉÓÚROMÎª64µÄÐÍºÅ£¬ËüµÄEEPROM´óÐ¡ÊÇ¿ÉÑ¡µÄ£¬ËùÒÔÐèÒªÕâÀïÌá¹©EEPROMµÄ´óÐ¡¡£
+//<i>·Ç64µÄÐÍºÅ£¬EEPROMµÄ´óÐ¡ÊÇ¹Ì¶¨µÄ£¬Õâ¸ö²ÎÊý¾Í¿ÉÒÔ²»ÓÃ¹ÜÁË£¬³ÌÐòÒ²²»»áÓÃµ½¡£
+#define ECBM_MCU_EEPROM_SIZE 512
 //<h>µ¥Æ¬»úÏµÍ³ÉèÖÃ
 //<i>¸Ã¿òÄÚµÄÑ¡ÏîÓÐ»¥³âµÄÑ¡Ïî£¬Çë×ÐÏ¸ÔÄ¶ÁÁË½âÁË½á¹ûÔÙÑ¡Ôñ¡£
 //<o>µ¥Æ¬»úÏµÍ³Ê±ÖÓÉèÖÃ
@@ -76,7 +83,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 <18432000L=>18.432MHz <20000000L=>20.000MHz <22118400L=>22.1184MHz <24000000L=>24.000MHz
 <27000000L=>27.000MHz <30000000L=>30.000MHz <33000000L=>33.000MHz  <33177600L=>33.1776MHz
 <35000000L=>35.000MHz*/
-#define SYS_CLK_SET 6000000L
+#define SYS_CLK_SET 25000000L
 //<e>ÏµÍ³Ê±ÖÓÊä³ö
 //<i>¿ÉÒÔÊä³öÊ±ÖÓÆµÂÊÓÃÓÚÇý¶¯ÆäËûÍâÉè£¬»òÕßÓÃÓÚ¼ì²âÄÚ²¿µÄ¹¤×÷ÆµÂÊ¡£
 #define SYSCLK_OUT_EN 1
@@ -100,7 +107,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>µ¥Æ¬»úÉèÖÃ¼ì²é
 //<i>¹´Ñ¡´ËÑ¡Ïî£¬»á×Ô¶¯µ÷ÓÃsystem_checkº¯Êý£¬È»ºóÔÚµçÄÔ¶ËµÄ´®¿ÚÖúÊÖ¿´µ½µ¥Æ¬»úµÄÒ»Ð©ÐÅÏ¢¡£
 //<i>system_checkº¯Êý»á¶Ô¾§ÕñÆµÂÊµÈÐÅÏ¢½øÐÐ¼ì²â£¬È»ºó¸ø³ö½á¹û¡£Èç¹ûÓÐÉèÖÃ´íÎóµÄ£¬¿É¸ù¾ÝÌáÊ¾ÐÞ¸Ä¡£
-#define CHECK_EN  0 
+#define CHECK_EN  1 
 //<q>Èíµ÷ÊÔ¹¦ÄÜ
 //<i>ÎªÁË×Ô¶¯ÏÂÔØ¹¦ÄÜ£¬Ò»°ã¶¼»á´ò¿ª´®¿Ú1¡£Æ½Ê±Ê¹ÓÃ´®¿Ú1À´µ÷ÊÔ½Ô¿É¡£
 //<i>µ«ÊÇÈç¹ûÓÐÌØÊâÐèÇó£¬±ÈÈçÃ»ÓÐÓ²¼þ´®¿Ú»òÕß´®¿Ú±»Õ¼ÓÃµÄÇé¿ö£¬¿ÉÒÔÊ¹ÓÃ¸Ã¹¦ÄÜ¡£
@@ -136,7 +143,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_GPIO_EN 1
 //<q>EEPROM¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8Ê¹ÓÃÄÚÖÃFLASHÄ£ÄâµÄEEPROMÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_EEPROM_EN 0
+#define ECBM_EEPROM_EN 1
 //<q>EXTI¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÍâ²¿ÖÐ¶ÏÏà¹Ø²Ù×÷º¯Êý¡£
 #define ECBM_EXTI_EN 0
@@ -157,7 +164,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_ADC_EN 0
 //<q>PWM¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þPWMÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_PWM_EN 1
+#define ECBM_PWM_EN 0
 //<q>UART¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þUARTÏà¹Ø²Ù×÷º¯Êý¡£
 #define ECBM_UART_EN 1
@@ -201,8 +208,12 @@ extern u16 xdata ecbm_delay_base;
 #elif   ECBM_MCU_MAIN_RAM == 1 //STC8A8K
 #define ECBM_MCU_NAME        "STC8A8K"
 #define ECBM_MCU_XDATA       8192
-#define ECBM_MCU_EEPROM      (65536-ECBM_MCU_ROM)
 
+#if ECBM_MCU_ROM != 65024
+#define ECBM_MCU_EEPROM      (65536-ECBM_MCU_ROM)
+#else
+#define ECBM_MCU_EEPROM      ECBM_MCU_EEPROM_SIZE
+#endif
 #define A00 0x10
 #define A01 0x11
 #define A02 0x12
@@ -223,8 +234,11 @@ extern u16 xdata ecbm_delay_base;
 #elif   ECBM_MCU_MAIN_RAM == 2 //STC8G2K
 #define ECBM_MCU_NAME        "STC8G2K"
 #define ECBM_MCU_XDATA       2048
+#if ECBM_MCU_ROM != 65024
 #define ECBM_MCU_EEPROM      (65536-ECBM_MCU_ROM)
-
+#else
+#define ECBM_MCU_EEPROM      ECBM_MCU_EEPROM_SIZE
+#endif
 #define A00 0x10
 #define A01 0x11
 #define A02 0x12
@@ -264,6 +278,7 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 #define IRC32KHZ   (*((unsigned int  code *)(ECBM_MCU_ROM-11)))//Æ¬ÄÚ32KµçÂ·µÄÉèÖÃÖµ¡£
 #define MCUID        ((unsigned char code *)(ECBM_MCU_ROM-7))  //µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
 //ÒÔÏÂ¼¸¸ö²ÎÊý£¬µ±idataÓÃÂúµÄÊ±ºò»áÓÐ±»¸²¸ÇµÄ·çÏÕ£¬½¨Òé±£³ÖidataÇø²»ÒªÊ¹ÓÃ£¬¶àÊ¹ÓÃxdataÇø¡£
+#define REG_HSI1  read_idata_u8 (0xFA)//Æ¬ÄÚ24MµçÂ·µÄÉèÖÃÖµ¡£
 #define REG_HSI   read_idata_u8 (0xFB)//Æ¬ÄÚ24MµçÂ·µÄÉèÖÃÖµ¡£
 #define REG_BGV   read_idata_u16(0xEF)//Æ¬ÄÚ1.3VµçÑ¹µÄÊµ²âÖµ¡£
 #define REG_LSI   read_idata_u16(0xF8)//Æ¬ÄÚ32KµçÂ·µÄÉèÖÃÖµ¡£

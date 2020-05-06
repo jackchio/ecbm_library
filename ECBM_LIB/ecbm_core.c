@@ -82,7 +82,7 @@ void debug(const char * str,...){
 -------------------------------------------------------*/
 void system_check(){
 	u8 i,j;	
-	debug("ECBM v%u.%u.%u on %s",(u16)ECBM_FVN,(u16)ECBM_RVN,(u16)0,ECBM_MCU_NAME);//输出版本号和单片机型号
+	debug("ECBM V%u.%u.%u on %s",(u16)ECBM_FVN,(u16)ECBM_RVN,(u16)ECBM_BVN,ECBM_MCU_NAME);//输出版本号和单片机型号
 	#if ECBM_MCU_ROM == 65024
 		debug("64");
 	#else
@@ -113,12 +113,9 @@ void system_check(){
 		debug("XDATA :%u\tByte\r\n",(u16)ECBM_MCU_XDATA);//从配置文件中获取XDATA区大小
 		debug("FLASH :%u\tByte\r\n",(u16)ECBM_MCU_ROM);//从配置文件中获取FLASH区大小
 		debug("EEPROM:%u\tByte\r\n",(u16)ECBM_MCU_EEPROM);//从配置文件中获取EEPROM区大小
-		
 		debug("HSI   :%lu\tHz\r\n",ecbm_sys_clk);//输出内部晶振值，在图形界面上设置
 		debug("LSI   :%u\tHz\r\n",REG_LSI);//输出内部晶振值，在图形界面上设置
 		debug("BGV   :%u\tmV\r\n",REG_BGV);//输出内部电压基准值，需要在STC-ISP上设置
-		
-		
 	}	
 }
 #endif
@@ -177,14 +174,24 @@ void system_init(void){
 	u32 sys_count;
 	#endif
 	EX_SFR_ON;//打开额外的寄存器。
+
+
+	#define ECBM_SYSCLK_STEP1 48000
+	#define ECBM_SYSCLK_STEP2 76000
+	#define ECBM_SYSCLK_STEP  54000	
 	
-	#if SYS_CLOCK == 0                               //如果使能了标准频率（HSI），
-	if(REG_HSI>=IRTRIM){                             //检查HSI寄存器。如果是小于24M的，
-		sys_count=24000000L-(REG_HSI-IRTRIM)*54688;  //就用24M减去频率的偏差。
-	}else{                                           //否则，
-		sys_count=24000000L+(IRTRIM-REG_HSI)*54688;  //就用24M加上频率的偏差。
-	}
-	sys_count/=CLKDIV;                               //算上分频系数。
+	
+	#if SYS_CLOCK == 0//如果使能了标准频率（HSI），
+	#if ECBM_MCU_MAIN_RAM == 2//检查是不是有两个频段的型号。
+		if(IRCBAND){//如果用的是33M频段，就用中心频率36M来计算。
+			sys_count=36000000L-(s32)((s32)REG_HSI1-(s32)IRTRIM)*ECBM_SYSCLK_STEP2;
+		}else{//如果用的是24M频段，就用中心频率24M来计算。
+			sys_count=24000000L-(s32)((s32)REG_HSI-(s32)IRTRIM)*ECBM_SYSCLK_STEP1;
+		}
+	#else //如果是使用单频段的型号。
+		sys_count=24000000L-(s32)((s32)REG_HSI-(s32)IRTRIM)*ECBM_SYSCLK_STEP;  //就用中心频率24M来计算。
+	#endif
+	sys_count/=CLKDIV;//算上分频系数。
 	if      (sys_count<5764800L ){//格式化处理，计算会有误差，得到不一定是标准频率，在这里格式化成标准频率。
 		ecbm_sys_clk=5529600;
 	}else if(sys_count<8529600L ){
@@ -205,8 +212,10 @@ void system_init(void){
 		ecbm_sys_clk=27000000;
 	}else if(sys_count<31500000L){
 		ecbm_sys_clk=30000000;
+	}else if(sys_count<33500000L){
+		ecbm_sys_clk=33177600;
 	}else{
-		ecbm_sys_clk=33000000;    //最大支持到33M
+		ecbm_sys_clk=35000000;    //最大支持到33M
 	}
 	#elif SYS_CLOCK == 2
 	ecbm_sys_clk=REG_LSI;
@@ -235,7 +244,7 @@ void system_init(void){
 	#endif
 	EA_ON;//打开总中断。
 	#if CHECK_EN
-	delay_ms(120);
+	delay_ms(200);
 	system_check();
 	#endif
 }
