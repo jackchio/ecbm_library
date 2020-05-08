@@ -98,7 +98,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_ADC_CH14 0
 //<q>通道15(Vref)
 //<i>对于STC8A8K系列来说，该通道会和P1.7冲突，请不要将P1.7设为高阻态。
-#define ECBM_ADC_CH15 1
+#define ECBM_ADC_CH15 0
 //</h>
 //<h>ADC参数设置
 //<o.0..3>ADC的分频系数
@@ -118,7 +118,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>根据上面的讲解，如果确实需要舍弃低位数据，请先将对齐方式选为左对齐再勾选此选项。
 //<i>选择此选项后，读取函数定义由u16 adc_read(u8 pin)变更为u8 adc_read(u8 pin)。且只输出ADC_RES的值。
 //<i>如果是在右对齐的情况下勾选此选项，那么就只能输出高4位（对于12位ADC来说）。
-#define ECBM_ADC_8BIT 1
+#define ECBM_ADC_8BIT 0
 //<e>ADC中断
 #define ECBM_ADC_IT_EN 0
 //<o>ADC中断优先级

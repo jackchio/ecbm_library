@@ -43,24 +43,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o>STC8系列前缀和RAM选择
 //<i>列表提供的芯片类型都是测试通过能使用的。按照加入ecbm库的时间排序。
 //<0=>STC8F2K <1=>STC8A8K <2=>STC8G2K
-#define ECBM_MCU_MAIN_RAM 0
+#define ECBM_MCU_MAIN_RAM 2
 //<o>ROM选择
 //<i>选择单片机的flash容量大小，主要影响唯一ID的读取和EEPROM空间的大小。
 //<8192=>08 <16384=>16 <24576=>24 <32768=>32 <40960=>40 
 //<49152=>48 <57344=>56 <61440=>60 <65024=>64
-#define ECBM_MCU_ROM 32768
+#define ECBM_MCU_ROM 65024
 //<o>串口后缀
 //<i>这个选项会影响uart.h的使能情况。请根据实际芯片选择。
 //< 1=>无  < 2=>S2 < 4=>S4
-#define ECBM_MCU_UART 2
+#define ECBM_MCU_UART 4
 //<o>ADC后缀
 //<i>这个选项会影响adc.h的计算结果。请根据实际芯片选择。
 //< 0=>无 <10=>A10 <12=>A12
-#define ECBM_MCU_ADC 0
+#define ECBM_MCU_ADC_BIT 0
 //<o>其他后缀
 //<i>这个选项根据型号的不同会影响不同的外设。请根据实际芯片选择。
 //< 0=>无 <1=>-48PIN
-#define ECBM_MCU_OTHER 0
+#define ECBM_MCU_OTHER 1
 //<o>EEPROM选择
 //<i>由于ROM为64的型号，它的EEPROM大小是可选的，所以需要这里提供EEPROM的大小。
 //<i>非64的型号，EEPROM的大小是固定的，这个参数就可以不用管了，程序也不会用到。
@@ -107,7 +107,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>单片机设置检查
 //<i>勾选此选项，会自动调用system_check函数，然后在电脑端的串口助手看到单片机的一些信息。
 //<i>system_check函数会对晶振频率等信息进行检测，然后给出结果。如果有设置错误的，可根据提示修改。
-#define CHECK_EN  1 
+#define CHECK_EN  0 
 //<q>软调试功能
 //<i>为了自动下载功能，一般都会打开串口1。平时使用串口1来调试皆可。
 //<i>但是如果有特殊需求，比如没有硬件串口或者串口被占用的情况，可以使用该功能。
@@ -143,7 +143,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_GPIO_EN 1
 //<q>EEPROM库
 //<i>该库提供了关于STC8使用内置FLASH模拟的EEPROM相关操作函数。
-#define ECBM_EEPROM_EN 1
+#define ECBM_EEPROM_EN 0
 //<q>EXTI库
 //<i>该库提供了关于STC8的外部中断相关操作函数。
 #define ECBM_EXTI_EN 0
@@ -161,7 +161,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_SPI_EN 0
 //<q>ADC库
 //<i>该库提供了关于STC8的硬件ADC相关操作函数。
-#define ECBM_ADC_EN 0
+#define ECBM_ADC_EN 1
 //<q>PWM库
 //<i>该库提供了关于STC8的硬件PWM相关操作函数。
 #define ECBM_PWM_EN 0
@@ -229,7 +229,7 @@ extern u16 xdata ecbm_delay_base;
 #define A12 0x04
 #define A13 0x05
 #define A14 0x06
-
+#define ECBM_MCU_ADC	ECBM_MCU_ADC_BIT
 
 #elif   ECBM_MCU_MAIN_RAM == 2 //STC8G2K
 #define ECBM_MCU_NAME        "STC8G2K"
@@ -254,6 +254,10 @@ extern u16 xdata ecbm_delay_base;
 #define A12 0x04
 #define A13 0x05
 #define A14 0x06
+
+#if ECBM_MCU_OTHER == 1
+#define ECBM_MCU_ADC	10
+#endif
 
 #endif
 

@@ -976,6 +976,7 @@ sfr PCA_PWM3    =   0xf5;
 
 //增强型PWM波形发生器特殊功能寄存器
 sfr PWMCFG      =   0xf1;
+
 #define CBIF        0x80
 #define ETADC       0x40
 sfr PWMIF       =   0xf6;
