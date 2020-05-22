@@ -42,25 +42,25 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_BVN 2
 //<o>STC8系列前缀和RAM选择
 //<i>列表提供的芯片类型都是测试通过能使用的。按照加入ecbm库的时间排序。
-//<0=>STC8F2K <1=>STC8A8K <2=>STC8G2K
-#define ECBM_MCU_MAIN_RAM 2
+//<0=>STC8F2K <1=>STC8A8K <2=>STC8G2K  <3=>STC8G1K
+#define ECBM_MCU_MAIN_RAM 0
 //<o>ROM选择
 //<i>选择单片机的flash容量大小，主要影响唯一ID的读取和EEPROM空间的大小。
 //<8192=>08 <16384=>16 <24576=>24 <32768=>32 <40960=>40 
 //<49152=>48 <57344=>56 <61440=>60 <65024=>64
-#define ECBM_MCU_ROM 65024
+#define ECBM_MCU_ROM 32768
 //<o>串口后缀
 //<i>这个选项会影响uart.h的使能情况。请根据实际芯片选择。
 //< 1=>无  < 2=>S2 < 4=>S4
-#define ECBM_MCU_UART 4
+#define ECBM_MCU_UART 2
 //<o>ADC后缀
 //<i>这个选项会影响adc.h的计算结果。请根据实际芯片选择。
 //< 0=>无 <10=>A10 <12=>A12
 #define ECBM_MCU_ADC_BIT 0
 //<o>其他后缀
 //<i>这个选项根据型号的不同会影响不同的外设。请根据实际芯片选择。
-//< 0=>无 <1=>-48PIN
-#define ECBM_MCU_OTHER 1
+//< 0=>无 <1=>-48PIN <2=>A-8PIN
+#define ECBM_MCU_OTHER 0
 //<o>EEPROM选择
 //<i>由于ROM为64的型号，它的EEPROM大小是可选的，所以需要这里提供EEPROM的大小。
 //<i>非64的型号，EEPROM的大小是固定的，这个参数就可以不用管了，程序也不会用到。
@@ -86,7 +86,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define SYS_CLK_SET 25000000L
 //<e>系统时钟输出
 //<i>可以输出时钟频率用于驱动其他外设，或者用于检测内部的工作频率。
-#define SYSCLK_OUT_EN 1
+#define SYSCLK_OUT_EN 0
 //<o.4..7>输出分频
 //< 1=>SYSCLK/ 1  < 2=>SYSCLK/ 2 < 4=>SYSCLK/ 4 
 //< 6=>SYSCLK/ 8  < 8=>SYSCLK/16 <10=>SYSCLK/32 
@@ -161,7 +161,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_SPI_EN 0
 //<q>ADC库
 //<i>该库提供了关于STC8的硬件ADC相关操作函数。
-#define ECBM_ADC_EN 1
+#define ECBM_ADC_EN 0
 //<q>PWM库
 //<i>该库提供了关于STC8的硬件PWM相关操作函数。
 #define ECBM_PWM_EN 0
@@ -198,69 +198,86 @@ typedef   signed long s32; //有符号的32位变量，在C51里就是有符号长整型变量。
 extern u32 xdata ecbm_sys_clk;
 extern u16 xdata ecbm_delay_base;
 /*------------------------------------芯片配置加载----------------------------------*/
-#if     ECBM_MCU_MAIN_RAM == 0 //STC8F2K
-#define ECBM_MCU_NAME        "STC8F2K"
-#define ECBM_MCU_XDATA       2048
-#define ECBM_MCU_EEPROM      (65536-ECBM_MCU_ROM)
-#if		ECBM_MCU_ADC != 0
-#error	该型号可能没有ADC功能，请确认型号！
+/*#################################################################################*/
+#if         ECBM_MCU_MAIN_RAM == 0 //STC8F2K
+#  define   ECBM_MCU_NAME    "STC8F2K"
+#  define   ECBM_MCU_XDATA   2048
+#  define   ECBM_MCU_EEPROM  (65536-ECBM_MCU_ROM)
+#  if       ECBM_ADC_EN
+#    error  该型号可能没有ADC功能，请确认型号！
+#  endif
+/*#################################################################################*/
+#elif       ECBM_MCU_MAIN_RAM == 1 //STC8A8K
+#  define   ECBM_MCU_NAME    "STC8A8K"
+#  define   ECBM_MCU_XDATA   8192
+#  if       ECBM_MCU_ROM != 65024
+#    define ECBM_MCU_EEPROM  (65536-ECBM_MCU_ROM)
+#  else
+#    define ECBM_MCU_EEPROM   ECBM_MCU_EEPROM_SIZE
+#  endif
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#  define   ECBM_MCU_ADC     ECBM_MCU_ADC_BIT
+/*#################################################################################*/
+#elif       ECBM_MCU_MAIN_RAM == 2 //STC8G2K
+#  define   ECBM_MCU_NAME    "STC8G2K"
+#  define   ECBM_MCU_XDATA   2048
+#  if       ECBM_MCU_ROM != 65024
+#    define ECBM_MCU_EEPROM  (65536-ECBM_MCU_ROM)
+#  else
+#    define ECBM_MCU_EEPROM  ECBM_MCU_EEPROM_SIZE
+#  endif
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#  if       ECBM_MCU_OTHER == 1
+#    define ECBM_MCU_ADC	10
 #endif
-#elif   ECBM_MCU_MAIN_RAM == 1 //STC8A8K
-#define ECBM_MCU_NAME        "STC8A8K"
-#define ECBM_MCU_XDATA       8192
-
-#if ECBM_MCU_ROM != 65024
-#define ECBM_MCU_EEPROM      (65536-ECBM_MCU_ROM)
-#else
-#define ECBM_MCU_EEPROM      ECBM_MCU_EEPROM_SIZE
+/*#################################################################################*/
+#elif       ECBM_MCU_MAIN_RAM == 3 //STC8G1K
+#  define   ECBM_MCU_NAME    "STC8G1K"
+#  define   ECBM_MCU_XDATA   1024
+#  if       ECBM_MCU_ROM != 65024
+#    define ECBM_MCU_EEPROM  (65536-ECBM_MCU_ROM)
+#  else
+#    define ECBM_MCU_EEPROM  ECBM_MCU_EEPROM_SIZE
+#  endif
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x54
+#  define   A05 0x55
+#  if       ECBM_MCU_OTHER == 2
+#    define ECBM_MCU_ADC	10
+#  endif
 #endif
-#define A00 0x10
-#define A01 0x11
-#define A02 0x12
-#define A03 0x13
-#define A04 0x14
-#define A05 0x15
-#define A06 0x16
-#define A07 0x17
-#define A08 0x00
-#define A09 0x01
-#define A10 0x02
-#define A11 0x03
-#define A12 0x04
-#define A13 0x05
-#define A14 0x06
-#define ECBM_MCU_ADC	ECBM_MCU_ADC_BIT
-
-#elif   ECBM_MCU_MAIN_RAM == 2 //STC8G2K
-#define ECBM_MCU_NAME        "STC8G2K"
-#define ECBM_MCU_XDATA       2048
-#if ECBM_MCU_ROM != 65024
-#define ECBM_MCU_EEPROM      (65536-ECBM_MCU_ROM)
-#else
-#define ECBM_MCU_EEPROM      ECBM_MCU_EEPROM_SIZE
-#endif
-#define A00 0x10
-#define A01 0x11
-#define A02 0x12
-#define A03 0x13
-#define A04 0x14
-#define A05 0x15
-#define A06 0x16
-#define A07 0x17
-#define A08 0x00
-#define A09 0x01
-#define A10 0x02
-#define A11 0x03
-#define A12 0x04
-#define A13 0x05
-#define A14 0x06
-
-#if ECBM_MCU_OTHER == 1
-#define ECBM_MCU_ADC	10
-#endif
-
-#endif
-
+/*#################################################################################*/
 /*------------------------------------通用配置设定----------------------------------*/
 sbit    LED       =P5^5;     //通常ECBM的板子都会带一个LED，该LED采用低电平驱动。
 #define LED_ON    LED=0;     //点亮LED。

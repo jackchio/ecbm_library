@@ -118,14 +118,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define EXTI2_ON  do{INTCLKO|=EX2; }while(0)//打开外部中断2。
 #define EXTI2_OFF do{INTCLKO&=~EX2;}while(0)//关闭外部中断2。
 #define EXTI2_IO  P36 
+#define EXTI2_CLS do{AUXINTIF&=0xEF;}while(0)//清除外部中断2的中断标志位。
+
 #define EXTI3_FUN interrupt 11      //中断号，放置于中断函数之后。中断函数由用户自定义。
 #define EXTI3_ON  do{INTCLKO|=EX3; }while(0)//打开外部中断3。
 #define EXTI3_OFF do{INTCLKO&=~EX3;}while(0)//关闭外部中断3。
 #define EXTI3_IO  P37 
+#define EXTI3_CLS do{AUXINTIF&=0xDF;}while(0)//清除外部中断3的中断标志位。
+
 #define EXTI4_FUN interrupt 16      //中断号，放置于中断函数之后。中断函数由用户自定义。
 #define EXTI4_ON  do{INTCLKO|=EX4; }while(0)//打开外部中断4。
 #define EXTI4_OFF do{INTCLKO&=~EX4;}while(0)//关闭外部中断4。
 #define EXTI4_IO  P30 
+#define EXTI4_CLS do{AUXINTIF&=0xBF;}while(0)//清除外部中断4的中断标志位。
+
 #define EXTI_UD 0//上升沿/下降沿都触发中断。
 #define EXTI_D  1//只有下降沿才触发中断。
 /*--------------------------------------程序定义-----------------------------------*/

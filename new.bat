@@ -11,3 +11,5 @@ xcopy "..\ECBM_LIB" "%cd%\ECBM_LIB" /s/e
 
 copy "..\main.c" "%cd%\main.c"
 copy "..\stc.h"  "%cd%\stc.h"
+copy "..\ecbm.uvproj"  "%cd%\ecbm.uvproj"
+copy "..\STARTUP.A51"  "%cd%\STARTUP.A51"
