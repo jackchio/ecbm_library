@@ -401,7 +401,7 @@ void pwm_set_freq(u8 gpio,u32 freq){
 		while(1);
 	}
 	switch(gpio){
-		#if ECBM_G_PWM_CONFIG&0x01
+		#if ECBM_G_P0_EN&0x01
 		case GPIO_P0:{
 			PWM_GPIO0_OFF;
 			PWM0CKS=(i-1);
@@ -409,7 +409,7 @@ void pwm_set_freq(u8 gpio,u32 freq){
 			PWM_GPIO0_ON;
 		}break;
 		#endif
-		#if ECBM_G_PWM_CONFIG&0x02
+		#if ECBM_G_P1_EN&0x02
 		case GPIO_P1:{
 			PWM_GPIO1_OFF;
 			PWM1CKS=(i-1);
@@ -417,7 +417,7 @@ void pwm_set_freq(u8 gpio,u32 freq){
 			PWM_GPIO1_ON;
 		}break;
 		#endif
-		#if ECBM_G_PWM_CONFIG&0x04
+		#if ECBM_G_P2_EN&0x04
 		case GPIO_P2:{
 			PWM_GPIO2_OFF;
 			PWM2CKS=(i-1);
@@ -425,7 +425,7 @@ void pwm_set_freq(u8 gpio,u32 freq){
 			PWM_GPIO2_ON;
 		}break;
 		#endif
-		#if ECBM_G_PWM_CONFIG&0x08
+		#if ECBM_G_P3_EN&0x08
 		case GPIO_P3:{
 			PWM_GPIO3_OFF;
 			PWM3CKS=(i-1);
@@ -433,7 +433,7 @@ void pwm_set_freq(u8 gpio,u32 freq){
 			PWM_GPIO3_ON;
 		}break;
 		#endif
-		#if ECBM_G_PWM_CONFIG&0x10
+		#if ECBM_G_P4_EN&0x10
 		case GPIO_P4:{
 			PWM_GPIO4_OFF;
 			PWM4CKS=(i-1);
@@ -441,7 +441,7 @@ void pwm_set_freq(u8 gpio,u32 freq){
 			PWM_GPIO4_ON;
 		}break;
 		#endif
-		#if ECBM_G_PWM_CONFIG&0x20
+		#if ECBM_G_P5_EN&0x20
 		case GPIO_P5:{
 			PWM_GPIO5_OFF;
 			PWM5CKS=(i-1);
@@ -775,7 +775,7 @@ void pwm_set_duty(u8 pin,u16 duty){
 			PWM54CR=ECBM_PWM54_CR;
 		}break;
 		#endif
-		#if ECBM_PWM15_CR&0x80
+		#if ECBM_PWM55_CR&0x80
 		case D55:{
 			PWM55T2=0x0000;
 			PWM55T1=(u16)((u32)PWM5C*duty/1000);

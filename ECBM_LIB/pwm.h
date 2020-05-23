@@ -312,7 +312,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_G_PWM_CONFIG 0x03
 //</h>
 //<e.0>P0口PWM设置
-#define ECBM_G_P0_EN 0x01
+#define ECBM_G_P0_EN 0x00
 //<o.0..4>时钟选择
 //< 0=>SYSclk/01 < 1=>SYSclk/02 < 2=>SYSclk/03 < 3=>SYSclk/04 < 4=>SYSclk/05 
 //< 5=>SYSclk/06 < 6=>SYSclk/07 < 7=>SYSclk/08 < 8=>SYSclk/09 < 9=>SYSclk/10
@@ -371,7 +371,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 //<e.1>P1口PWM设置
-#define ECBM_G_P1_EN 0x02
+#define ECBM_G_P1_EN 0x00
 //<o.0..4>时钟选择
 //< 0=>SYSclk/01 < 1=>SYSclk/02 < 2=>SYSclk/03 < 3=>SYSclk/04 < 4=>SYSclk/05 
 //< 5=>SYSclk/06 < 6=>SYSclk/07 < 7=>SYSclk/08 < 8=>SYSclk/09 < 9=>SYSclk/10
@@ -605,7 +605,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 
 //<e.5>P5口PWM设置
-#define ECBM_G_P5_EN 0x00
+#define ECBM_G_P5_EN 0x20
 //<o.0..4>时钟选择
 //< 0=>SYSclk/01 < 1=>SYSclk/02 < 2=>SYSclk/03 < 3=>SYSclk/04 < 4=>SYSclk/05 
 //< 5=>SYSclk/06 < 6=>SYSclk/07 < 7=>SYSclk/08 < 8=>SYSclk/09 < 9=>SYSclk/10
@@ -616,25 +616,25 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o.6>P5.0脚的初始电平
 //<0=>低电平
 //<1=>高电平
-#define ECBM_PWM50_CR 0x00
+#define ECBM_PWM50_CR 0x80
 //</e>
 //<e.7>P5.1脚的PWM使能
 //<o.6>P5.1脚的初始电平
 //<0=>低电平
 //<1=>高电平
-#define ECBM_PWM51_CR 0x00
+#define ECBM_PWM51_CR 0x80
 //</e>
 //<e.7>P5.2脚的PWM使能
 //<o.6>P5.2脚的初始电平
 //<0=>低电平
 //<1=>高电平
-#define ECBM_PWM52_CR 0x00
+#define ECBM_PWM52_CR 0x80
 //</e>
 //<e.7>P5.3脚的PWM使能
 //<o.6>P5.3脚的初始电平
 //<0=>低电平
 //<1=>高电平
-#define ECBM_PWM53_CR 0x00
+#define ECBM_PWM53_CR 0x80
 //</e>
 //<e.7>P5.4脚的PWM使能
 //<o.6>P5.4脚的初始电平
