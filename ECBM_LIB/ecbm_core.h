@@ -39,7 +39,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_RVN 1
 //BUG Version Number ·¢²¼°æ±¾ºÅ
 //Ã¿´Î·¢²¼µ½ÍøÉÏÊ±£¬ÈôÖ»ÊÇÐÞ¸ÄBUG£¬¸Ã°æ±¾ºÅ¼ÓÒ»¡£
-#define ECBM_BVN 2
+#define ECBM_BVN 5
 //<o>STC8ÏµÁÐÇ°×ººÍRAMÑ¡Ôñ
 //<i>ÁÐ±íÌá¹©µÄÐ¾Æ¬ÀàÐÍ¶¼ÊÇ²âÊÔÍ¨¹ýÄÜÊ¹ÓÃµÄ¡£°´ÕÕ¼ÓÈëecbm¿âµÄÊ±¼äÅÅÐò¡£
 //<0=>STC8F2K <1=>STC8A8K <2=>STC8G2K  <3=>STC8G1K
@@ -86,14 +86,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define SYS_CLK_SET 25000000L
 //<e>ÏµÍ³Ê±ÖÓÊä³ö
 //<i>¿ÉÒÔÊä³öÊ±ÖÓÆµÂÊÓÃÓÚÇý¶¯ÆäËûÍâÉè£¬»òÕßÓÃÓÚ¼ì²âÄÚ²¿µÄ¹¤×÷ÆµÂÊ¡£
-#define SYSCLK_OUT_EN 0
+#define SYSCLK_OUT_EN 1
 //<o.4..7>Êä³ö·ÖÆµ
 //< 1=>SYSCLK/ 1  < 2=>SYSCLK/ 2 < 4=>SYSCLK/ 4 
 //< 6=>SYSCLK/ 8  < 8=>SYSCLK/16 <10=>SYSCLK/32 
 //<12=>SYSCLK/64  <14=>SYSCLK/128
 //<o.3>Êä³öÒý½Å
 //<0=>Êä³öµ½P54 <1=>Êä³öµ½P16
-#define SYSCLK_OUT 0x68
+#define SYSCLK_OUT 0xE8
 //</e>
 //</h>
 
@@ -112,7 +112,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>ÎªÁË×Ô¶¯ÏÂÔØ¹¦ÄÜ£¬Ò»°ã¶¼»á´ò¿ª´®¿Ú1¡£Æ½Ê±Ê¹ÓÃ´®¿Ú1À´µ÷ÊÔ½Ô¿É¡£
 //<i>µ«ÊÇÈç¹ûÓÐÌØÊâÐèÇó£¬±ÈÈçÃ»ÓÐÓ²¼þ´®¿Ú»òÕß´®¿Ú±»Õ¼ÓÃµÄÇé¿ö£¬¿ÉÒÔÊ¹ÓÃ¸Ã¹¦ÄÜ¡£
 //<i>Ö»ÐèÖ¸¶¨Ä³¸öIO¿Ú£¬¸ÃIO¿Ú¾Í»áÒÔ9600µÄ²¨ÌØÂÊ·¢ËÍµ÷ÊÔÐÅÏ¢¡£ÐèÒªÑÓÊ±º¯ÊýºÍGPIO¿âµÄÖ§³Ö¡£
-#define SOFT_DEBUG 0
+#define SOFT_DEBUG 1
 //</h>
 
 
@@ -345,6 +345,7 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 µ÷ÓÃÀý³Ì£ºdelay_ms(500);//ÑÓÊ±500ºÁÃë
 ´´½¨ÈÕÆÚ£º2019-10-8
 ÐÞ¸Ä¼ÇÂ¼£º
+2020-06-02:ÐÞ¸´ÁËÑÓÊ±0ms±ä³ÉÑÓÊ±65535msµÄBUG¡£
 -------------------------------------------------------*/
 extern void delay_ms(u16 ms);
 /*-------------------------------------------------------

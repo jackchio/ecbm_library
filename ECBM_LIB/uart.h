@@ -103,7 +103,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>开放串口1发送回调函数
 #define UART1_SEND_CALLBACK_EN 0
 //<q>开放串口1接收回调函数
-#define UART1_RECEIVE_CALLBACK_EN 0
+#define UART1_RECEIVE_CALLBACK_EN 1
 //</e>
 //<e>串口2使能与设置
 #define UART2_EN 0
@@ -253,6 +253,19 @@ extern void uart_init(void);
 2019-12-26:增加了串口3和串口4。
 -------------------------------------------------------*/
 extern void uart_set_io(u8 id,u8 io);
+/*-------------------------------------------------------
+函数名：uart_set_baud
+描  述：串口波特率设置函数。
+输  入：id  -  要操作的串口编号，从1开始。
+		baud-  要设置的波特率，立即生效。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2020-06-01
+修改记录：
+-------------------------------------------------------*/
+extern void uart_set_baud(u8 id,u32 baud);
 /*-------------------------------------------------------
 函数名：uart_char
 描  述：串口单个字节发送函数。

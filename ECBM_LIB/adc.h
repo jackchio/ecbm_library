@@ -39,7 +39,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>Í¨µÀ0(P1.0)
 //<i>¸ÃÍ¨µÀ¶ÔÓ¦µÄIOÖ»ÊÊÓÃÓÚSTC8A8KÏµÁÐ¡£
 //<i>¶ÔÓÚSTC8A8KÏµÁÐÀ´Ëµ£¬¸ÃÍ¨µÀ»áºÍP1.7³åÍ»£¬Çë²»Òª½«P1.7ÉèÎª¸ß×èÌ¬¡£
-#define ECBM_ADC_CH0 1
+#define ECBM_ADC_CH0 0
 //<q>Í¨µÀ1(P1.1)
 //<i>¸ÃÍ¨µÀ¶ÔÓ¦µÄIOÖ»ÊÊÓÃÓÚSTC8A8KÏµÁÐ¡£
 //<i>¶ÔÓÚSTC8A8KÏµÁÐÀ´Ëµ£¬¸ÃÍ¨µÀ»áºÍP0.0³åÍ»£¬Çë²»Òª½«P0.0ÉèÎª¸ß×èÌ¬¡£
@@ -47,11 +47,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>Í¨µÀ2(P1.2)
 //<i>¸ÃÍ¨µÀ¶ÔÓ¦µÄIOÖ»ÊÊÓÃÓÚSTC8A8KÏµÁÐ¡£
 //<i>¶ÔÓÚSTC8A8KÏµÁÐÀ´Ëµ£¬¸ÃÍ¨µÀ»áºÍP0.1³åÍ»£¬Çë²»Òª½«P0.1ÉèÎª¸ß×èÌ¬¡£
-#define ECBM_ADC_CH2 0
+#define ECBM_ADC_CH2 1
 //<q>Í¨µÀ3(P1.3)
 //<i>¸ÃÍ¨µÀ¶ÔÓ¦µÄIOÖ»ÊÊÓÃÓÚSTC8A8KÏµÁÐ¡£
 //<i>¶ÔÓÚSTC8A8KÏµÁÐÀ´Ëµ£¬¸ÃÍ¨µÀ»áºÍP0.2³åÍ»£¬Çë²»Òª½«P0.2ÉèÎª¸ß×èÌ¬¡£
-#define ECBM_ADC_CH3 0
+#define ECBM_ADC_CH3 1
 //<q>Í¨µÀ4(P1.4)
 //<i>¸ÃÍ¨µÀ¶ÔÓ¦µÄIOÖ»ÊÊÓÃÓÚSTC8A8KÏµÁÐ¡£
 //<i>¶ÔÓÚSTC8A8KÏµÁÐÀ´Ëµ£¬¸ÃÍ¨µÀ»áºÍP0.3³åÍ»£¬Çë²»Òª½«P0.3ÉèÎª¸ß×èÌ¬¡£
