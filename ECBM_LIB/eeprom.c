@@ -154,8 +154,10 @@ void eeprom_read_ex(u16 addr,u8 * dat,u16 num){
 /*-------------------------------------------------------
 eeprom写函数延伸版(extension)。
 -------------------------------------------------------*/
+
+u8 xdata eeprom_buf[512];//用于整合数据的缓存
 void eeprom_write_ex(u16 addr,u8 * dat,u16 num){
-	u8 xdata eeprom_buf[512];//用于整合数据的缓存
+	
 	u16 num_yu;				//剩余要写的数据的数量。
 	u16 area;				//操作扇区。
 	u16 area_addr_yu;		//扇区余下的地址数量。

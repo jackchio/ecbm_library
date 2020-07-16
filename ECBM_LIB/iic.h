@@ -32,27 +32,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------*/
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
-//<h>IIC库内部设置
 //<o>IIC等待时钟周期
 //<0-63:1>
 //<i>可输入0~63。该数字越小，即等待时钟越少，IIC的速度越快。如果目标器件的速度跟得上，可以设为0以获取最大的IIC通信速度。
 //<i>如果目标器件的速度跟不上（一般通信出现乱码或直接通信失败），可以从63开始一步一步减少以获得最佳性能。嫌麻烦也可直接设为63。
-#define ECBM_IIC_WAIT 0
+#define ECBM_IIC_WAIT 50
 //<o.4..5>IIC默认管脚
 //<i>此设置只会改动初始化的管脚，在实际应用中随时可以使用iic_set_pin函数修改IIC管脚，达到分时复用的效果。
 //<0=>SCL-P15|SDA-P14 <1=>SCL-P25|SDA-P24 <2=>SCL-P77|SDA-P76 <3=>SCL-P32|SDA-P33
 #define ECBM_IIC_IO 0
-//<o>IIC中断优先级
-//<i>IIC默认开启中断。
-//<i>IIC有四级中断优先可选，总体的优先级可在it库里查询。
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_IIC_IT_PRIORITY 0
 //<o>无响应超时时间
 //<i>输入的是时钟数，可以输入10~100。
 //<10-100>
 #define ECBM_IIC_TIMEOUT 10
-//</h>
 //<<< end of configuration section >>>
 //-----------------以上是图形设置界面，可在Configuration Wizard界面设置-----------------
 /*---------------------------------------头文件------------------------------------*/

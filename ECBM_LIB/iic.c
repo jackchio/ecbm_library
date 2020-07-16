@@ -86,19 +86,6 @@ void iic_reset_pin(u8 group){
 IIC主机初始化函数。
 -------------------------------------------------------*/
 void iic_master_init(void){
-	#if   ECBM_IIC_IT_PRIORITY == 0
-	IP2H&=0xBF;
-	IP2 &=0xBF;
-	#elif ECBM_IIC_IT_PRIORITY == 1
-	IP2H&=0xBF;
-	IP2 |=0x40;
-	#elif ECBM_IIC_IT_PRIORITY == 2
-	IP2H|=0x40;
-	IP2 &=0xBF;
-	#elif ECBM_IIC_IT_PRIORITY == 3
-	IP2H|=0x40;
-	IP2 |=0x40;
-	#endif
 	I2CCFG=0x80|0x40|ECBM_IIC_WAIT; //开启IIC|主机|等待时钟
 	I2CMSST=0x00;                   //清除所有标志位
 	iic_set_pin(ECBM_IIC_IO);       //默认使用0组，即P14和P15

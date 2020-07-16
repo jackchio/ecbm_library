@@ -14,19 +14,6 @@ void adc_init(){
 	ADCCFG=ECBM_ADC_SPEED;//设置ADC的配置
 #if ECBM_ADC_IT_EN
 	EADC=1;
-	#if   ECBM_ADC_PRIORITY == 0
-		IPH &= 0xDF;
-		IP  &= 0xDF;
-	#elif ECBM_ADC_PRIORITY == 1
-		IPH &= 0xDF;
-		IP  |= 0x20;
-	#elif ECBM_ADC_PRIORITY == 2
-		IPH |= 0x20;
-		IP  &= 0xDF;
-	#elif ECBM_ADC_PRIORITY == 3
-		IPH |= 0x20;
-		IP  |= 0x20;
-	#endif	
 #endif
 #if ECBM_ADC_CH0//在链接主库且相应通道使能的情况下，设置IO口为高阻态。下同。
 	gpio_mode(A00,GPIO_HZ);

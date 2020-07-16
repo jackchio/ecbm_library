@@ -33,8 +33,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
 //<h>深度优化
-//<i>415
-//<q>12
+//<q>软件IIC扫描器件函数使能
 #define SOFT_IIC_FIND_EN 1
 //</h>
 //<<< end of configuration section >>>

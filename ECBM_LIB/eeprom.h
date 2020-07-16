@@ -48,6 +48,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #endif
 /*--------------------------------------变量定义-----------------------------------*/
 extern u8 eeprom_wait;//EEPROM的等待时间。
+extern u8 xdata eeprom_buf[512];
 /*--------------------------------------程序定义-----------------------------------*/
 /*-------------------------------------------------------
 函数名：eeprom_init

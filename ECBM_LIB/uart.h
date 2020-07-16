@@ -95,15 +95,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>选择校验功能的话，必须先把通信位数改成9位数据。
 //<0=>无校验 <1=>奇校验 <2=>偶校验 <3=>1校验 <4=>0校验 
 #define UART1_PARITY 0
-//<o>串口1的中断优先级
-//<i>四级中断优先可选，总体的优先级可在it库里查询。
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_UART1_PRIORITY 0
 //<q>开放串口1发送回调函数
 #define UART1_SEND_CALLBACK_EN 0
 //<q>开放串口1接收回调函数
-#define UART1_RECEIVE_CALLBACK_EN 1
+#define UART1_RECEIVE_CALLBACK_EN 0
 //</e>
 //<e>串口2使能与设置
 #define UART2_EN 0
@@ -129,11 +124,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>选择校验功能的话，必须先把通信位数改成9位数据。
 //<0=>无校验 <1=>奇校验 <2=>偶校验 <3=>1校验 <4=>0校验 
 #define UART2_PARITY 0
-//<o>串口2的中断优先级
-//<i>四级中断优先可选，总体的优先级可在it库里查询。
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_UART2_PRIORITY 0
 //<q>开放串口2发送回调函数
 #define UART2_SEND_CALLBACK_EN 0
 //<q>开放串口2接收回调函数

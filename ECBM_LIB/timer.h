@@ -34,7 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<<< Use Configuration Wizard in Context Menu >>>
 //<e>定时器0使能与设置
 //<i>勾选该选项会使能定时器0，开放和定时器0相关的操作函数。若未使用定时器0，可以关掉优化空间。
-#define ECBM_TIMER0_EN 1
+#define ECBM_TIMER0_EN 0
 //<o.3>定时器开关
 //<0=>软件开关 <1=>软硬件开关。
 //<i>当选择“软件开关”时，运行timer_start函数就能启动定时器0。
@@ -64,18 +64,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o>定时时间/计数数量
 //<0-65535>
 //<i>在这里填入脉冲数（在定时模式下，脉冲数=定时时间/时间基准。在计数模式下，就是你想计数的最大值）。
-//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001/1/24000000=2400。那么输入2400就行了。
+//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001*(1/24000000)=2400。那么输入2400就行了。
 //<i>时间基准计算比较麻烦，做定时器应用时可以直接调用timer_set_timer_mode函数。
 //<i>如果是在计数模式下，希望统计到100个脉冲就触发中断，那么输入100就行了。
 #define ECBM_TIMER0_COUNT 10
-//<e>定时器0的中断使能
+//<q>定时器0的中断使能
 #define ECBM_TIMER0_IT_EN 0
-//<o>定时器0的中断优先级
-//<i>四级中断优先可选，总体的优先级可在it库里查询。 
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_TIMER0_PRIORITY 0
-//</e>
 //</e>
 //<e>定时器1使能与设置
 //<i>勾选该选项会使能定时器1，开放和定时器1相关的操作函数。若未使用定时器1，可以关掉优化空间。
@@ -107,18 +101,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o>定时时间/计数数量
 //<0-65535>
 //<i>在这里填入脉冲数（在定时模式下，脉冲数=定时时间/时间基准。在计数模式下，就是你想计数的最大值）。
-//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001/1/24000000=2400。那么输入2400就行了。
+//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001*(1/24000000)=2400。那么输入2400就行了。
 //<i>时间基准计算比较麻烦，做定时器应用时可以直接调用timer_set_timer_mode函数。
 //<i>如果是在计数模式下，希望统计到100个脉冲就触发中断，那么输入100就行了。
 #define ECBM_TIMER1_COUNT 65535
-//<e>定时器1的中断使能
+//<q>定时器1的中断使能
 #define ECBM_TIMER1_IT_EN 0
-//<o>定时器1的中断优先级
-//<i>四级中断优先可选，总体的优先级可在it库里查询。 
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_TIMER1_PRIORITY 0
-//</e>
 //</e>
 //<e>定时器2使能与设置
 //<i>勾选该选项会使能定时器2，开放和定时器2相关的操作函数。若未使用定时器2，可以关掉优化空间。
@@ -138,7 +126,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o>定时时间/计数数量
 //<0-65535>
 //<i>在这里填入脉冲数（在定时模式下，脉冲数=定时时间/时间基准。在计数模式下，就是你想计数的最大值）。
-//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001/1/24000000=2400。那么输入2400就行了。
+//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001*(1/24000000)=2400。那么输入2400就行了。
 //<i>时间基准计算比较麻烦，做定时器应用时可以直接调用timer_set_timer_mode函数。
 //<i>如果是在计数模式下，希望统计到100个脉冲就触发中断，那么输入100就行了。
 #define ECBM_TIMER2_COUNT 500
@@ -163,7 +151,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o>定时时间/计数数量
 //<0-65535>
 //<i>在这里填入脉冲数（在定时模式下，脉冲数=定时时间/时间基准。在计数模式下，就是你想计数的最大值）。
-//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001/1/24000000=2400。那么输入2400就行了。
+//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001*(1/24000000)=2400。那么输入2400就行了。
 //<i>时间基准计算比较麻烦，做定时器应用时可以直接调用timer_set_timer_mode函数。
 //<i>如果是在计数模式下，希望统计到100个脉冲就触发中断，那么输入100就行了。
 #define ECBM_TIMER3_COUNT 65535
@@ -173,7 +161,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 //<e>定时器4使能与设置
 //<i>勾选该选项会使能定时器4，开放和定时器4相关的操作函数。若未使用定时器4，可以关掉优化空间。
-#define ECBM_TIMER4_EN 0
+#define ECBM_TIMER4_EN 1
 //<o.6>计数来源
 //<0=>对系统时钟计数（定时器应用）
 //<1=>对外部T4（P06）脚的脉冲信号计数（计数器应用）
@@ -184,14 +172,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<0=>系统时钟12分频（Fosc/12） <1=>系统时钟不分频
 //<o.4>对外输出时钟
 //<i>勾选该选项后，每次定时器4发生溢出时，T4CLKO（P07）脚的电平自动发生翻转。
-#define ECBM_TIMER4_T4T3M 0x00
+#define ECBM_TIMER4_T4T3M 0x10
 //<o>定时时间/计数数量
 //<0-65535>
 //<i>在这里填入脉冲数（在定时模式下，脉冲数=定时时间/时间基准。在计数模式下，就是你想计数的最大值）。
-//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001/1/24000000=2400。那么输入2400就行了。
+//<i>比如定时模式下，主频24MHz的时间基准是1/24000000秒，定时100us的脉冲数就是0.0001*(1/24000000)=2400。那么输入2400就行了。
 //<i>时间基准计算比较麻烦，做定时器应用时可以直接调用timer_set_timer_mode函数。
 //<i>如果是在计数模式下，希望统计到100个脉冲就触发中断，那么输入100就行了。
-#define ECBM_TIMER4_COUNT 65535
+#define ECBM_TIMER4_COUNT 10000
 //<q>定时器4的中断使能
 //<i>注意：定时器4的中断函数里需要清除中断标志位。
 #define ECBM_TIMER4_IT_EN 0
@@ -237,8 +225,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define TIMER3_IT_CLS do{AUXINTIF&=0xFD;}while(0)//清定时器3中断标志
 #define TIMER3_1T     do{T4T3M|=0x02;}while(0) //设定定时器3为1T模式。
 #define TIMER3_12T    do{T4T3M&=0xFD;}while(0) //设定定时器3为12T模式。
-#define TIMER3_TIMER  do{AUXR&=0xFB;}while(0)  //设定定时器3为定时器。
-#define TIMER3_COUNT  do{AUXR|=0x04;}while(0)  //设定定时器3为计数器。
+#define TIMER3_TIMER  do{T4T3M&=0xFB;}while(0) //设定定时器3为定时器。
+#define TIMER3_COUNT  do{T4T3M|=0x04;}while(0) //设定定时器3为计数器。
 
 #define TIMER4_ON     do{T4T3M|=0x80;}while(0) //打开定时器4。
 #define TIMER4_OFF    do{T4T3M&=0x7F;}while(0) //关闭定时器4。
@@ -247,8 +235,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define TIMER4_IT_CLS do{AUXINTIF&=0xFB;}while(0)//清定时器4中断标志
 #define TIMER4_1T     do{T4T3M|=0x20;}while(0) //设定定时器4为1T模式。
 #define TIMER4_12T    do{T4T3M&=0xDF;}while(0) //设定定时器4为12T模式。
-#define TIMER4_TIMER  do{AUXR&=0xBF;}while(0)  //设定定时器4为定时器。
-#define TIMER4_COUNT  do{AUXR|=0x40;}while(0)  //设定定时器4为计数器。
+#define TIMER4_TIMER  do{T4T3M&=0xBF;}while(0) //设定定时器4为定时器。
+#define TIMER4_COUNT  do{T4T3M|=0x40;}while(0) //设定定时器4为计数器。
 
 
 #define TIMER0_FUN interrupt 1 //定时器0的中断服务号。
@@ -309,6 +297,7 @@ extern void timer_init(void);
 调用例程：无
 创建日期：2019-01-07
 修改记录：
+2020-06-05:修复了定时器3和定时器4在使用时影响定时器1的问题。
 -------------------------------------------------------*/
 extern void timer_set_timer_mode(u8 id,u16 us);
 /*-------------------------------------------------------

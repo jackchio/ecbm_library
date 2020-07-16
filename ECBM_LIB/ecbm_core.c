@@ -102,14 +102,14 @@ void system_check(){
 	debug("\r\nChecking MCU");
 	for(i=0;i<7;i++){
 		debug(".");
-		if((REG_ID(i))==(*(MCUID+i))){
+		if((REG_ID(i))==(MCUID[i])){
 			j++;
 		}
 	}
 	if(j!=7){
 		debug("Error\r\nPlease check the setting of the MCU model\r\n");
 	}else{
-		debug("OK\r\nID    :");for(i=0;i<7;i++){debug("%X",(u16)(*(MCUID+i)));}debug("\r\n");		//输出唯一ID号
+		debug("OK\r\nID    :");for(i=0;i<7;i++){debug("%02X",(u16)(MCUID[i]));}debug("\r\n");		//输出唯一ID号
 		debug("DATA  :128\tByte\r\n");//DATA区固定是128Byte
 		debug("IDATA :128\tByte\r\n");//IDATA区固定是128Byte
 		debug("XDATA :%u\tByte\r\n",(u16)ECBM_MCU_XDATA);//从配置文件中获取XDATA区大小

@@ -14,19 +14,6 @@ void exti_init(void){
 		#else
 			EXTI0_D;     //设置下降沿中断。
 		#endif
-		#if   ECBM_EXTI0_PRIORITY == 0 //根据优先级配置来设置。
-			IPH &= 0xFE;
-			IP  &= 0xFE;
-		#elif ECBM_EXTI0_PRIORITY == 1
-			IPH &= 0xFE;
-			IP  |= 0x01;
-		#elif ECBM_EXTI0_PRIORITY == 2
-			IPH |= 0x01;
-			IP  &= 0xFE;
-		#elif ECBM_EXTI0_PRIORITY == 3
-			IPH |= 0x01;
-			IP  |= 0x01;
-		#endif
 		#if ECBM_EXTI0_INIT
 			EXTI0_ON;    //打开外部中断0。
 		#endif
@@ -40,19 +27,6 @@ void exti_init(void){
 			EXTI1_UD;    //设置上升沿/下降沿中断。
 		#else
 			EXTI1_D;     //设置下降沿中断。
-		#endif
-		#if   ECBM_EXTI1_PRIORITY == 0 //根据优先级配置来设置。
-			IPH &= 0xFB;
-			IP  &= 0xFB;
-		#elif ECBM_EXTI1_PRIORITY == 1
-			IPH &= 0xFB;
-			IP  |= 0x04;
-		#elif ECBM_EXTI1_PRIORITY == 2
-			IPH |= 0x04;
-			IP  &= 0xFB;
-		#elif ECBM_EXTI1_PRIORITY == 3
-			IPH |= 0x04;
-			IP  |= 0x04;
 		#endif
 		#if ECBM_EXTI1_INIT
 			EXTI1_ON;    //打开外部中断1。
@@ -81,19 +55,6 @@ void exti_init(void){
 		P3M1&=0xFE;      //设置P30为输入状态。
 		P3M0&=0xFE;      //P3.0(11111110B,11111110B)。
 		P30=1;           //置一，防止内部接地影响读取。
-		#if   ECBM_EXTI4_PRIORITY == 0 //根据优先级配置来设置。
-			IP2H &= 0xEF;
-			IP2  &= 0xEF;
-		#elif ECBM_EXTI4_PRIORITY == 1
-			IP2H &= 0xEF;
-			IP2  |= 0x10;
-		#elif ECBM_EXTI4_PRIORITY == 2
-			IP2H |= 0x10;
-			IP2  &= 0xEF;
-		#elif ECBM_EXTI4_PRIORITY == 3
-			IP2H |= 0x10;
-			IP2  |= 0x10;
-		#endif
 		#if ECBM_EXTI4_INIT
 			EXTI4_ON;            //打开外部中断4
 		#endif

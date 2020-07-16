@@ -98,19 +98,6 @@ void uart_init(void){
 	TIMER2_IT_OFF;      //禁止定时器2中断。
 	TIMER2_ON;          //启动定时器2。
 	#endif
-	#if   ECBM_UART1_PRIORITY == 0
-	IPH &= 0xEF;
-	IP  &= 0xEF;
-	#elif ECBM_UART1_PRIORITY == 1
-	IPH &= 0xEF;
-	IP  |= 0x10;
-	#elif ECBM_UART1_PRIORITY == 2
-	IPH |= 0x10;
-	IP  &= 0xEF;
-	#elif ECBM_UART1_PRIORITY == 3
-	IPH |= 0x10;
-	IP  |= 0x10;
-	#endif
 	uart1_busy=0;       //串口1忙标志位清0。
 	UART1_IT_ON;        //打开串口1中断。
 	#endif
@@ -125,19 +112,6 @@ void uart_init(void){
 	T2H =(u8)(res>>8);	//设定定时初值高8位。
 	TIMER2_IT_OFF;      //禁止定时器2中断。
 	TIMER2_ON;          //启动定时器2。
-	#if   ECBM_UART2_PRIORITY == 0
-	IP2H &= 0xFE;
-	IP2  &= 0xFE;
-	#elif ECBM_UART2_PRIORITY == 1
-	IP2H &= 0xFE;
-	IP2  |= 0x01;
-	#elif ECBM_UART2_PRIORITY == 2
-	IP2H |= 0x01;
-	IP2  &= 0xFE;
-	#elif ECBM_UART2_PRIORITY == 3
-	IP2H |= 0x01;
-	IP2  |= 0x01;
-	#endif
 	uart2_busy=0;       //串口2忙标志位清0。
 	UART2_IT_ON;        //打开串口2中断。
 	#endif
@@ -222,7 +196,7 @@ void uart_set_io(u8 id,u8 io){
 -------------------------------------------------------*/
 void uart_set_baud(u8 id,u32 baud){
 	u16 res;
-	res=(u16)(65536-ecbm_sys_clk/4/baud);//通过波特率设置定时器初值。
+	res=(u16)(65536-(u16)(ecbm_sys_clk/4/baud));//通过波特率设置定时器初值。
 	switch(id){
 		#if UART1_EN == 1       //当串口1功能使能的时候。
 		case 1:{

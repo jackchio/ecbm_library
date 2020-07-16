@@ -136,19 +136,6 @@ void timer_init(void){
 	TL0=(u8)(value);              //写入初值。
 	TH0=(u8)(value>>8);
 	#if ECBM_TIMER0_IT_EN == 1    //如果开启了中断。
-		#if   ECBM_TIMER0_PRIORITY == 0//写入中断优先级。
-		IPH &= 0xFD;
-		IP  &= 0xFD;
-		#elif ECBM_TIMER0_PRIORITY == 1
-		IPH &= 0xFD;
-		IP  |= 0x02;
-		#elif ECBM_TIMER0_PRIORITY == 2
-		IPH |= 0x02;
-		IP  &= 0xFD;
-		#elif ECBM_TIMER0_PRIORITY == 3
-		IPH |= 0x02;
-		IP  |= 0x02;
-		#endif
 	TIMER0_IT_ON;
 	#endif
 	#endif
@@ -162,19 +149,6 @@ void timer_init(void){
 	TL1=(u8)(value);              //写入初值。
 	TH1=(u8)(value>>8);
 	#if ECBM_TIMER1_IT_EN == 1    //如果开启了中断。
-		#if   ECBM_TIMER1_PRIORITY == 0//写入中断优先级。
-		IPH &= 0xF7;
-		IP  &= 0xF7;
-		#elif ECBM_TIMER1_PRIORITY == 1
-		IPH &= 0xF7;
-		IP  |= 0x08;
-		#elif ECBM_TIMER1_PRIORITY == 2
-		IPH |= 0x08;
-		IP  &= 0xF7;
-		#elif ECBM_TIMER1_PRIORITY == 3
-		IPH |= 0x08;
-		IP  |= 0x08;
-		#endif
 	TIMER1_IT_ON;
 	#endif
 	#endif

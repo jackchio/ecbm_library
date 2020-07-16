@@ -62,7 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<0-63>
 //<i>所谓数字滤波就是等待信号稳定了1~63时钟的时间后才认为数据是有效的。
 //<i>不过对于24M的主频来说，也就2.6us左右。输入0代表不开启这个功能。
-#define ECBM_CMP_CMPCR2 129
+#define ECBM_CMP_CMPCR2 193
 //<q>初始化的时候开启比较器？
 //<i>勾选此选项，将会在执行cmp_init函数时开启比较器。若想在某个特定的时候才开启，就不勾选此选项。然后在那个特定的时候调用CMP_ON即可。
 #define ECBM_CMP_INIT_ON 1
@@ -87,7 +87,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 创建日期：2019-12-12
 修改记录：
 -------------------------------------------------------*/
-void cmp_init(void);
+extern void cmp_init(void);
 /*-------------------------------------------------------
 函数名：cmp_read
 描  述：比较器读取结果函数。
@@ -99,7 +99,7 @@ void cmp_init(void);
 创建日期：2019-12-12
 修改记录：
 -------------------------------------------------------*/
-bit cmp_read(void);
+extern bit cmp_read(void);
 /*-------------------------------------------------------
 函数名：cmp_start
 描  述：比较器开启函数。
@@ -111,7 +111,7 @@ bit cmp_read(void);
 创建日期：2019-12-12
 修改记录：
 -------------------------------------------------------*/
-void cmp_start(void);
+extern void cmp_start(void);
 /*-------------------------------------------------------
 函数名：cmp_stop
 描  述：比较器关闭函数。
@@ -123,5 +123,5 @@ void cmp_start(void);
 创建日期：2019-12-12
 修改记录：
 -------------------------------------------------------*/
-void cmp_stop(void);
+extern void cmp_stop(void);
 #endif

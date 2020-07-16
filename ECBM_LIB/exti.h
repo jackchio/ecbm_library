@@ -41,11 +41,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>“只下降沿”模式：只有下降沿才会触发中断。
 //<0=>上升沿/下降沿 <1=>只下降沿
 #define ECBM_EXTI0_MODE 0
-//<o>外部中断0的中断优先级
-//<i>四级中断优先可选，总体的优先级可在it库里查询。 
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_EXTI0_PRIORITY 0
 //<q>初始化时就打开中断？
 //<i>如果不勾选此选项的话，可以调用EXTI_start函数打开中断。
 #define ECBM_EXTI0_INIT 1
@@ -59,11 +54,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>“只下降沿”模式：只有下降沿才会触发中断。
 //<0=>上升沿/下降沿 <1=>只下降沿
 #define ECBM_EXTI1_MODE 0
-//<o>外部中断1的中断优先级
-//<i>四级中断优先可选，总体的优先级可在it库里查询。
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_EXTI1_PRIORITY 0
 //<q>初始化时就打开中断？
 //<i>如果不勾选此选项的话，可以调用EXTI_start函数打开中断。
 #define ECBM_EXTI1_INIT 1
@@ -88,11 +78,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>对应的引脚为P30
 //<i>只支持一种中断方式：“只下降沿”。
 #define ECBM_EXTI4_EN 0
-//<o>外部中断4的中断优先级
-//<i>四级中断优先可选，总体的优先级可在it库里查询。
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_EXTI4_PRIORITY 0
 //<q>初始化时就打开中断？
 //<i>如果不勾选此选项的话，可以调用EXTI_start函数打开中断。
 #define ECBM_EXTI4_INIT 1

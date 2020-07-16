@@ -119,14 +119,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>选择此选项后，读取函数定义由u16 adc_read(u8 pin)变更为u8 adc_read(u8 pin)。且只输出ADC_RES的值。
 //<i>如果是在右对齐的情况下勾选此选项，那么就只能输出高4位（对于12位ADC来说）。
 #define ECBM_ADC_8BIT 0
-//<e>ADC中断
+//<q>ADC中断
 #define ECBM_ADC_IT_EN 0
-//<o>ADC中断优先级
-//<i>四级中断优先可选，总体的优先级可在it库里查询。
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_ADC_PRIORITY 0
-//</e>
 //</h>
 //<<< end of configuration section >>>
 //-----------------以上是图形设置界面，可在Configuration Wizard界面设置-----------------

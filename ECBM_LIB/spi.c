@@ -39,19 +39,6 @@ void spi_init(void){
     SPSTAT = 0xc0; 
 	#if ECBM_SPI_IT_EN
 	SPI_IT_ON;
-		#if   ECBM_SPI_IT_PRIORITY == 0
-		IP2H &= 0xFD;
-		IP2  &= 0xFD;
-		#elif ECBM_SPI_IT_PRIORITY == 1
-		IP2H &= 0xFD;
-		IP2  |= 0x02;
-		#elif ECBM_SPI_IT_PRIORITY == 2
-		IP2H |= 0x02;
-		IP2  &= 0xFD;
-		#elif ECBM_SPI_IT_PRIORITY == 3
-		IP2H |= 0x02;
-		IP2  |= 0x02;
-		#endif
 	#endif
 }
 /*-------------------------------------------------------

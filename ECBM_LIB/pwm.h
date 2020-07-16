@@ -276,7 +276,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_PWM6_T2 0
 //</e>
 //<e>PWM7使能和参数调整
-#define ECBM_PWM7_EN 0
+#define ECBM_PWM7_EN 1
 
 //<q.2>PWM7中断使能
 //<i>想用PWM7中断，可以先使能这个，然后在下面选择中断方式
@@ -292,7 +292,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>就是初始化PWM之后，IO口呈现的电平。
 //<o.3..4>PWM7输出引脚
 //<0=>P2.7 <1=>P1.7 <2=>P6.7 
-#define ECBM_PWM7_CR 0
+#define ECBM_PWM7_CR 128
 //<o>第一个翻转点
 //<i>当PWM计数器达到第一个翻转点时，将IO翻转到低电平。
 //<0-32767>

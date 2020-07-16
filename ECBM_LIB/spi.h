@@ -62,15 +62,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<3=>SS-P35|MOSI-P34|MISO-P33|SCLK-P32
 #define ECBM_SPI_IO 0
 //</h>
-//<e>SPI中断
+//<q>SPI中断
 //<i>SPI传输完成一个字节就会触发中断。
 #define ECBM_SPI_IT_EN 0
-//<o>SPI中断优先级
-//<i>SPI有四级中断优先可选，总体的优先级可在it库里查询。
-//<0=>0级（最低级） <1=>1级（较低级）
-//<2=>2级（较高级） <3=>3级（最高级）
-#define ECBM_SPI_IT_PRIORITY 0
-//</e>
 //<<< end of configuration section >>>
 //-----------------以上是图形设置界面，可在Configuration Wizard界面设置-----------------
 /*---------------------------------------头文件------------------------------------*/
