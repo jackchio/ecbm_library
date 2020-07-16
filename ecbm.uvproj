@@ -441,6 +441,16 @@
               <FileType>5</FileType>
               <FilePath>.\ECBM_LIB\mdu16.h</FilePath>
             </File>
+            <File>
+              <FileName>pca.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\pca.h</FilePath>
+            </File>
+            <File>
+              <FileName>it.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\it.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -520,6 +530,16 @@
               <FileName>mdu16.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ECBM_LIB\mdu16.c</FilePath>
+            </File>
+            <File>
+              <FileName>pca.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\pca.c</FilePath>
+            </File>
+            <File>
+              <FileName>it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\it.c</FilePath>
             </File>
           </Files>
         </Group>
