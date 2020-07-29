@@ -62,6 +62,53 @@ void adc_init(){
 		gpio_mode(A14,GPIO_HZ);
 	#endif
 #endif
+#if ECBM_MCU_MAIN_RAM == 2 //STC8G2K__S4-48PIN	
+	#if ECBM_T2_ADC_CH0//在链接主库且相应通道使能的情况下，设置IO口为高阻态。下同。
+		gpio_mode(A00,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH1
+		gpio_mode(A01,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH2
+		gpio_mode(A02,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH3
+		gpio_mode(A03,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH4
+		gpio_mode(A04,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH5
+		gpio_mode(A05,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH6
+		gpio_mode(A06,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH7
+		gpio_mode(A07,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH8
+		gpio_mode(A08,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH9
+		gpio_mode(A09,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH10
+		gpio_mode(A10,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH11
+		gpio_mode(A11,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH12
+		gpio_mode(A12,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH13
+		gpio_mode(A13,GPIO_HZ);
+	#endif
+	#if ECBM_T2_ADC_CH14
+		gpio_mode(A14,GPIO_HZ);
+	#endif
+#endif
 #if ECBM_MCU_MAIN_RAM == 3 //STC8G1K__A-8Pin
 	#if ECBM_T3_ADC_CH0
 		gpio_mode(A00,GPIO_HZ);

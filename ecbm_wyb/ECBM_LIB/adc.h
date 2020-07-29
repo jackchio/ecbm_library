@@ -32,154 +32,77 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------*/
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
-//<h>STC8A8K系列设置
+//<h>通道使能设置
 //<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
-//<i>当前的设置针对于STC8A8K系列。
+//<i>但是如果脱离主库运行则无法自动设置IO为高阻态，需要手动设置。
+//<i>当前的代码只针对于STC8A8K系列。其他型号未加入，请酌情调整相应的设置（比如通道8~14对应IO不一致的问题）。
 //<q>通道0(P1.0)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P1.7冲突，请不要将P1.7设为高阻态。
-#define ECBM_T1_ADC_CH0 1
+#define ECBM_ADC_CH0 0
 //<q>通道1(P1.1)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.0冲突，请不要将P0.0设为高阻态。
-#define ECBM_T1_ADC_CH1 0
+#define ECBM_ADC_CH1 0
 //<q>通道2(P1.2)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.1冲突，请不要将P0.1设为高阻态。
-#define ECBM_T1_ADC_CH2 0
+#define ECBM_ADC_CH2 0
 //<q>通道3(P1.3)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.2冲突，请不要将P0.2设为高阻态。
-#define ECBM_T1_ADC_CH3 0
+#define ECBM_ADC_CH3 0
 //<q>通道4(P1.4)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.3冲突，请不要将P0.3设为高阻态。
-#define ECBM_T1_ADC_CH4 0
+#define ECBM_ADC_CH4 0
 //<q>通道5(P1.5)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.4冲突，请不要将P0.4设为高阻态。
-#define ECBM_T1_ADC_CH5 0
+#define ECBM_ADC_CH5 0
 //<q>通道6(P1.6)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.5冲突，请不要将P0.5设为高阻态。
-#define ECBM_T1_ADC_CH6 0
+#define ECBM_ADC_CH6 0
 //<q>通道7(P1.7)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.6冲突，请不要将P0.6设为高阻态。
-#define ECBM_T1_ADC_CH7 0
+#define ECBM_ADC_CH7 1
 //<q>通道8(P0.0)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P1.0冲突，请不要将P1.0设为高阻态。
-#define ECBM_T1_ADC_CH8 0
+#define ECBM_ADC_CH8 0
 //<q>通道9(P0.1)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P1.1冲突，请不要将P1.1设为高阻态。
-#define ECBM_T1_ADC_CH9 0
+#define ECBM_ADC_CH9 0
 //<q>通道10(P0.2)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P1.2冲突，请不要将P1.2设为高阻态。
-#define ECBM_T1_ADC_CH10 0
+#define ECBM_ADC_CH10 0
 //<q>通道11(P0.3)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P1.3冲突，请不要将P1.3设为高阻态。
-#define ECBM_T1_ADC_CH11 0
+#define ECBM_ADC_CH11 0
 //<q>通道12(P0.4)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P1.4冲突，请不要将P1.4设为高阻态。
-#define ECBM_T1_ADC_CH12 0
+#define ECBM_ADC_CH12 0
 //<q>通道13(P0.5)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P1.5冲突，请不要将P1.5设为高阻态。
-#define ECBM_T1_ADC_CH13 0
+#define ECBM_ADC_CH13 0
 //<q>通道14(P0.6)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P1.6冲突，请不要将P1.6设为高阻态。
-#define ECBM_T1_ADC_CH14 0
-//<q>通道15(BGV)
+#define ECBM_ADC_CH14 0
+//<q>通道15(Vref)
 //<i>对于STC8A8K系列来说，该通道会和P1.7冲突，请不要将P1.7设为高阻态。
-#define ECBM_T1_ADC_CH15 0
-//</h>
-//<h>STC8G2K系列设置
-//<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
-//<i>当前的设置针对于STC8G2K64S4-48PIN系列。
-//<q>通道0(P1.0)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH0 0
-//<q>通道1(P1.1)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH1 0
-//<q>通道2(P1.2)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH2 0
-//<q>通道3(P1.3)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH3 0
-//<q>通道4(P1.4)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH4 0
-//<q>通道5(P1.5)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH5 0
-//<q>通道6(P1.6)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH6 0
-//<q>通道7(P1.7)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH7 0
-//<q>通道8(P0.0)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH8 0
-//<q>通道9(P0.1)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH9 0
-//<q>通道10(P0.2)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH10 0
-//<q>通道11(P0.3)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH11 0
-//<q>通道12(P0.4)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH12 0
-//<q>通道13(P0.5)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH13 0
-//<q>通道14(P0.6)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH14 0
-//<q>通道15(BGV)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH15 1
-//</h>
-//<h>STC8G1K08A-8PIN系列设置
-//<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
-//<i>当前的设置针对于STC8G1K08A-8PIN系列。
-//<q>通道0(P3.0)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
-#define ECBM_T3_ADC_CH0 0
-//<q>通道1(P3.1)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
-#define ECBM_T3_ADC_CH1 0
-//<q>通道2(P3.2)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
-#define ECBM_T3_ADC_CH2 0
-//<q>通道3(P3.3)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
-#define ECBM_T3_ADC_CH3 0
-//<q>通道4(P5.4)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
-#define ECBM_T3_ADC_CH4 0
-//<q>通道5(P5.5)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
-#define ECBM_T3_ADC_CH5 0
-//<q>通道15(BGV)
-#define ECBM_T3_ADC_CH15 1
+#define ECBM_ADC_CH15 0
 //</h>
 //<h>ADC参数设置
 //<o.0..3>ADC的分频系数
-//<5-15>
 //<i>该项决定了ADC的转换速度。可以输入0~15，对应1分频到16分频。
-//<i>但是实测输入6以下的效果很差。所以限制只能输入6以上的。
 //<i>ADC的采样率=SYSCLK/2/16/分频系数。
 //<o.5>ADC的对齐方式
 //<0=>左对齐 <1=>右对齐
@@ -190,9 +113,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>右对齐：ADC_RES保存结果的高4位（对于12位ADC来说），ADC_RESL保存结果的低8位。
 //<i>右对齐的布局为[0 0 0 0 D11 D10 D9 D8][D7 D6 D5 D4 D3 D2 D1 D0]，取值范围为0~4095，步进值为1。
 //<i>和左对齐一比较就知道右对齐模式下可以直接把两个寄存器结果拼在一起作为一个16位数据来使用。
-#define ECBM_ADC_SPEED 37
+#define ECBM_ADC_SPEED 32
 //<q>舍弃低位数据
-//<i>根据上面的讲解，如果确实需要舍弃低位数据，请勾选此选项，之后adc_read函数就只输出ADC_RES的值，ADC_RESL的值会被舍去。
+//<i>根据上面的讲解，如果确实需要舍弃低位数据，请先将对齐方式选为左对齐再勾选此选项。
+//<i>选择此选项后，读取函数定义由u16 adc_read(u8 pin)变更为u8 adc_read(u8 pin)。且只输出ADC_RES的值。
+//<i>如果是在右对齐的情况下勾选此选项，那么就只能输出高4位（对于12位ADC来说）。
 #define ECBM_ADC_8BIT 0
 //<q>ADC中断
 #define ECBM_ADC_IT_EN 0
@@ -207,7 +132,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /*--------------------------------------变量定义-----------------------------------*/
 extern u8 xdata adc_busy;
-extern float xdata adc_ch15;
 /*--------------------------------------程序定义-----------------------------------*/
 /*-------------------------------------------------------
 函数名：adc_init
@@ -232,9 +156,12 @@ extern void adc_init(void);
 调用例程：val=adc_read(0);//读取通道0的AD值。
 创建日期：2019-7-31
 修改记录：
-2020-07-28：只保留一个函数
 -------------------------------------------------------*/
+#if ECBM_ADC_8BIT//使能8位数据模式的话，编译8位读取函数。
+extern u8 adc_read(u8 pin);
+#else //否则编译12位读取函数。
 extern u16 adc_read(u8 pin);
+#endif
 /*-------------------------------------------------------
 函数名：adc_read_start
 描  述：ADC转换开始函数（中断法）。用于开启对某通道对应的IO口电压的转换。该函数只开始一次转换，并不会马上得到结果。
@@ -246,7 +173,9 @@ extern u16 adc_read(u8 pin);
 创建日期：2019-8-5
 修改记录：
 -------------------------------------------------------*/
+#if ECBM_ADC_IT_EN
 extern void adc_read_start(u8 pin);
+#endif
 /*-------------------------------------------------------
 函数名：adc_read_it
 描  述：中断法读取AD值函数。在ADC中断中调用本函数，可得到ADC转换的结果。转换的通道用adc_read_start函数设置。
@@ -262,9 +191,14 @@ extern void adc_read_start(u8 pin);
 	}
 创建日期：2019-8-5
 修改记录：
-2020-07-28：只保留一个函数
 -------------------------------------------------------*/
+#if ECBM_ADC_IT_EN
+	#if ECBM_ADC_8BIT//使能8位数据模式的话，编译8位读取函数。
+extern u8 adc_read_it();
+	#else //否则编译12位读取函数。
 extern u16 adc_read_it();
+	#endif
+#endif
 /*-------------------------------------------------------
 函数名：adc_voltage
 描  述：读取电压函数。用于读取某通道对应的IO口电压值。
@@ -303,16 +237,4 @@ extern void adc_it_start();
 修改记录：
 -------------------------------------------------------*/
 extern void adc_it_stop();
-/*-------------------------------------------------------
-函数名：adc_read_vref
-描  述：ADC读取Vref函数。
-输  入：无
-输  出：无
-返回值：Vref的电压值，单位V。
-创建者：奈特
-调用例程：无
-创建日期：2019-8-5
-修改记录：
--------------------------------------------------------*/
-extern float adc_read_vref(void);
 #endif

@@ -13,19 +13,11 @@
 ***********************************************************************************************
 */
 #include "ecbm_core.h"	//加载库函数的头文件。
-#include "alfolf.h"
 void main(){			//main函数，必须的。
-	float now;
-	alfolf_def adc;
 	system_init();		//系统初始化函数，也是必须的。
 	adc_init();
-	alfolf_init(&adc,0.02f,0.1f);
-	delay_ms(500);
-
 	while(1){
-		now=adc_read_vref();
-		alfolf_in(&adc,now);
-		uart_printf(1,"%0.3f,%0.3f,%0.3f\r\n",now,adc.value,adc.err);
+		uart_printf(1,"ADC=%u\r\n",adc_read(0));
 		delay_ms(500);
 	}
 } 
