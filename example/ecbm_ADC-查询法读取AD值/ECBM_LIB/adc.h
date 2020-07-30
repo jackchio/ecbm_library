@@ -42,7 +42,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>通道1(P1.1)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.0冲突，请不要将P0.0设为高阻态。
-#define ECBM_T1_ADC_CH1 0
+#define ECBM_T1_ADC_CH1 1
 //<q>通道2(P1.2)
 //<i>该通道对应的IO只适用于STC8A8K系列。
 //<i>对于STC8A8K系列来说，该通道会和P0.1冲突，请不要将P0.1设为高阻态。
@@ -177,7 +177,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</h>
 //<h>ADC参数设置
 //<o.0..3>ADC的分频系数
-//<5-15>
+//<6-15>
 //<i>该项决定了ADC的转换速度。可以输入0~15，对应1分频到16分频。
 //<i>但是实测输入6以下的效果很差。所以限制只能输入6以上的。
 //<i>ADC的采样率=SYSCLK/2/16/分频系数。
@@ -190,7 +190,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>右对齐：ADC_RES保存结果的高4位（对于12位ADC来说），ADC_RESL保存结果的低8位。
 //<i>右对齐的布局为[0 0 0 0 D11 D10 D9 D8][D7 D6 D5 D4 D3 D2 D1 D0]，取值范围为0~4095，步进值为1。
 //<i>和左对齐一比较就知道右对齐模式下可以直接把两个寄存器结果拼在一起作为一个16位数据来使用。
-#define ECBM_ADC_SPEED 37
+#define ECBM_ADC_SPEED 47
 //<q>舍弃低位数据
 //<i>根据上面的讲解，如果确实需要舍弃低位数据，请勾选此选项，之后adc_read函数就只输出ADC_RES的值，ADC_RESL的值会被舍去。
 #define ECBM_ADC_8BIT 0
