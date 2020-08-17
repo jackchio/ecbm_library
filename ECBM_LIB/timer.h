@@ -161,7 +161,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 //<e>定时器4使能与设置
 //<i>勾选该选项会使能定时器4，开放和定时器4相关的操作函数。若未使用定时器4，可以关掉优化空间。
-#define ECBM_TIMER4_EN 1
+#define ECBM_TIMER4_EN 0
 //<o.6>计数来源
 //<0=>对系统时钟计数（定时器应用）
 //<1=>对外部T4（P06）脚的脉冲信号计数（计数器应用）

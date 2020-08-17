@@ -52,7 +52,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</h>
 //<e>PCA0
 //<i>捕获通道0的使能
-#define ECBM_PCA0_EN 1
+#define ECBM_PCA0_EN 0
 //<o>工作模式
 //<0=>无功能
 //<1=>6位PWM模式
@@ -78,7 +78,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //<e>PCA1
 //<i>捕获通道1的使能
-#define ECBM_PCA1_EN 1
+#define ECBM_PCA1_EN 0
 //<o>工作模式
 //<0=>无功能
 //<1=>6位PWM模式

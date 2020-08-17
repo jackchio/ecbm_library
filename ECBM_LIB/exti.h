@@ -35,7 +35,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<e>外部中断0
 //<i>对应的引脚为P32
 //<i>支持两种中断方式：“上升沿/下降沿”和“只下降沿”。
-#define ECBM_EXTI0_EN 1
+#define ECBM_EXTI0_EN 0
 //<o>中断模式选择
 //<i>“上升沿/下降沿”模式：无论上升沿还是下降沿都会触发中断。
 //<i>“只下降沿”模式：只有下降沿才会触发中断。

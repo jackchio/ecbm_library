@@ -39,11 +39,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_RVN 2
 //BUG Version Number 发布版本号
 //每次发布到网上时，若只是修改BUG，该版本号加一。
-#define ECBM_BVN 6
+#define ECBM_BVN 8
 //<o>STC8系列型号选择
 //<i>列表提供的芯片类型都是测试通过能使用的。按照加入ecbm库的时间排序。
 //<i>ROM容量留空，在下一个选项中选择。
-//<0=>STC8F2K__S2 <1=>STC8A8K__S4A12 <2=>STC8G2K__S4  <3=>STC8G1K__A-8Pin
+//<0=>STC8F2K__S2 <1=>STC8A8K__S4A12 <2=>STC8G2K__S4-48PIN  <3=>STC8G1K__A-8Pin
 #define ECBM_MCU_MAIN_RAM 1
 //<o>ROM选择
 //<i>选择单片机的flash容量大小，主要影响唯一ID的读取和EEPROM空间的大小。
@@ -162,7 +162,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_CMP_EN 0
 //<q>TIMER库
 //<i>该库提供了关于STC8的硬件TIMER相关操作函数。
-#define ECBM_TIMER_EN 1
+#define ECBM_TIMER_EN 0
 //<q>MDU16库
 //<i>该库提供了关于STC8G的硬件乘除法相关操作函数。
 #define ECBM_MDU16_EN 0
@@ -225,7 +225,7 @@ extern u16 xdata ecbm_delay_base;
 #  define   A12 0x04
 #  define   A13 0x05
 #  define   A14 0x06
-#  define   ECBM_MCU_ADC  12
+#  define   ECBM_MCU_ADC  4096.0f
 #  define   ECBM_MCU_UART 4
 /*#################################################################################*/
 #elif       ECBM_MCU_MAIN_RAM == 2 //STC8G2K__S4
@@ -251,7 +251,7 @@ extern u16 xdata ecbm_delay_base;
 #  define   A12 0x04
 #  define   A13 0x05
 #  define   A14 0x06
-#  define   ECBM_MCU_ADC  10
+#  define   ECBM_MCU_ADC  1024.0f
 #  define   ECBM_MCU_UART 4
 /*#################################################################################*/
 #elif       ECBM_MCU_MAIN_RAM == 3 //STC8G1K__A-8Pin
@@ -262,13 +262,13 @@ extern u16 xdata ecbm_delay_base;
 #  else
 #    define ECBM_MCU_EEPROM  ECBM_MCU_EEPROM_SIZE
 #  endif
-#  define   A00 0x10
-#  define   A01 0x11
-#  define   A02 0x12
-#  define   A03 0x13
+#  define   A00 0x30
+#  define   A01 0x31
+#  define   A02 0x32
+#  define   A03 0x33
 #  define   A04 0x54
 #  define   A05 0x55
-#  define   ECBM_MCU_ADC  10
+#  define   ECBM_MCU_ADC  1024.0f
 #  define   ECBM_MCU_UART 2
 #endif
 /*#################################################################################*/

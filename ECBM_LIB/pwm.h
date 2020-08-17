@@ -276,7 +276,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_PWM6_T2 0
 //</e>
 //<e>PWM7使能和参数调整
-#define ECBM_PWM7_EN 1
+#define ECBM_PWM7_EN 0
 
 //<q.2>PWM7中断使能
 //<i>想用PWM7中断，可以先使能这个，然后在下面选择中断方式
@@ -605,7 +605,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 
 //<e.5>P5口PWM设置
-#define ECBM_G_P5_EN 0x20
+#define ECBM_G_P5_EN 0x00
 //<o.0..4>时钟选择
 //< 0=>SYSclk/01 < 1=>SYSclk/02 < 2=>SYSclk/03 < 3=>SYSclk/04 < 4=>SYSclk/05 
 //< 5=>SYSclk/06 < 6=>SYSclk/07 < 7=>SYSclk/08 < 8=>SYSclk/09 < 9=>SYSclk/10
