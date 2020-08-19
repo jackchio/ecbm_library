@@ -180,6 +180,7 @@ u8 at24_write(u16 addr,u8 dat[],u16 num){
 		}
 	}	
 	soft_iic_stop();//IIC停止。
+	delay_ms(10);		//手册上的缓存写入时间（最大值）。
 	if(((u32)addr+(u32)num)>addr_max){	 //如果地址有溢出的风险，
 		return AT24_ERROR_NUMBER;//返回错误码-数量错误。
 	}
