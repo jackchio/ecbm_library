@@ -29,6 +29,8 @@ sfr         PWMCFG45    =           0xFE;
 #define     P3SR        (*(unsigned char volatile xdata *)0xFE23)
 #define     P4SR        (*(unsigned char volatile xdata *)0xFE24)
 #define     P5SR        (*(unsigned char volatile xdata *)0xFE25)
+#define     P6SR        (*(unsigned char volatile xdata *)0xFE26)
+#define     P7SR        (*(unsigned char volatile xdata *)0xFE27)
 
 #define     P0DR        (*(unsigned char volatile xdata *)0xFE28)
 #define     P1DR        (*(unsigned char volatile xdata *)0xFE29)
@@ -36,7 +38,8 @@ sfr         PWMCFG45    =           0xFE;
 #define     P3DR        (*(unsigned char volatile xdata *)0xFE2B)
 #define     P4DR        (*(unsigned char volatile xdata *)0xFE2C)
 #define     P5DR        (*(unsigned char volatile xdata *)0xFE2D)
-
+#define     P6DR        (*(unsigned char volatile xdata *)0xFE2E)
+#define     P7DR        (*(unsigned char volatile xdata *)0xFE2F)
 
 
 #define     P0IE        (*(unsigned char volatile xdata *)0xFE30)
@@ -76,7 +79,7 @@ sfr         PWMCFG45    =           0xFE;
 #define     PWM02T1     (*(unsigned int  volatile xdata *)0xFF20)
 #define     PWM02T1H    (*(unsigned char volatile xdata *)0xFF20)
 #define     PWM02T1L    (*(unsigned char volatile xdata *)0xFF21)
-#define     PWM02T2     (*(unsigned int volatile xdata *)0xFF22)
+#define     PWM02T2     (*(unsigned int  volatile xdata *)0xFF22)
 #define     PWM02T2H    (*(unsigned char volatile xdata *)0xFF22)
 #define     PWM02T2L    (*(unsigned char volatile xdata *)0xFF23)
 #define     PWM02CR     (*(unsigned char volatile xdata *)0xFF24)
@@ -1113,4 +1116,106 @@ sfr PWMCR       =   0xfe;
 #define I2CTXD      (*(unsigned char volatile xdata *)0xfe86)//IIC发送数据寄存器
 #define I2CRXD      (*(unsigned char volatile xdata *)0xfe87)//IIC接收数据寄存器
 #define I2CMSAUX    (*(unsigned char volatile xdata *)0xfe88)//IIC主机辅助控制寄存器
+
+
+
+
+//stc8h
+
+
+sfr         USBCLK      =           0xdc;
+sfr         USBCON      =           0xf4;
+sfr         USBADR      =           0xfc;
+sfr         USBDAT      =           0xec;
+
+#define     PWM1_ETRPS  (*(unsigned char volatile xdata *)0xfeb0)
+#define     MCLKOCR     (*(unsigned char volatile xdata *)0xfe05)
+#define     PWM1_ENO    (*(unsigned char volatile xdata *)0xfeb1)
+#define     PWM1_PS     (*(unsigned char volatile xdata *)0xfeb2)
+#define     PWM1_IOAUX  (*(unsigned char volatile xdata *)0xfeb3)
+
+
+#define     PWM2_ETRPS  (*(unsigned char volatile xdata *)0xfeb4)
+#define     PWM2_ENO    (*(unsigned char volatile xdata *)0xfeb5)
+#define     PWM2_PS     (*(unsigned char volatile xdata *)0xfeb6)
+#define     PWM2_IOAUX  (*(unsigned char volatile xdata *)0xfeb7)
+#define     PWM1_CR1    (*(unsigned char volatile xdata *)0xfec0)
+#define     PWM1_CR2    (*(unsigned char volatile xdata *)0xfec1)
+#define     PWM1_SMCR   (*(unsigned char volatile xdata *)0xfec2)
+#define     PWM1_ETR    (*(unsigned char volatile xdata *)0xfec3)
+#define     PWM1_IER    (*(unsigned char volatile xdata *)0xfec4)
+#define     PWM1_SR1    (*(unsigned char volatile xdata *)0xfec5)
+#define     PWM1_SR2    (*(unsigned char volatile xdata *)0xfec6)
+
+#define     PWM1_EGR    (*(unsigned char volatile xdata *)0xfec7)
+#define     PWM1_CCMR1  (*(unsigned char volatile xdata *)0xfec8)
+#define     PWM1_CCMR2  (*(unsigned char volatile xdata *)0xfec9)
+#define     PWM1_CCMR3  (*(unsigned char volatile xdata *)0xfeca)
+#define     PWM1_CCMR4  (*(unsigned char volatile xdata *)0xfecb)
+#define     PWM1_CCER1  (*(unsigned char volatile xdata *)0xfecc)
+#define     PWM1_CCER2  (*(unsigned char volatile xdata *)0xfecd)
+#define     PWM1_CNTR   (*(unsigned int volatile xdata *)0xfece)
+#define     PWM1_CNTRH  (*(unsigned char volatile xdata *)0xfece)
+#define     PWM1_CNTRL  (*(unsigned char volatile xdata *)0xfecf)
+#define     PWM1_PSCR   (*(unsigned int volatile xdata *)0xfed0)
+#define     PWM1_PSCRH  (*(unsigned char volatile xdata *)0xfed0)
+#define     PWM1_PSCRL  (*(unsigned char volatile xdata *)0xfed1)
+#define     PWM1_ARR    (*(unsigned int volatile xdata *)0xfed2)
+#define     PWM1_ARRH   (*(unsigned char volatile xdata *)0xfed2)
+#define     PWM1_ARRL   (*(unsigned char volatile xdata *)0xfed3)
+#define     PWM1_RCR    (*(unsigned char volatile xdata *)0xfed4)
+#define     PWM1_CCR1   (*(unsigned int volatile xdata *)0xfed5)
+#define     PWM1_CCR1H  (*(unsigned char volatile xdata *)0xfed5)
+#define     PWM1_CCR1L  (*(unsigned char volatile xdata *)0xfed6)
+#define     PWM1_CCR2   (*(unsigned int volatile xdata *)0xfed7)
+#define     PWM1_CCR2H  (*(unsigned char volatile xdata *)0xfed7)
+#define     PWM1_CCR2L  (*(unsigned char volatile xdata *)0xfed8)
+#define     PWM1_CCR3   (*(unsigned int volatile xdata *)0xfed9)
+#define     PWM1_CCR3H  (*(unsigned char volatile xdata *)0xfed9)
+#define     PWM1_CCR3L  (*(unsigned char volatile xdata *)0xfeda)
+#define     PWM1_CCR4   (*(unsigned int volatile xdata *)0xfedb)
+#define     PWM1_CCR4H  (*(unsigned char volatile xdata *)0xfedb)
+#define     PWM1_CCR4L  (*(unsigned char volatile xdata *)0xfedc)
+#define     PWM1_BKR    (*(unsigned char volatile xdata *)0xfedd)
+#define     PWM1_DTR    (*(unsigned char volatile xdata *)0xfede)
+#define     PWM1_OISR   (*(unsigned char volatile xdata *)0xfedf)
+#define     PWM2_CR1    (*(unsigned char volatile xdata *)0xfee0)
+#define     PWM2_CR2    (*(unsigned char volatile xdata *)0xfee1)
+#define     PWM2_SMCR   (*(unsigned char volatile xdata *)0xfee2)
+#define     PWM2_ETR    (*(unsigned char volatile xdata *)0xfee3)
+#define     PWM2_IER    (*(unsigned char volatile xdata *)0xfee4)
+#define     PWM2_SR1    (*(unsigned char volatile xdata *)0xfee5)
+#define     PWM2_SR2    (*(unsigned char volatile xdata *)0xfee6)
+#define     PWM2_EGR    (*(unsigned char volatile xdata *)0xfee7)
+#define     PWM2_CCMR1  (*(unsigned char volatile xdata *)0xfee8)
+#define     PWM2_CCMR2  (*(unsigned char volatile xdata *)0xfee9)
+#define     PWM2_CCMR3  (*(unsigned char volatile xdata *)0xfeea)
+#define     PWM2_CCMR4  (*(unsigned char volatile xdata *)0xfeeb)
+#define     PWM2_CCER1  (*(unsigned char volatile xdata *)0xfeec)
+#define     PWM2_CCER2  (*(unsigned char volatile xdata *)0xfeed)
+#define     PWM2_CNTR   (*(unsigned int volatile xdata *)0xfeee)
+#define     PWM2_CNTRH  (*(unsigned char volatile xdata *)0xfeee)
+#define     PWM2_CNTRL  (*(unsigned char volatile xdata *)0xfeef)
+#define     PWM2_PSCR   (*(unsigned int volatile xdata *)0xfef0)
+#define     PWM2_PSCRH  (*(unsigned char volatile xdata *)0xfef0)
+#define     PWM2_PSCRL  (*(unsigned char volatile xdata *)0xfef1)
+#define     PWM2_ARR    (*(unsigned int volatile xdata *)0xfef2)
+#define     PWM2_ARRH   (*(unsigned char volatile xdata *)0xfef2)
+#define     PWM2_ARRL   (*(unsigned char volatile xdata *)0xfef3)
+#define     PWM2_RCR    (*(unsigned char volatile xdata *)0xfef4)
+#define     PWM2_CCR1   (*(unsigned int volatile xdata *)0xfef5)
+#define     PWM2_CCR1H  (*(unsigned char volatile xdata *)0xfef5)
+#define     PWM2_CCR1L  (*(unsigned char volatile xdata *)0xfef6)
+#define     PWM2_CCR2   (*(unsigned int volatile xdata *)0xfef7)
+#define     PWM2_CCR2H  (*(unsigned char volatile xdata *)0xfef7)
+#define     PWM2_CCR2L  (*(unsigned char volatile xdata *)0xfef8)
+#define     PWM2_CCR3   (*(unsigned int volatile xdata *)0xfef9)
+#define     PWM2_CCR3H  (*(unsigned char volatile xdata *)0xfef9)
+#define     PWM2_CCR3L  (*(unsigned char volatile xdata *)0xfefa)
+#define     PWM2_CCR4   (*(unsigned int volatile xdata *)0xfefb)
+#define     PWM2_CCR4H  (*(unsigned char volatile xdata *)0xfefb)
+#define     PWM2_CCR4L  (*(unsigned char volatile xdata *)0xfefc)
+#define     PWM2_BKR    (*(unsigned char volatile xdata *)0xfefd)
+#define     PWM2_DTR    (*(unsigned char volatile xdata *)0xfefe)
+#define     PWM2_OISR   (*(unsigned char volatile xdata *)0xfeff)
 #endif
