@@ -1129,7 +1129,6 @@ sfr         USBADR      =           0xfc;
 sfr         USBDAT      =           0xec;
 
 #define     PWM1_ETRPS  (*(unsigned char volatile xdata *)0xfeb0)
-#define     MCLKOCR     (*(unsigned char volatile xdata *)0xfe05)
 #define     PWM1_ENO    (*(unsigned char volatile xdata *)0xfeb1)
 #define     PWM1_PS     (*(unsigned char volatile xdata *)0xfeb2)
 #define     PWM1_IOAUX  (*(unsigned char volatile xdata *)0xfeb3)

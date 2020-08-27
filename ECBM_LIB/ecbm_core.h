@@ -39,7 +39,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_RVN 2
 //BUG Version Number 发布版本号
 //每次发布到网上时，若只是修改BUG，该版本号加一。
-#define ECBM_BVN 8
+#define ECBM_BVN 10
 //<o>STC8系列型号选择
 //<i>列表提供的芯片类型都是测试通过能使用的。按照加入ecbm库的时间排序。
 //<i>ROM容量留空，在下一个选项中选择。
