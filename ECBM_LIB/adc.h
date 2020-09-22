@@ -151,30 +151,66 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
 #define ECBM_T2_ADC_CH15 1
 //</h>
-//<h>STC8G1K08A-8PIN系列设置
+//<h>STC8G1K08A-8PIN设置
 //<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
-//<i>当前的设置针对于STC8G1K08A-8PIN系列。
+//<i>当前的设置针对于STC8G1K08A-8PIN。
 //<q>通道0(P3.0)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
+//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
 #define ECBM_T3_ADC_CH0 0
 //<q>通道1(P3.1)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
+//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
 #define ECBM_T3_ADC_CH1 0
 //<q>通道2(P3.2)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
+//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
 #define ECBM_T3_ADC_CH2 0
 //<q>通道3(P3.3)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
+//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
 #define ECBM_T3_ADC_CH3 0
 //<q>通道4(P5.4)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
+//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
 #define ECBM_T3_ADC_CH4 0
 //<q>通道5(P5.5)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN系列。
+//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
 #define ECBM_T3_ADC_CH5 0
 //<q>通道15(BGV)
 #define ECBM_T3_ADC_CH15 1
 //</h>
+
+//<h>STC8H1K08设置
+//<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
+//<i>当前的设置针对于STC8H1K08。
+//<q>通道0(P1.0)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH0 1
+//<q>通道1(P1.1)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH1 0
+//<q>通道8(P3.0)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH8 0
+//<q>通道9(P3.1)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH9 0
+//<q>通道10(P3.2)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH10 0
+//<q>通道11(P3.3)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH11 0
+//<q>通道12(P3.4)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH12 0
+//<q>通道13(P3.5)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH13 0
+//<q>通道14(P3.6)
+//<i>该通道对应的IO只适用于STC8H1K08。
+#define ECBM_T4_ADC_CH14 0
+//<q>通道15(BGV)
+#define ECBM_T4_ADC_CH15 1
+//</h>
+
+
 //<h>ADC参数设置
 //<o.0..3>ADC的分频系数
 //<6-15>

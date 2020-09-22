@@ -718,6 +718,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	#define PWM_CH7_1   do{PWM7HLD=0x02;}while(0)//PWM的通道7强制输出高电平。
 	#define PWM_CH7_0   do{PWM7HLD=0x01;}while(0)//PWM的通道7强制输出低电平。
 	#define PWM_CH7_OUT do{PWM7HLD=0x00;}while(0)//PWM的通道7恢复输出PWM波状态。
+	
+	#define PWM_IT_CLS  do{PWMCFG&=~0x80;}while(0)//清中断标志
 #elif   ECBM_MCU_MAIN_RAM == 2 //STC8G2K
 	#define PWM_G_RST     do{PWMSET|=0x04;PWMSET=0x00;}while(0)
 	#define	PWM_GPIO0_ON  do{PWMCFG01|=0x01;}while(0)

@@ -26,10 +26,10 @@ bit uart4_busy;
 #if    (UART4_S4CON_CONFIG&0x20)&&((UART4_S4CON_CONFIG&0x80)==0)
 #error 若开启串口4的多机通信功能，请把工作模式设置为9位！
 #endif
-#if    (UART2_EN == 1)&&(ECBM_MCU_UART == 1)
+#if    (UART2_EN == 1)&&(ECBM_MCU_UART < 2)
 #error 当前单片机型号不支持串口2，请更换型号或者关闭串口2。
 #endif
-#if    (UART3_EN == 1)&&(ECBM_MCU_UART < 4)
+#if    (UART3_EN == 1)&&(ECBM_MCU_UART < 3)
 #error 当前单片机型号不支持串口3，请更换型号或者关闭串口3。
 #endif
 #if    (UART4_EN == 1)&&(ECBM_MCU_UART < 4)

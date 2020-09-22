@@ -88,15 +88,17 @@ void system_check(){
 	#if ECBM_MCU_ROM == 65024
 		debug("64");
 	#else
-		debug("%2u",(u16)(ECBM_MCU_ROM>>10));
+		debug("%02u",(u16)(ECBM_MCU_ROM>>10));
 	#endif
+	#if ECBM_MCU_MAIN_RAM ==1
 	#if ECBM_MCU_UART > 1
 		debug("S%1u",(u16)(ECBM_MCU_UART));
 	#endif
-	#if ECBM_MCU_ADC == 1024
+	#if (ECBM_MCU_ADC == 1024.0f)
 		debug("A10");
-	#elif ECBM_MCU_ADC == 4096
+	#elif (ECBM_MCU_ADC == 4096.0f)
 		debug("A12");
+	#endif
 	#endif
 	j=0;
 	debug("\r\nChecking MCU");
@@ -184,7 +186,8 @@ void system_init(void){
 	
 	
 	#if SYS_CLOCK == 0//如果使能了标准频率（HSI），
-	#if ECBM_MCU_MAIN_RAM == 2//检查是不是有两个频段的型号。
+	#if (ECBM_MCU_MAIN_RAM >= 2)
+	//检查是不是有两个频段的型号。
 		if(IRCBAND){//如果用的是33M频段，就用中心频率36M来计算。
 			sys_count=36000000L-(s32)((s32)REG_HSI1-(s32)IRTRIM)*ECBM_SYSCLK_STEP2;
 		}else{//如果用的是24M频段，就用中心频率24M来计算。
@@ -246,7 +249,7 @@ void system_init(void){
 	#endif
 	EA_ON;//打开总中断。
 	#if CHECK_EN
-	delay_ms(200);
+	delay_ms(500);
 	system_check();
 	#endif
 }

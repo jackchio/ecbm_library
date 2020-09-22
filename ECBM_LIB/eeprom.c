@@ -77,7 +77,7 @@ void eeprom_init(void){
 	pro=0;
 	cls=0;
 //	debug("wait=%u\r\n",(u16)eeprom_wait);
-	#elif ECBM_MCU_MAIN_RAM == 2
+	#elif ECBM_MCU_MAIN_RAM >= 2
 	eeprom_wait=ecbm_sys_clk/1000000;
 	IAP_TPS=eeprom_wait;
 	eeprom_wait=0;

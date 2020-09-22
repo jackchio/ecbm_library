@@ -129,6 +129,42 @@ void adc_init(){
 		gpio_mode(A05,GPIO_HZ);
 	#endif
 #endif
+
+#if ECBM_MCU_MAIN_RAM == 4 //STC8H1K__
+	#if ECBM_T4_ADC_CH0
+		gpio_mode(A00,GPIO_HZ);
+	#endif
+	#if ECBM_T4_ADC_CH1
+		gpio_mode(A01,GPIO_HZ);
+	#endif
+	
+	#if ECBM_T4_ADC_CH8
+		gpio_mode(A08,GPIO_HZ);
+	#endif
+	
+	#if ECBM_T4_ADC_CH9
+		gpio_mode(A09,GPIO_HZ);
+	#endif
+	
+	#if ECBM_T4_ADC_CH10
+		gpio_mode(A10,GPIO_HZ);
+	#endif
+
+	#if ECBM_T4_ADC_CH11
+		gpio_mode(A11,GPIO_HZ);
+	#endif
+	
+	#if ECBM_T4_ADC_CH12
+		gpio_mode(A12,GPIO_HZ);
+	#endif
+	#if ECBM_T4_ADC_CH13
+		gpio_mode(A13,GPIO_HZ);
+	#endif
+	#if ECBM_T4_ADC_CH14
+		gpio_mode(A14,GPIO_HZ);
+	#endif
+
+#endif
 }
 /*-------------------------------------------------------
 查询法读取AD值函数。

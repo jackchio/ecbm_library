@@ -127,7 +127,7 @@ extern u8 eeprom_read(u16 addr);
 创建日期：2020-04-29
 修改记录：
 -------------------------------------------------------*/
-void eeprom_read_ex(u16 addr,u8 * dat,u16 num);
+extern void eeprom_read_ex(u16 addr,u8 * dat,u16 num);
 /*-------------------------------------------------------
 函数名：eeprom_write_ex
 描  述：eeprom写函数延伸版(extension)。
@@ -141,5 +141,5 @@ void eeprom_read_ex(u16 addr,u8 * dat,u16 num);
 创建日期：2020-04-29
 修改记录：
 -------------------------------------------------------*/
-void eeprom_write_ex(u16 addr,u8 * dat,u16 num);
+extern void eeprom_write_ex(u16 addr,u8 * dat,u16 num);
 #endif

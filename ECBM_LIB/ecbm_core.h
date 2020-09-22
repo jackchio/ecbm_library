@@ -39,15 +39,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_RVN 2
 //BUG Version Number 发布版本号
 //每次发布到网上时，若只是修改BUG，该版本号加一。
-#define ECBM_BVN 10
+#define ECBM_BVN 11
 //<o>STC8系列型号选择
 //<i>列表提供的芯片类型都是测试通过能使用的。按照加入ecbm库的时间排序。
 //<i>ROM容量留空，在下一个选项中选择。
-//<0=>STC8F2K__S2 <1=>STC8A8K__S4A12 <2=>STC8G2K__S4-48PIN  <3=>STC8G1K__A-8Pin
+//<0=>STC8F2K__S2 <1=>STC8A8K__S4A12 <2=>STC8G2K__S4-48PIN  <3=>STC8G1K__A-8Pin  <4=>STC8H1K__
 #define ECBM_MCU_MAIN_RAM 1
 //<o>ROM选择
 //<i>选择单片机的flash容量大小，主要影响唯一ID的读取和EEPROM空间的大小。
-//<8192=>08 <16384=>16 <24576=>24 <32768=>32 <40960=>40 
+//<8192=>08 <16384=>16 <16897=>17  <24576=>24 <32768=>32 <40960=>40 
 //<49152=>48 <57344=>56 <61440=>60 <65024=>64
 #define ECBM_MCU_ROM 65024
 //<o>EEPROM选择
@@ -268,6 +268,26 @@ extern u16 xdata ecbm_delay_base;
 #  define   A03 0x33
 #  define   A04 0x54
 #  define   A05 0x55
+#  define   ECBM_MCU_ADC  1024.0f
+#  define   ECBM_MCU_UART 2
+/*#################################################################################*/
+#elif       ECBM_MCU_MAIN_RAM == 4 //STC8H1K__
+#  define   ECBM_MCU_NAME    "STC8H1K"
+#  define   ECBM_MCU_XDATA   1024
+#  if       ECBM_MCU_ROM != 16897
+#    define ECBM_MCU_EEPROM  (12288-ECBM_MCU_ROM)
+#  else
+#    define ECBM_MCU_EEPROM  ECBM_MCU_EEPROM_SIZE
+#  endif
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A08 0x30
+#  define   A09 0x31
+#  define   A10 0x32
+#  define   A11 0x33
+#  define   A12 0x34
+#  define   A13 0x35
+#  define   A14 0x36
 #  define   ECBM_MCU_ADC  1024.0f
 #  define   ECBM_MCU_UART 2
 #endif
