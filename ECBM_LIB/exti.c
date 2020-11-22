@@ -1,62 +1,57 @@
 #include "ecbm_core.h"
-#if ECBM_EXTI_EN
+#if ECBM_EXTI_LIB_EN
 /*--------------------------------------程序定义-----------------------------------*/
 /*------------------------------------------------------
 外部中断初始化函数。
 -------------------------------------------------------*/
 void exti_init(void){
 	#if ECBM_EXTI0_EN    //外部中断0，即P32口。可选择触发方式。
-		P3M1&=0xFB;      //设置P32为输入状态。
-		P3M0&=0xFB;      //P3.2(11111011B,11111011B)。
-		P32=1;           //置一，防止内部接地影响读取。
+		gpio_mode(D32,GPIO_IN);//设置P32为输入状态。
+		EXTI0_SET_IO_HIGH;//置一，防止内部接地影响读取。       
 		#if ECBM_EXTI0_MODE == 0 //通过配置信息判断	。	
-			EXTI0_UD;    //设置上升沿/下降沿中断。
+			EXTI0_SET_MODE_UP_DOWM;    //设置上升沿/下降沿中断。
 		#else
-			EXTI0_D;     //设置下降沿中断。
+			EXTI0_SET_MODE_DOWM;     //设置下降沿中断。
 		#endif
 		#if ECBM_EXTI0_INIT
-			EXTI0_ON;    //打开外部中断0。
+			EXTI0_ENABLE;    //打开外部中断0。
 		#endif
 	#endif
 	
-	#if ECBM_EXTI1_EN    //外部中断1，即P33口。可选择触发方式。           
-		P3M1&=0xF7;      //设置P33为输入状态。
-		P3M0&=0xF7;      //P3.3(11110111B,11110111B)。
-		P33=1;           //置一，防止内部接地影响读取。
+	#if ECBM_EXTI1_EN    //外部中断1，即P33口。可选择触发方式。  
+		gpio_mode(D33,GPIO_IN);//设置P33为输入状态。
+		EXTI1_SET_IO_HIGH;//置一，防止内部接地影响读取。   
 		#if ECBM_EXTI1_MODE == 0 //通过配置信息判断。	
-			EXTI1_UD;    //设置上升沿/下降沿中断。
+			EXTI1_SET_MODE_UP_DOWM;    //设置上升沿/下降沿中断。
 		#else
-			EXTI1_D;     //设置下降沿中断。
+			EXTI1_SET_MODE_DOWM;     //设置下降沿中断。
 		#endif
 		#if ECBM_EXTI1_INIT
-			EXTI1_ON;    //打开外部中断1。
+			EXTI1_ENABLE;    //打开外部中断1。
 		#endif
 	#endif
 	
-	#if ECBM_EXTI2_EN    //外部中断2，即P36口。           
-		P3M1&=0xBF;      //设置P36为输入状态。
-		P3M0&=0xBF;      //P3.6(10111111B,10111111B)。
-		P36=1;           //置一，防止内部接地影响读取。
+	#if ECBM_EXTI2_EN    //外部中断2，即P36口。   
+		gpio_mode(D36,GPIO_IN);//设置P36为输入状态。
+		EXTI2_SET_IO_HIGH;//置一，防止内部接地影响读取。
 		#if ECBM_EXTI2_INIT
-			EXTI2_ON;    //打开外部中断2。
+			EXTI2_ENABLE;    //打开外部中断2。
 		#endif
 	#endif
 	
-	#if ECBM_EXTI3_EN    //外部中断3，即P37口。              
-		P3M1&=0x7F;      //设置P37为输入状态。
-		P3M0&=0x7F;      //P3.7(01111111B,01111111B)。
-		P37=1;           //置一，防止内部接地影响读取。	
+	#if ECBM_EXTI3_EN    //外部中断3，即P37口。  
+		gpio_mode(D37,GPIO_IN);//设置P37为输入状态。
+		EXTI3_SET_IO_HIGH;//置一，防止内部接地影响读取。
 		#if ECBM_EXTI3_INIT
-			EXTI3_ON;    //打开外部中断3。
+			EXTI3_ENABLE;    //打开外部中断3。
 		#endif
 	#endif
 	
 	#if ECBM_EXTI4_EN    //外部中断4，即P30口。
-		P3M1&=0xFE;      //设置P30为输入状态。
-		P3M0&=0xFE;      //P3.0(11111110B,11111110B)。
-		P30=1;           //置一，防止内部接地影响读取。
+		gpio_mode(D30,GPIO_IN);//设置P30为输入状态。
+		EXTI4_SET_IO_HIGH;//置一，防止内部接地影响读取。
 		#if ECBM_EXTI4_INIT
-			EXTI4_ON;            //打开外部中断4
+			EXTI4_ENABLE;            //打开外部中断4
 		#endif
 	#endif
 }
@@ -66,31 +61,21 @@ void exti_init(void){
 void exti_start(u8 id){
 	switch(id){//根据ID跳到对应分支。
 		#if ECBM_EXTI0_EN
-		case 0:{
-			EXTI0_ON;
-		}break;
+		case 0:{EXTI0_ENABLE;}break;
 		#endif
 		#if ECBM_EXTI1_EN
-		case 1:{
-			EXTI1_ON;
-		}break;
+		case 1:{EXTI1_ENABLE;}break;
 		#endif
 		#if ECBM_EXTI2_EN
-		case 2:{
-			EXTI2_ON;
-		}break;
+		case 2:{EXTI2_ENABLE;}break;
 		#endif
 		#if ECBM_EXTI3_EN
-		case 3:{
-			EXTI3_ON;
-		}break;
+		case 3:{EXTI3_ENABLE;}break;
 		#endif
 		#if ECBM_EXTI4_EN
-		case 4:{
-			EXTI4_ON;
-		}break;
+		case 4:{EXTI4_ENABLE;}break;
 		#endif
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		default:error_printf("exti_start(<%d>);错误的ID\r\n",(u16)id);break;
 		#else
 		default:while(1);break;
@@ -103,31 +88,21 @@ void exti_start(u8 id){
 void exti_stop(u8 id){
 	switch(id){//根据ID跳到对应分支。
 		#if ECBM_EXTI0_EN
-		case 0:{
-			EXTI0_OFF;
-		}break;
+		case 0:{EXTI0_DISABLE;}break;
 		#endif
 		#if ECBM_EXTI1_EN
-		case 1:{
-			EXTI1_OFF;
-		}break;
+		case 1:{EXTI1_DISABLE;}break;
 		#endif
 		#if ECBM_EXTI2_EN
-		case 2:{
-			EXTI2_OFF;
-		}break;
+		case 2:{EXTI2_DISABLE;}break;
 		#endif
 		#if ECBM_EXTI3_EN
-		case 3:{
-			EXTI3_OFF;
-		}break;
+		case 3:{EXTI3_DISABLE;}break;
 		#endif
 		#if ECBM_EXTI4_EN
-		case 4:{
-			EXTI4_OFF;
-		}break;
+		case 4:{EXTI4_DISABLE;}break;
 		#endif
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		default:error_printf("exti_stop(<%d>);错误的ID\r\n",(u16)id);break;
 		#else
 		default:while(1);break;
@@ -137,19 +112,27 @@ void exti_stop(u8 id){
 /*------------------------------------------------------
 中断模式设置函数。
 -------------------------------------------------------*/
-void exti_set_mode(u8 id,bit mode){
+void exti_set_mode(u8 id,u8 mode){
 	switch(id){//根据ID跳到对应分支。
 		#if ECBM_EXTI0_EN
 		case 0:{
-			IT0=mode;
+			if(mode){
+				EXTI0_SET_MODE_DOWM;
+			}else{
+				EXTI0_SET_MODE_UP_DOWM;
+			}
 		}break;
 		#endif
 		#if ECBM_EXTI1_EN
 		case 1:{
-			IT1=mode;
+			if(mode){
+				EXTI1_SET_MODE_DOWM;
+			}else{
+				EXTI1_SET_MODE_UP_DOWM;
+			}
 		}break;
 		#endif
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		default:error_printf("exti_set_mode(<%d>,%d);错误的ID\r\n",(u16)id,(u16)mode);break;
 		#else
 		default:while(1);break;

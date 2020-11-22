@@ -32,7 +32,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------*/
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
-//<h>SPI库内部设置
 //<o.4>主/从机
 //<0=>从机  <1=>主机
 //<i>根据自己的需求设置。
@@ -56,36 +55,32 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_SPI_REG 0x50
 //<o.2..3>SPI输出管脚
 //<i>定义SPI输出的管脚，共有4组可选。
-//<0=>SS-P12|MOSI-P13|MISO-P14|SCLK-P15
-//<1=>SS-P22|MOSI-P23|MISO-P24|SCLK-P25
-//<2=>SS-P74|MOSI-P75|MISO-P76|SCLK-P77
-//<3=>SS-P35|MOSI-P34|MISO-P33|SCLK-P32
+//<0=>SS-P12|MOSI-P13|MISO-P14|SCLK-P15(全系列，除STC8G的8脚和STC8H带U或T后缀以外)
+//<0=>SS-P55|MOSI-P54|MISO-P33|SCLK-P32(仅限STC8G1K08和STC8G1K08A)
+//<0=>SS-P54|MOSI-P13|MISO-P14|SCLK-P15(仅限STC8H里带U或T后缀)
+//<1=>SS-P22|MOSI-P23|MISO-P24|SCLK-P25(全系列，除STC8G的8脚以外)
+//<2=>SS-P74|MOSI-P75|MISO-P76|SCLK-P77(仅限STC8F和STC8A系列)
+//<2=>SS-P54|MOSI-P40|MISO-P41|SCLK-P43(仅限STC8H和STC8G除8脚以外系列)
+//<3=>SS-P35|MOSI-P34|MISO-P33|SCLK-P32(全系列，除STC8G的8脚以外)
 #define ECBM_SPI_IO 0
-//</h>
+//<<< end of configuration section >>>
 //<q>SPI中断
 //<i>SPI传输完成一个字节就会触发中断。
 #define ECBM_SPI_IT_EN 0
-//<<< end of configuration section >>>
 //-----------------以上是图形设置界面，可在Configuration Wizard界面设置-----------------
 /*---------------------------------------头文件------------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
 /*---------------------------------------宏定义------------------------------------*/
-#define SPI_IT_ON  do{IE2|=0x02;}while(0)
-#define SPI_IT_OFF do{IE2&=0xFD;}while(0)
-#define SPI_IT_ID  interrupt 9
-#define SPI_PIN_P1 0
-#define SPI_PIN_P2 4
-#define SPI_PIN_P7 8
-#define SPI_PIN_P3 12
-#if ECBM_SPI_IT_EN == 1
-extern u8 xdata spi_busy;
-#define SPI_IT_CLS do{SPSTAT = 0xc0;spi_busy=0;}while(0)
-#endif
-//void SPI_Isr() SPI_IT_ID
-//{
-//    SPI_IT_CLS;     //清中断标志
-//    LED = !LED;     //测试端口
-//}
+#define SPI_PIN_P12_P13_P14_P15 0
+#define SPI_PIN_P22_P23_P24_P25 4
+#define SPI_PIN_P74_P75_P76_P77 8
+#define SPI_PIN_P35_P34_P33_P32 12
+
+#define SPI_PIN_P54_P40_P41_P43 8
+
+#define SPI_PIN_P55_P54_P33_P32 0
+
+#define SPI_PIN_P54_P13_P14_P15 0
 /*--------------------------------------程序定义-----------------------------------*/
 /*-------------------------------------------------------
 函数名：spi_set_pin

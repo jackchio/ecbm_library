@@ -1,5 +1,5 @@
 #include "ecbm_core.h"//统一加载核心头文件
-#if ECBM_SOFT_SPI_EN
+#if ECBM_SOFTSPI_LIB_EN
 u8 xdata soft_spi_def_clk_port;
 u8 xdata soft_spi_def_clk_pin;
 u8 xdata soft_spi_def_mosi_port;
@@ -37,23 +37,22 @@ void soft_spi_init(soft_spi_def * dev,u8 clk,u8 mosi,u8 miso,u8 cs,u8 mode){
 	dev->miso_pin=miso;            //保存数据输入脚信息。
 	dev->cs_pin  =cs;              //保存片选脚信息。
 	dev->mode    =mode;            //保存模式信息。
-	gpio_mode(clk, GPIO_PP);       //时钟脚设置为推挽。
+	gpio_mode(clk, GPIO_OUT);      //时钟脚设置为推挽。
 	if(mode&SOFT_SPI_CPOL_MASK){   //查看时钟极性设置，
 		gpio_out(clk,1);           //极性是高电平就先置高，
 	}else{
 		gpio_out(clk,0);           //极性是低电平就先置低。
 	}
 	if(mode&SOFT_SPI_MOSI_EN_MASK){//查看MOSI使能，
-		gpio_mode(mosi,GPIO_PP);   //使能了就设置为推挽模式。
+		gpio_mode(mosi,GPIO_OUT);  //使能了就设置为推挽模式。
 		gpio_out (mosi,1);         //默认高电平。
 	}
 	if(mode&SOFT_SPI_MISO_EN_MASK){//查看MISO使能，
-		gpio_mode  (miso,GPIO_OD); //使能了就设置为开漏模式。
-		gpio_uppull(miso,1);       //开启上拉电阻。
+		gpio_mode  (miso,GPIO_IN); //使能了就设置为弱上拉模式。
 		gpio_out   (miso,1);       //默认高电平。
 	}
 	if(mode&SOFT_SPI_CS_EN_MASK){  //查看片选脚使能，
-		gpio_mode(cs,GPIO_PP);     //使能了就设置为推挽模式。
+		gpio_mode(cs,GPIO_OUT);    //使能了就设置为推挽模式。
 		gpio_out (cs,1);           //默认高电平。
 	}
 	dev->dev_id=++soft_spi_max;    //获取ID号。
@@ -81,23 +80,22 @@ void soft_spi_set_pin_linkage(u8 id,u8 clk,u8 mosi,u8 miso,u8 cs,u8 mode){
 -------------------------------------------------------*/
 u8 soft_spi_init_linkage(u8 clk,u8 mosi,u8 miso,u8 cs,u8 mode){
 	u8 id;                         //唯一ID号
-	gpio_mode(clk, GPIO_PP);       //时钟脚设置为推挽。
+	gpio_mode(clk, GPIO_OUT);      //时钟脚设置为推挽。
 	if(mode&SOFT_SPI_CPOL_MASK){   //查看时钟极性设置，
 		gpio_out(clk,1);           //极性是高电平就先置高，
 	}else{
 		gpio_out(clk,0);           //极性是低电平就先置低。
 	}
 	if(mode&SOFT_SPI_MOSI_EN_MASK){//查看MOSI使能，
-		gpio_mode(mosi,GPIO_PP);   //使能了就设置为推挽模式。
+		gpio_mode(mosi,GPIO_OUT);  //使能了就设置为推挽模式。
 		gpio_out (mosi,1);         //默认高电平。
 	}
 	if(mode&SOFT_SPI_MISO_EN_MASK){//查看MISO使能，
-		gpio_mode  (miso,GPIO_OD); //使能了就设置为开漏模式。
-		gpio_uppull(miso,1);       //开启上拉电阻。
+		gpio_mode  (miso,GPIO_IN); //使能了就设置为弱上拉模式。
 		gpio_out   (miso,1);       //默认高电平。
 	}
 	if(mode&SOFT_SPI_CS_EN_MASK){  //查看片选脚使能，
-		gpio_mode(cs,GPIO_PP);     //使能了就设置为推挽模式。
+		gpio_mode(cs,GPIO_OUT);    //使能了就设置为推挽模式。
 		gpio_out (cs,1);           //默认高电平。
 	}
 	id =++soft_spi_max;            //获取ID号。

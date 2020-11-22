@@ -1,5 +1,5 @@
 #include "ecbm_core.h"
-#if ECBM_EEPROM_EN
+#if ECBM_EEPROM_LIB_EN
 /*--------------------------------------变量定义-----------------------------------*/
 u8 eeprom_wait;//EEPROM的等待时间。
 /*--------------------------------------程序定义-----------------------------------*/
@@ -7,7 +7,7 @@ u8 eeprom_wait;//EEPROM的等待时间。
 eeprom初始化函数。
 -------------------------------------------------------*/
 void eeprom_init(void){
-	#if  ((ECBM_MCU_MAIN_RAM == 0)||(ECBM_MCU_MAIN_RAM == 1))
+#if  ((ECBM_MCU&0xF00000)<=0x200000)
 	u32 pro,cls;
 //7
 	pro=ecbm_sys_clk/7;
@@ -77,68 +77,57 @@ void eeprom_init(void){
 	pro=0;
 	cls=0;
 //	debug("wait=%u\r\n",(u16)eeprom_wait);
-	#elif ECBM_MCU_MAIN_RAM >= 2
+#else
 	eeprom_wait=ecbm_sys_clk/1000000;
 	IAP_TPS=eeprom_wait;
 	eeprom_wait=0;
-	#endif
+#endif
 }
 /*-------------------------------------------------------
 eeprom关闭函数。
 -------------------------------------------------------*/
 void eeprom_off(){
-    IAP_CONTR = 0;   //关闭IAP功能
-    IAP_CMD   = 0;   //清除命令寄存器
-    IAP_TRIG  = 0;   //清除触发寄存器
-    IAP_ADDRH = 0xff;//将地址设置到非IAP区域
-    IAP_ADDRL = 0xff;//将地址设置到非IAP区域
+	IAP_SET_REG_CONTR(0);		//关闭IAP功能
+	IAP_CMD_NOP;				//清除命令寄存器
+	IAP_TRIG_CLS;				//清除触发寄存器
+	IAP_SET_REG_ADDR_H8(0xff);	//将地址设置到非IAP区域
+    IAP_SET_REG_ADDR_L8(0xff);	//将地址设置到非IAP区域
 }
 /*-------------------------------------------------------
 eeprom擦除函数。
 -------------------------------------------------------*/
 void eeprom_erase(u16 addr){
-	if(addr<ECBM_EEPROM_SIZE){		 //地址在范围内才会擦除
-		IAP_CONTR = eeprom_wait|0x80;//使能IAP
-		IAP_CMD   = 3;               //设置IAP擦除命令
-		IAP_ADDRL = addr;            //设置IAP低地址
-		IAP_ADDRH = addr >> 8;       //设置IAP高地址
-		IAP_TRIG  = 0x5a;            //写触发命令(0x5a)
-		IAP_TRIG  = 0xa5;            //写触发命令(0xa5)
-		_nop_();                     //稍稍等待一下
-		eeprom_off();                //关闭IAP功能
-	}
+	IAP_SET_REG_CONTR(eeprom_wait|IAPEN);//使能IAP
+	IAP_CMD_ERASE;				//设置IAP擦除命令
+	IAP_SET_REG_ADDR_HL(addr);	//设置IAP地址
+	IAP_TRIG_ON;				//触发命令
+	_nop_();					//稍稍等待一下
+	eeprom_off();				//关闭IAP功能
 }
 /*-------------------------------------------------------
 eeprom写函数。
 -------------------------------------------------------*/
 void eeprom_write(u16 addr,u8 dat){
-	if(addr<ECBM_EEPROM_SIZE){		 //地址在范围内才会写入
-		IAP_CONTR = eeprom_wait|0x80;//使能IAP
-		IAP_CMD   = 2;               //设置IAP写命令
-		IAP_ADDRL = addr;            //设置IAP低地址
-		IAP_ADDRH = addr >> 8;       //设置IAP高地址
-		IAP_DATA  = dat;             //写IAP数据
-		IAP_TRIG  = 0x5a;            //写触发命令(0x5a)
-		IAP_TRIG  = 0xa5;            //写触发命令(0xa5)
-		_nop_();                     //稍稍等待一下
-		eeprom_off();                //关闭IAP功能
-	}
+	IAP_SET_REG_CONTR(eeprom_wait|IAPEN);//使能IAP
+	IAP_CMD_WRITE;				//设置IAP写命令
+	IAP_SET_REG_ADDR_HL(addr);	//设置IAP地址
+	IAP_SET_REG_DATA(dat);		//写IAP数据
+	IAP_TRIG_ON;				//触发命令
+	_nop_();					//稍稍等待一下
+	eeprom_off();				//关闭IAP功能
 }
 /*-------------------------------------------------------
 eeprom读函数。
 -------------------------------------------------------*/
 u8 eeprom_read(u16 addr){
     u8 dat;
-	if(addr>=ECBM_EEPROM_SIZE)return 0xff;//地址超出之后，返回FF
-    IAP_CONTR = eeprom_wait|0x80;    //使能IAP
-    IAP_CMD   = 1;                   //设置IAP读命令
-    IAP_ADDRL = addr;                //设置IAP低地址
-    IAP_ADDRH = addr >> 8;           //设置IAP高地址
-    IAP_TRIG  = 0x5a;                //写触发命令(0x5a)
-    IAP_TRIG  = 0xa5;                //写触发命令(0xa5)
-    _nop_();                         //稍稍等待一下
-    dat       = IAP_DATA;            //读IAP数据
-    eeprom_off();                    //关闭IAP功能
+	IAP_SET_REG_CONTR(eeprom_wait|IAPEN);	//使能IAP
+    IAP_CMD_READ;							//设置IAP读命令
+	IAP_SET_REG_ADDR_HL(addr);				//设置IAP地址
+	IAP_TRIG_ON;							//触发命令
+    _nop_();								//稍稍等待一下
+    dat=IAP_GET_REG_DATA;					//读IAP数据
+    eeprom_off();							//关闭IAP功能
     return dat;
 }
 #if ECBM_EEPROM_EX_EN

@@ -1,5 +1,4 @@
 #include "ecbm_core.h"
-#if ECBM_GPIO_EN
 u8 code ecbm_pin_mask[]={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80};
 u8 data ecbm_port,ecbm_pin;
 /*--------------------------------------程序定义-----------------------------------*/
@@ -8,13 +7,13 @@ u8 data ecbm_port,ecbm_pin;
 IO口上拉电阻配置函数。
 -------------------------------------------------------*/
 #if ECBM_GPIO_UPPULL_EN
-void gpio_uppull(u8 pin,bit en){
+void gpio_uppull(u8 pin,u8 en){
 	/*---从这里开始，都是在解读IO口编号。---*/
 	if(pin==Dxx)goto gpio_uppull_end;
 	ecbm_port=pin&0xf0;
 	ecbm_pin =ecbm_pin_mask[pin&0x0f];
 	if((pin&0x0f)>7){
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		error_printf("gpio_uppull(<D%02X>,%d);不存在该IO\r\n",(u16)pin,(u16)en);
 		#else
 		while(1);
@@ -47,7 +46,7 @@ void gpio_uppull(u8 pin,bit en){
 			#if ECBM_GPIO7_EN
 			case 0x70:P7PU|=ecbm_pin;break;
 			#endif
-			#if SYS_ERROR_EN
+			#if ECBM_ERROR_PRINTF_EN
 			default:error_printf("gpio_uppull(<D%02X>,1);不存在该IO\r\n",(u16)pin);break;
 			#else
 			default:while(1);break;
@@ -79,7 +78,7 @@ void gpio_uppull(u8 pin,bit en){
 			#if ECBM_GPIO7_EN
 			case 0x70:P7PU&=~ecbm_pin;break;
 			#endif
-			#if SYS_ERROR_EN
+			#if ECBM_ERROR_PRINTF_EN
 			default:error_printf("gpio_uppull(<D%02X>,0);不存在该IO\r\n",(u16)pin);break;
 			#else
 			default:while(1);break;
@@ -99,7 +98,7 @@ void gpio_mode(u8 pin,u8 mode){
 	ecbm_port=pin&0xf0;
 	ecbm_pin=ecbm_pin_mask[pin&0x0f];
 	if((pin&0x0f)>7){
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		error_printf("gpio_mode(<D%02X>,%d);不存在该IO\r\n",(u16)pin,(u16)mode);
 		#else
 		while(1);
@@ -130,7 +129,7 @@ void gpio_mode(u8 pin,u8 mode){
 		#if ECBM_GPIO7_EN
 		case 0x70:ecbm_port=GPIO_P7;break;
 		#endif
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		default:error_printf("gpio_mode(<D%02X>,%d);不存在该IO\r\n",(u16)pin,(u16)mode);break;
 		#else
 		default:while(1);break;
@@ -138,7 +137,7 @@ void gpio_mode(u8 pin,u8 mode){
 	}
 	/*-------到这里结束，解读完成。-------*/
 	if(mode>3){
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		error_printf("gpio_mode(D%02X,<%d>);不存在该模式\r\n",(u16)pin,(u16)mode);
 		#else
 		while(1);
@@ -211,6 +210,222 @@ void gpio_mode(u8 pin,u8 mode){
 	gpio_mode_end:;
 }
 #endif
+/*-------------------------------------------------------
+设置IO口工作速度函数。
+-------------------------------------------------------*/
+#if	ECBM_GPIO_SPEED_EN == 1
+#if ((ECBM_MCU&0xF00000)>0x200000)//检查是不是GH。
+void gpio_speed(u8 pin,u8 speed){
+	/*---从这里开始，都是在解读IO口编号。---*/
+	if(pin==Dxx)goto gpio_speed_end;
+	ecbm_port=pin&0xf0;
+	ecbm_pin=ecbm_pin_mask[pin&0x0f];
+	if((pin&0x0f)>7){
+		#if ECBM_ERROR_PRINTF_EN
+		error_printf("gpio_speed(<D%02X>,%d);不存在该IO\r\n",(u16)pin,(u16)speed);
+		#else
+		while(1);
+		#endif	
+	}
+	switch(ecbm_port){
+		#if ECBM_GPIO0_EN
+		case 0x00:ecbm_port=GPIO_P0;break;
+		#endif
+		#if ECBM_GPIO1_EN
+		case 0x10:ecbm_port=GPIO_P1;break;
+		#endif
+		#if ECBM_GPIO2_EN
+		case 0x20:ecbm_port=GPIO_P2;break;
+		#endif
+		#if ECBM_GPIO3_EN
+		case 0x30:ecbm_port=GPIO_P3;break;
+		#endif
+		#if ECBM_GPIO4_EN
+		case 0x40:ecbm_port=GPIO_P4;break;
+		#endif
+		#if ECBM_GPIO5_EN
+		case 0x50:ecbm_port=GPIO_P5;break;
+		#endif
+		#if ECBM_GPIO6_EN
+		case 0x60:ecbm_port=GPIO_P6;break;
+		#endif
+		#if ECBM_GPIO7_EN
+		case 0x70:ecbm_port=GPIO_P7;break;
+		#endif
+		#if ECBM_ERROR_PRINTF_EN
+		default:error_printf("gpio_speed(<D%02X>,%d);不存在该IO\r\n",(u16)pin,(u16)speed);break;
+		#else
+		default:while(1);break;
+		#endif
+	}
+	/*-------到这里结束，解读完成。-------*/
+	if(speed==GPIO_SLOW){
+		switch(ecbm_port){
+			#if ECBM_GPIO0_EN
+			case GPIO_P0:{P0SR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO1_EN
+			case GPIO_P1:{P1SR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO2_EN
+			case GPIO_P2:{P2SR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO3_EN
+			case GPIO_P3:{P3SR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO4_EN
+			case GPIO_P4:{P4SR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO5_EN
+			case GPIO_P5:{P5SR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO6_EN
+			case GPIO_P6:{P6SR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO7_EN
+			case GPIO_P7:{P7SR|=ecbm_pin;}break;
+			#endif
+		}
+	}else{
+		switch(ecbm_port){
+			#if ECBM_GPIO0_EN
+			case GPIO_P0:{P0SR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO1_EN
+			case GPIO_P1:{P1SR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO2_EN
+			case GPIO_P2:{P2SR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO3_EN
+			case GPIO_P3:{P3SR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO4_EN
+			case GPIO_P4:{P4SR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO5_EN
+			case GPIO_P5:{P5SR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO6_EN
+			case GPIO_P6:{P6SR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO7_EN
+			case GPIO_P7:{P7SR&=~ecbm_pin;}break;
+			#endif
+		}		
+	}
+	gpio_speed_end:;
+}
+#endif
+#endif
+/*-------------------------------------------------------
+设置IO口驱动电流函数。
+-------------------------------------------------------*/
+#if	ECBM_GPIO_CURRENT_EN == 1
+#if ((ECBM_MCU&0xF00000)>0x200000)//检查是不是GH。
+void gpio_current(u8 pin,u8 current){
+	/*---从这里开始，都是在解读IO口编号。---*/
+	if(pin==Dxx)goto gpio_current_end;
+	ecbm_port=pin&0xf0;
+	ecbm_pin=ecbm_pin_mask[pin&0x0f];
+	if((pin&0x0f)>7){
+		#if ECBM_ERROR_PRINTF_EN
+		error_printf("gpio_current(<D%02X>,%d);不存在该IO\r\n",(u16)pin,(u16)current);
+		#else
+		while(1);
+		#endif	
+	}
+	switch(ecbm_port){
+		#if ECBM_GPIO0_EN
+		case 0x00:ecbm_port=GPIO_P0;break;
+		#endif
+		#if ECBM_GPIO1_EN
+		case 0x10:ecbm_port=GPIO_P1;break;
+		#endif
+		#if ECBM_GPIO2_EN
+		case 0x20:ecbm_port=GPIO_P2;break;
+		#endif
+		#if ECBM_GPIO3_EN
+		case 0x30:ecbm_port=GPIO_P3;break;
+		#endif
+		#if ECBM_GPIO4_EN
+		case 0x40:ecbm_port=GPIO_P4;break;
+		#endif
+		#if ECBM_GPIO5_EN
+		case 0x50:ecbm_port=GPIO_P5;break;
+		#endif
+		#if ECBM_GPIO6_EN
+		case 0x60:ecbm_port=GPIO_P6;break;
+		#endif
+		#if ECBM_GPIO7_EN
+		case 0x70:ecbm_port=GPIO_P7;break;
+		#endif
+		#if ECBM_ERROR_PRINTF_EN
+		default:error_printf("gpio_current(<D%02X>,%d);不存在该IO\r\n",(u16)pin,(u16)current);break;
+		#else
+		default:while(1);break;
+		#endif
+	}
+	/*-------到这里结束，解读完成。-------*/
+	if(current==GPIO_GEN){
+		switch(ecbm_port){
+			#if ECBM_GPIO0_EN
+			case GPIO_P0:{P0DR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO1_EN
+			case GPIO_P1:{P1DR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO2_EN
+			case GPIO_P2:{P2DR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO3_EN
+			case GPIO_P3:{P3DR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO4_EN
+			case GPIO_P4:{P4DR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO5_EN
+			case GPIO_P5:{P5DR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO6_EN
+			case GPIO_P6:{P6DR|=ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO7_EN
+			case GPIO_P7:{P7DR|=ecbm_pin;}break;
+			#endif
+		}
+	}else{
+		switch(ecbm_port){
+			#if ECBM_GPIO0_EN
+			case GPIO_P0:{P0DR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO1_EN
+			case GPIO_P1:{P1DR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO2_EN
+			case GPIO_P2:{P2DR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO3_EN
+			case GPIO_P3:{P3DR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO4_EN
+			case GPIO_P4:{P4DR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO5_EN
+			case GPIO_P5:{P5DR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO6_EN
+			case GPIO_P6:{P6DR&=~ecbm_pin;}break;
+			#endif
+			#if ECBM_GPIO7_EN
+			case GPIO_P7:{P7DR&=~ecbm_pin;}break;
+			#endif
+		}		
+	}
+	gpio_current_end:;
+}
+#endif
+#endif
 /*程序区折叠专用**************************************************************/#endif
 /*程序区折叠专用**********************普通IO操作模块****************************/#if 1
 /*-------------------------------------------------------
@@ -244,7 +459,7 @@ void gpio_write(u8 port,u8 dat){
 		case GPIO_P7:P7=dat;break;
 		#endif
 		case GPIO_Px:break;
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		default:error_printf("gpio_write(<%d>,%d);不存在该P口\r\n",(u16)port,(u16)dat);break;
 		#else
 		default:while(1);break;
@@ -283,7 +498,7 @@ u8   gpio_read(u8 port){
 		case GPIO_P7:return P7;break;
 		#endif
 		case GPIO_Px:return 0xff;break;
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		default:error_printf("gpio_read(<P%d>);不存在该P口\r\n",(u16)port);break;
 		#else
 		default:while(1);break;
@@ -296,13 +511,13 @@ u8   gpio_read(u8 port){
 IO口输出函数。
 -------------------------------------------------------*/
 #if ECBM_GPIO_OUT_EN
-void gpio_out(u8 pin,bit value){
+void gpio_out(u8 pin,u8 value){
 	/*---从这里开始，都是在解读IO口编号。---*/
 	if(pin==Dxx)goto gpio_out_end;
 	ecbm_port=pin&0xf0;
 	ecbm_pin =ecbm_pin_mask[pin&0x0f];
 	if((pin&0x0f)>7){
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		error_printf("gpio_out(<D%02X>,%d);不存在该IO\r\n",(u16)pin,(u16)value);
 		#else
 		while(1);
@@ -335,7 +550,7 @@ void gpio_out(u8 pin,bit value){
 			#if ECBM_GPIO7_EN
 			case 0x70:P7|=ecbm_pin;break;
 			#endif
-			#if SYS_ERROR_EN
+			#if ECBM_ERROR_PRINTF_EN
 			default:error_printf("gpio_out(<D%02X>,1);不存在该IO\r\n",(u16)pin);break;
 			#else
 			default:while(1);break;
@@ -367,7 +582,7 @@ void gpio_out(u8 pin,bit value){
 			#if ECBM_GPIO7_EN
 			case 0x70:P7&=~ecbm_pin;break;
 			#endif
-			#if SYS_ERROR_EN
+			#if ECBM_ERROR_PRINTF_EN
 			default:error_printf("gpio_out(<D%02X>,0);不存在该IO\r\n",(u16)pin);break;
 			#else
 			default:while(1);break;
@@ -381,14 +596,14 @@ void gpio_out(u8 pin,bit value){
 IO口输入函数。
 -------------------------------------------------------*/
 #if ECBM_GPIO_IN_EN
-bit  gpio_in(u8 pin){
+u8  gpio_in(u8 pin){
 	u8 data value;
 	/*---从这里开始，都是在解读IO口编号。---*/
 	if(pin==Dxx)return 0;
 	ecbm_port=pin&0xf0;
 	ecbm_pin =ecbm_pin_mask[pin&0x0f];
 	if((pin&0x0f)>7){
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		error_printf("gpio_in(<D%02X>);不存在该IO\r\n",(u16)pin);
 		#else
 		while(1);
@@ -420,7 +635,7 @@ bit  gpio_in(u8 pin){
 		#if ECBM_GPIO7_EN
 		case 0x70:value=P7;break;
 		#endif
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		default:error_printf("gpio_in(<D%02X>);不存在该IO\r\n",(u16)pin);break;
 		#else
 		default:while(1);break;
@@ -440,7 +655,7 @@ void gpio_toggle(u8 pin){
 	ecbm_port=pin&0xf0;
 	ecbm_pin =ecbm_pin_mask[pin&0x0f];
 	if((pin&0x0f)>7){
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		error_printf("gpio_toggle(<D%02X>);不存在该IO\r\n",(u16)pin);
 		#else
 		while(1);
@@ -472,7 +687,7 @@ void gpio_toggle(u8 pin){
 		#if ECBM_GPIO7_EN
 		case 0x70:P7^=ecbm_pin;break;
 		#endif
-		#if SYS_ERROR_EN
+		#if ECBM_ERROR_PRINTF_EN
 		default:error_printf("gpio_toggle(<D%02X>);不存在该IO\r\n",(u16)pin);break;
 		#else
 		default:while(1);break;
@@ -521,7 +736,7 @@ void gpio_toggle_fast(u8 port,u8 pin){
 IO口电平快速输出函数。
 -------------------------------------------------------*/
 #if ECBM_GPIO_OUT_FAST_EN
-void gpio_out_fast   (u8 port,u8 pin,bit val){
+void gpio_out_fast   (u8 port,u8 pin,u8 val){
 	if(val){//与上面的输出函数比起来，就是少了IO解析的代码，实测那段代码非常耗时。
 		switch(port){
 			#if ECBM_GPIO0_EN
@@ -585,7 +800,7 @@ void gpio_out_fast   (u8 port,u8 pin,bit val){
 IO口电平快速输入函数。
 -------------------------------------------------------*/
 #if ECBM_GPIO_IN_FAST_EN
-bit  gpio_in_fast    (u8 port,u8 pin){
+u8  gpio_in_fast    (u8 port,u8 pin){
 	u8 val;
 	switch(port){//与上面的输入函数比起来，就是少了IO解析的代码，实测那段代码非常耗时。
 		#if ECBM_GPIO0_EN
@@ -619,4 +834,3 @@ bit  gpio_in_fast    (u8 port,u8 pin){
 }
 #endif
 /*程序区折叠专用**************************************************************/#endif
-#endif

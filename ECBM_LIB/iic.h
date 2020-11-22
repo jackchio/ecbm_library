@@ -32,14 +32,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------*/
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
-//<o>IIC等待时钟周期
-//<0-63:1>
-//<i>可输入0~63。该数字越小，即等待时钟越少，IIC的速度越快。如果目标器件的速度跟得上，可以设为0以获取最大的IIC通信速度。
-//<i>如果目标器件的速度跟不上（一般通信出现乱码或直接通信失败），可以从63开始一步一步减少以获得最佳性能。嫌麻烦也可直接设为63。
-#define ECBM_IIC_WAIT 50
+//<o>IIC速度
+//<100000=>100KHz  <400000=>400KHz
+#define ECBM_IIC_WAIT 100000L
 //<o.4..5>IIC默认管脚
 //<i>此设置只会改动初始化的管脚，在实际应用中随时可以使用iic_set_pin函数修改IIC管脚，达到分时复用的效果。
-//<0=>SCL-P15|SDA-P14 <1=>SCL-P25|SDA-P24 <2=>SCL-P77|SDA-P76 <3=>SCL-P32|SDA-P33
+//<0=>SCL-P15|SDA-P14(全系列,除STC8G1K08和STC8G1K08A以外) <1=>SCL-P25|SDA-P24(全系列,除STC8G1K08和STC8G1K08A以外) <2=>SCL-P77|SDA-P76(全系列,除STC8G1K08和STC8G1K08A以外) <3=>SCL-P32|SDA-P33(全系列,除STC8G1K08和STC8G1K08A以外)
+//<0=>SCL-P32|SDA-P33(仅限STC8G1K08和STC8G1K08A) <1=>SCL-P54|SDA-P55(仅限STC8G1K08和STC8G1K08A) 
 #define ECBM_IIC_IO 0
 //<o>无响应超时时间
 //<i>输入的是时钟数，可以输入10~100。
@@ -50,10 +49,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*---------------------------------------头文件------------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
 /*---------------------------------------宏定义------------------------------------*/
-#define IIC_PIN_P1 0	//将IIC的输出IO设置到P1口。
-#define IIC_PIN_P2 16	//将IIC的输出IO设置到P2口。
-#define IIC_PIN_P7 32	//将IIC的输出IO设置到P7口。
-#define IIC_PIN_P3 48	//将IIC的输出IO设置到P3口。
+#if	(ECBM_MCU==0x310201)||(ECBM_MCU==0x3102A1)
+#define IIC_PIN_P32_P33 0	//将IIC的输出IO设置到P1口。
+#define IIC_PIN_P54_P55 16	//将IIC的输出IO设置到P2口。
+#else
+#define IIC_PIN_P15_P14 0	//将IIC的输出IO设置到P1口。
+#define IIC_PIN_P25_P24 16	//将IIC的输出IO设置到P2口。
+#define IIC_PIN_P77_P76 32	//将IIC的输出IO设置到P7口。
+#define IIC_PIN_P32_P33 48	//将IIC的输出IO设置到P3口。
+#endif
 /*--------------------------------------变量定义-----------------------------------*/
 extern bit iic_busy; 
 extern u8 xdata iic_index;
@@ -70,7 +74,7 @@ extern u8 xdata iic_index;
 创建日期：2019-8-23
 修改记录：
 -------------------------------------------------------*/
-void iic_set_pin(u8 group);
+extern void iic_set_pin(u8 group);
 /*-------------------------------------------------------
 函数名：iic_set_pin_linkage
 描  述：IIC的引脚设置函数（内联版）。该函数只会被库函数调用。
@@ -82,7 +86,7 @@ void iic_set_pin(u8 group);
 创建日期：2019-03-05
 修改记录：
 -------------------------------------------------------*/
-void iic_set_pin_linkage(u8 group);
+extern void iic_set_pin_linkage(u8 group);
 /*-------------------------------------------------------
 函数名：iic_reset_pin
 描  述：IIC的引脚还原函数。当IIC转移到其他脚的时候，将原来的IO恢复正常的设置。
@@ -95,7 +99,7 @@ void iic_set_pin_linkage(u8 group);
 创建日期：2019-8-23
 修改记录：
 -------------------------------------------------------*/
-void iic_reset_pin(u8 group);
+extern void iic_reset_pin(u8 group);
 /*-------------------------------------------------------
 函数名：iic_master_init
 描  述：IIC主机初始化函数。将硬件IIC当成主机来用，参数可以在图形界面输入。
@@ -108,7 +112,7 @@ void iic_reset_pin(u8 group);
 修改记录：
 2020-03-05:支持多路复用，但不会自动切换，需要手动切换。
 -------------------------------------------------------*/
-void iic_master_init(void);
+extern void iic_master_init(void);
 /*-------------------------------------------------------
 函数名：iic_slave_init
 描  述：IIC从机初始化函数。将硬件IIC当成从机来用，参数可以在图形界面输入。（从机未完工）
@@ -121,7 +125,7 @@ void iic_master_init(void);
 修改记录：
 2020-03-05:支持多路复用。 但是实际上从机无法做到真正的多路复用。先加进去先。
 -------------------------------------------------------*/
-void iic_slave_init(void);
+extern void iic_slave_init(void);
 /*-------------------------------------------------------
 函数名：iic_start、iic_stop、iic_write、iic_write_ack、iic_write_nack、iic_read、iic_read_ack
 描  述：IIC的各种操作函数。请根据器件的协议来排布。
@@ -150,11 +154,11 @@ void iic_slave_init(void);
 2020-03-02:将参数类型从char改成了u8
 2020-03-05:全员添加超时判定，防止了死循环。
 -------------------------------------------------------*/
-void iic_start     (void);
-void iic_stop      (void);
-void iic_write     (u8 dat);
-void iic_write_ack (void);
-void iic_write_nack(void);
-u8   iic_read      (void);
-bit iic_read_ack   (void);
+extern void iic_start     (void);
+extern void iic_stop      (void);
+extern void iic_write     (u8 dat);
+extern void iic_write_ack (void);
+extern void iic_write_nack(void);
+extern u8   iic_read      (void);
+extern bit iic_read_ack   (void);
 #endif

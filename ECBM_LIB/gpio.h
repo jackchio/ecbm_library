@@ -64,6 +64,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_GPIO_UPPULL_EN 1
 //<q>gpio_mode
 #define ECBM_GPIO_MODE_EN 1
+//<q>gpio_speed
+#define ECBM_GPIO_SPEED_EN 1
+//<q>gpio_current
+#define ECBM_GPIO_CURRENT_EN 1
 //<q>gpio_out
 #define ECBM_GPIO_OUT_EN 1
 //<q>gpio_in
@@ -94,6 +98,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define GPIO_PP  3       //设置IO为推挽。
 #define GPIO_IN  GPIO_PU //输入模式设定为弱上拉。
 #define GPIO_OUT GPIO_PP //输出模式设定为推挽。
+
+#define	GPIO_FAST 	0
+#define	GPIO_SLOW	1
+
+#define	GPIO_STR	0
+#define	GPIO_GEN 	1
+
 
 #define GPIO_PIN_0   0x01//操作IO引脚Px.0。
 #define GPIO_PIN_1   0x02//操作IO引脚Px.1。
@@ -206,9 +217,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 2019-8-14：加入报错信息功能。
 2019-10-9：加入空闲引脚。
 2019-10-11：引入深度优化。
-2020-05-25:优化存储空间和速度。
+2020-05-25：优化存储空间和速度。
+2020-10-12：bit参数换成u8。
 -------------------------------------------------------*/
-extern void gpio_uppull(u8 pin,bit en);
+extern void gpio_uppull(u8 pin,u8 en);
 /*-------------------------------------------------------
 函数名：gpio_mode
 描  述：设置IO口工作模式函数，有弱上拉、高阻态、开漏和推挽这四种模式。四种模式的代号参见上面的宏定义。
@@ -227,6 +239,34 @@ extern void gpio_uppull(u8 pin,bit en);
 2020-05-25:优化存储空间和速度。
 -------------------------------------------------------*/
 extern void gpio_mode(u8 pin,u8 mode);
+/*-------------------------------------------------------
+函数名：gpio_speed
+描  述：设置IO口工作速度函数,仅限stc8g和stc8h。
+输  入：
+       pin  - IO口的编号，即DXX。比如P1.0脚就是D10。
+       speed- 需要设置的速度，参考宏定义。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：gpio_speed(D10,GPIO_FAST);//P1.0口设置为快速模式。
+创建日期：2020-11-9
+修改记录：
+-------------------------------------------------------*/
+extern void gpio_speed(u8 pin,u8 speed);
+/*-------------------------------------------------------
+函数名：gpio_current
+描  述：设置IO口驱动电流函数,仅限stc8g和stc8h。
+输  入：
+       pin    - IO口的编号，即DXX。比如P1.0脚就是D10。
+       current- 需要设置的驱动电流，参考宏定义。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：gpio_current(D10,GPIO_STR);//P1.0口设置为大电流模式。
+创建日期：2020-11-9
+修改记录：
+-------------------------------------------------------*/
+extern void gpio_current(u8 pin,u8 current);
 /*程序区折叠专用**************************************************************/#endif
 /*程序区折叠专用**********************普通IO操作模块****************************/#if 1
 /*-------------------------------------------------------
@@ -279,8 +319,9 @@ extern u8 gpio_read(u8 port);
 2019-10-9：加入空闲引脚。
 2019-10-11：引入深度优化。
 2020-05-25:优化存储空间和速度。
+2020-10-12：bit参数换成u8。
 -------------------------------------------------------*/
-extern void gpio_out(u8 pin,bit value);
+extern void gpio_out(u8 pin,u8 value);
 /*-------------------------------------------------------
 函数名：gpio_in
 描  述：IO口输入函数，用于读取某个IO口的电平状态。
@@ -295,8 +336,9 @@ extern void gpio_out(u8 pin,bit value);
 2019-10-9：加入空闲引脚。
 2019-10-11：引入深度优化。
 2020-05-25:优化存储空间和速度。
+2020-10-12：bit参数换成u8。
 -------------------------------------------------------*/
-extern bit gpio_in(u8 pin);
+extern u8 gpio_in(u8 pin);
 /*-------------------------------------------------------
 函数名：gpio_toggle
 描  述：IO口电平翻转函数。用于翻转某个IO口，速度比用库函数先读后写的方式要快。
@@ -348,8 +390,9 @@ extern void gpio_toggle_fast(u8 port,u8 pin);
 2019-8-14:备注--由于加入报错功能降低函数性能，所以该函数没有报错功能。
 2019-10-9：加入空闲引脚。
 2019-10-11：引入深度优化。
+2020-10-12：bit参数换成u8。
 -------------------------------------------------------*/
-extern void gpio_out_fast(u8 port,u8 pin,bit val);
+extern void gpio_out_fast(u8 port,u8 pin,u8 val);
 /*-------------------------------------------------------
 函数名：gpio_in_fast
 描  述：IO口电平快速输入函数。和上面的输入函数的差别在于需要提供P口编号。执行速度更快。
@@ -365,7 +408,8 @@ extern void gpio_out_fast(u8 port,u8 pin,bit val);
 2019-8-14:备注--由于加入报错功能降低函数性能，所以该函数没有报错功能。
 2019-10-9：加入空闲引脚。性能下降程度和多使能一个P口一样。
 2019-10-11：引入深度优化。
+2020-10-12：bit参数换成u8。
 -------------------------------------------------------*/
-extern bit gpio_in_fast(u8 port,u8 pin);
+extern u8 gpio_in_fast(u8 port,u8 pin);
 /*程序区折叠专用**************************************************************/#endif
 #endif

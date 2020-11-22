@@ -276,7 +276,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_PWM6_T2 0
 //</e>
 //<e>PWM7使能和参数调整
-#define ECBM_PWM7_EN 0
+#define ECBM_PWM7_EN 1
 
 //<q.2>PWM7中断使能
 //<i>想用PWM7中断，可以先使能这个，然后在下面选择中断方式
@@ -605,7 +605,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 
 //<e.5>P5口PWM设置
-#define ECBM_G_P5_EN 0x00
+#define ECBM_G_P5_EN 0x20
 //<o.0..4>时钟选择
 //< 0=>SYSclk/01 < 1=>SYSclk/02 < 2=>SYSclk/03 < 3=>SYSclk/04 < 4=>SYSclk/05 
 //< 5=>SYSclk/06 < 6=>SYSclk/07 < 7=>SYSclk/08 < 8=>SYSclk/09 < 9=>SYSclk/10
@@ -753,7 +753,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 创建日期：2020-01-08
 修改记录：
 -------------------------------------------------------*/
-void pwm_init(void);
+extern void pwm_init(void);
 /*-------------------------------------------------------
 函数名：pwm_set_freq
 描  述：PWM设置频率函数。
@@ -765,7 +765,7 @@ void pwm_init(void);
 创建日期：2020-01-08
 修改记录：
 -------------------------------------------------------*/
-void pwm_set_freq(u32 freq);
+extern void pwm_set_freq(u32 freq);
 /*-------------------------------------------------------
 函数名：pwm_set_cycle
 描  述：PWM设置周期函数。
@@ -777,7 +777,7 @@ void pwm_set_freq(u32 freq);
 创建日期：2020-01-08
 修改记录：
 -------------------------------------------------------*/
-void pwm_set_cycle(u32 cycle);
+extern void pwm_set_cycle(u32 cycle);
 /*-------------------------------------------------------
 函数名：pwm_set_duty
 描  述：PWM设置占空比函数，一般和pwm_set_freq函数配套使用。
@@ -790,7 +790,7 @@ void pwm_set_cycle(u32 cycle);
 创建日期：2020-01-08
 修改记录：
 -------------------------------------------------------*/
-void pwm_set_duty(u8 id,u16 duty);
+extern void pwm_set_duty(u8 id,u16 duty);
 /*-------------------------------------------------------
 函数名：pwm_set_us
 描  述：PWM设置高电平持续时间函数，一般和pwm_set_cycle函数配套使用。
@@ -803,7 +803,7 @@ void pwm_set_duty(u8 id,u16 duty);
 创建日期：2020-01-08
 修改记录：
 -------------------------------------------------------*/
-void pwm_set_us(u8 id,u32 us);
+extern void pwm_set_us(u8 id,u32 us);
 #elif    ECBM_MCU_MAIN_RAM == 2 //STC8G2K
 /*-------------------------------------------------------
 函数名：pwm_init
@@ -817,7 +817,7 @@ void pwm_set_us(u8 id,u32 us);
 修改记录：
 2020-05-23：修复了STC8G只能使用一部分IO输出PWM的问题。
 -------------------------------------------------------*/
-void pwm_init(void);
+extern void pwm_init(void);
 /*-------------------------------------------------------
 函数名：pwm_set_freq
 描  述：PWM设置频率函数。
@@ -829,7 +829,7 @@ void pwm_init(void);
 创建日期：2020-01-08
 修改记录：
 -------------------------------------------------------*/
-void pwm_set_freq(u8 gpio,u32 freq);
+extern void pwm_set_freq(u8 gpio,u32 freq);
 /*-------------------------------------------------------
 函数名：pwm_set_duty
 描  述：PWM设置占空比函数，一般和pwm_set_freq函数配套使用。
@@ -842,6 +842,6 @@ void pwm_set_freq(u8 gpio,u32 freq);
 创建日期：2020-01-08
 修改记录：
 -------------------------------------------------------*/
-void pwm_set_duty(u8 pin,u16 duty);
+extern void pwm_set_duty(u8 pin,u16 duty);
 #endif
 #endif

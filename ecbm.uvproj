@@ -10,6 +10,7 @@
       <TargetName>STC8</TargetName>
       <ToolsetNumber>0x0</ToolsetNumber>
       <ToolsetName>MCS-51</ToolsetName>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STC8A8K64S4A12</Device>
@@ -30,6 +31,7 @@
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
           <SFDFile></SFDFile>
+          <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>
@@ -71,6 +73,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopB1X>0</nStopB1X>
+            <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
@@ -79,6 +83,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopA1X>0</nStopA1X>
+            <nStopA2X>0</nStopA2X>
           </AfterMake>
           <SelectedForBatchBuild>0</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
@@ -97,6 +103,7 @@
           <StopOnExitCode>3</StopOnExitCode>
           <CustomArgument></CustomArgument>
           <IncludeLibraryModules></IncludeLibraryModules>
+          <ComprImg>1</ComprImg>
           <BankNo>65535</BankNo>
         </CommonProperty>
         <DllOption>
@@ -127,6 +134,7 @@
             <RestoreFunctions>1</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
             <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
+            <RestoreSysVw>1</RestoreSysVw>
           </Simulator>
           <Target>
             <UseTarget>0</UseTarget>
@@ -138,6 +146,7 @@
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
             <RestoreTracepoints>1</RestoreTracepoints>
+            <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>9</TargetSelection>
@@ -170,6 +179,10 @@
           <Flash2></Flash2>
           <Flash3></Flash3>
           <Flash4></Flash4>
+          <pFcarmOut></pFcarmOut>
+          <pFcarmGrp></pFcarmGrp>
+          <pFcArmRoot></pFcArmRoot>
+          <FcArmLst>0</FcArmLst>
         </Utilities>
         <Target51>
           <Target51Misc>
@@ -205,12 +218,14 @@
             <Mx51P>0</Mx51P>
             <hadXRAM2>0</hadXRAM2>
             <uocXram2>0</uocXram2>
+            <hadXRAM3>0</hadXRAM3>
             <ModC2>0</ModC2>
             <ModH2>0</ModH2>
             <Mdu_R515>0</Mdu_R515>
             <Mdu_F120>0</Mdu_F120>
             <Psoc>0</Psoc>
             <hadIROM2>0</hadIROM2>
+            <hadIROM3>0</hadIROM3>
             <ModSmx2>0</ModSmx2>
             <cBanks>0</cBanks>
             <xBanks>0</xBanks>
@@ -280,6 +295,16 @@
                 <StartAddress>0x0</StartAddress>
                 <Size>0x0</Size>
               </IROM512>
+              <XRA513>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </XRA513>
+              <IROM513>
+                <Type>0</Type>
+                <StartAddress>0x0</StartAddress>
+                <Size>0x0</Size>
+              </IROM513>
             </OnChipMemories>
           </Target51Misc>
           <C51>
@@ -299,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\ECBM_LIB;.\device</IncludePath>
+              <IncludePath>.\ECBM_LIB;.\device;.\device\new_test;.\device\proj</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -372,54 +397,14 @@
               <FilePath>.\ECBM_LIB\ecbm_core.h</FilePath>
             </File>
             <File>
-              <FileName>power.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\power.h</FilePath>
-            </File>
-            <File>
               <FileName>gpio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ECBM_LIB\gpio.h</FilePath>
             </File>
             <File>
-              <FileName>eeprom.h</FileName>
+              <FileName>power.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\eeprom.h</FilePath>
-            </File>
-            <File>
-              <FileName>exti.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\exti.h</FilePath>
-            </File>
-            <File>
-              <FileName>soft_iic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\soft_iic.h</FilePath>
-            </File>
-            <File>
-              <FileName>iic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\iic.h</FilePath>
-            </File>
-            <File>
-              <FileName>soft_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\soft_spi.h</FilePath>
-            </File>
-            <File>
-              <FileName>spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\spi.h</FilePath>
-            </File>
-            <File>
-              <FileName>adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\pwm.h</FilePath>
+              <FilePath>.\ECBM_LIB\power.h</FilePath>
             </File>
             <File>
               <FileName>uart.h</FileName>
@@ -427,9 +412,9 @@
               <FilePath>.\ECBM_LIB\uart.h</FilePath>
             </File>
             <File>
-              <FileName>cmp.h</FileName>
+              <FileName>exti.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\cmp.h</FilePath>
+              <FilePath>.\ECBM_LIB\exti.h</FilePath>
             </File>
             <File>
               <FileName>timer.h</FileName>
@@ -437,9 +422,49 @@
               <FilePath>.\ECBM_LIB\timer.h</FilePath>
             </File>
             <File>
+              <FileName>eeprom.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\eeprom.h</FilePath>
+            </File>
+            <File>
+              <FileName>spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\spi.h</FilePath>
+            </File>
+            <File>
+              <FileName>soft_spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\soft_spi.h</FilePath>
+            </File>
+            <File>
+              <FileName>iic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\iic.h</FilePath>
+            </File>
+            <File>
+              <FileName>soft_iic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\soft_iic.h</FilePath>
+            </File>
+            <File>
+              <FileName>adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\adc.h</FilePath>
+            </File>
+            <File>
+              <FileName>cmp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\cmp.h</FilePath>
+            </File>
+            <File>
               <FileName>mdu16.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ECBM_LIB\mdu16.h</FilePath>
+            </File>
+            <File>
+              <FileName>it.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\it.h</FilePath>
             </File>
             <File>
               <FileName>pca.h</FileName>
@@ -447,9 +472,14 @@
               <FilePath>.\ECBM_LIB\pca.h</FilePath>
             </File>
             <File>
-              <FileName>it.h</FileName>
+              <FileName>pwm.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\it.h</FilePath>
+              <FilePath>.\ECBM_LIB\pwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>ecbm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\ecbm.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -462,54 +492,14 @@
               <FilePath>.\ECBM_LIB\ecbm_core.c</FilePath>
             </File>
             <File>
-              <FileName>power.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\power.c</FilePath>
-            </File>
-            <File>
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ECBM_LIB\gpio.c</FilePath>
             </File>
             <File>
-              <FileName>eeprom.c</FileName>
+              <FileName>power.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\eeprom.c</FilePath>
-            </File>
-            <File>
-              <FileName>exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\exti.c</FilePath>
-            </File>
-            <File>
-              <FileName>soft_iic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\soft_iic.c</FilePath>
-            </File>
-            <File>
-              <FileName>iic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\iic.c</FilePath>
-            </File>
-            <File>
-              <FileName>soft_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\soft_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\pwm.c</FilePath>
+              <FilePath>.\ECBM_LIB\power.c</FilePath>
             </File>
             <File>
               <FileName>uart.c</FileName>
@@ -517,9 +507,9 @@
               <FilePath>.\ECBM_LIB\uart.c</FilePath>
             </File>
             <File>
-              <FileName>cmp.c</FileName>
+              <FileName>exti.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\cmp.c</FilePath>
+              <FilePath>.\ECBM_LIB\exti.c</FilePath>
             </File>
             <File>
               <FileName>timer.c</FileName>
@@ -527,19 +517,54 @@
               <FilePath>.\ECBM_LIB\timer.c</FilePath>
             </File>
             <File>
+              <FileName>eeprom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\eeprom.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>soft_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\soft_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>soft_iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\soft_iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\cmp.c</FilePath>
+            </File>
+            <File>
               <FileName>mdu16.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ECBM_LIB\mdu16.c</FilePath>
             </File>
             <File>
-              <FileName>pca.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\pca.c</FilePath>
-            </File>
-            <File>
               <FileName>it.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ECBM_LIB\it.c</FilePath>
+            </File>
+            <File>
+              <FileName>pca.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\pca.c</FilePath>
             </File>
           </Files>
         </Group>

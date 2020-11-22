@@ -1,7 +1,7 @@
 #include "ecbm_core.h"//统一加载核心头文件
-#if ECBM_MDU16_EN      //编译开关，当配置文件没有加载该外设的.h文件时，就不编译该.c文件
+#if ECBM_MDU16_LIB_EN //编译开关，当配置文件没有加载该外设的.h文件时，就不编译该.c文件
 /*------------------------------------资源冲突警告---------------------------------*/
-#if ECBM_MCU_MAIN_RAM != 2
+#if ((ECBM_MCU&0xF00000)<=0x200000)
 #error 该单片机没有MDU16！
 #endif
 /*--------------------------------------程序定义-----------------------------------*/
@@ -9,41 +9,41 @@
 32位除16位除法函数。
 -------------------------------------------------------*/
 u8 div32(u32 * num1,u16 * num2){
-	OPCON=0x02;        //复位乘除单元。
-	ARCON=0xc0;        //32位除法。
-	MD3MD2MD1MD0=*num1;//装填被除数。
-	MD5MD4      =*num2;//装填除数。
-	OPCON=0x01;        //开始计算。
-	while(OPCON&0x01); //等待计算完成。
-	*num1=MD3MD2MD1MD0;//返回商。
-	*num2=MD5MD4;      //返回余数
-	return OPCON;      //返回计算状态。
+	MDU16_RESET;				//复位乘除单元。
+	MDU16_SET_32DIV;			//32位除法。
+	MD3MD2MD1MD0=*num1;			//装填被除数。
+	MD5MD4      =*num2;			//装填除数。
+	MDU16_START;				//开始计算。
+	while(MDU16_GET_END_FLAG);	//等待计算完成。
+	*num1=MD3MD2MD1MD0;			//返回商。
+	*num2=MD5MD4;    			//返回余数
+	return MDU16_GET_MDOV_FLAG;	//返回计算状态。
 }
 /*-------------------------------------------------------
 16位除16位除法函数。
 -------------------------------------------------------*/
 u8 div16(u16 * num1,u16 * num2){
-	OPCON=0x02;        //复位乘除单元。
-	ARCON=0xa0;        //16位除法。
-	MD1MD0 =*num1;     //装填被除数。
-	MD5MD4 =*num2;     //装填除数。
-	OPCON=0x01;        //开始计算。
-	while(OPCON&0x01); //等待计算完成。
-	*num1=MD1MD0;      //返回商。
-	*num2=MD5MD4;      //返回余数
-	return OPCON;      //返回计算状态。
+	MDU16_RESET;				//复位乘除单元。
+	MDU16_SET_16DIV;			//16位除法。
+	MD1MD0 =*num1;				//装填被除数。
+	MD5MD4 =*num2;				//装填除数。
+	MDU16_START;				//开始计算。
+	while(MDU16_GET_END_FLAG);	//等待计算完成。
+	*num1=MD1MD0;				//返回商。
+	*num2=MD5MD4;				//返回余数
+	return MDU16_GET_MDOV_FLAG;	//返回计算状态。
 }
 /*-------------------------------------------------------
 16位乘16位除法函数。
 -------------------------------------------------------*/
 u8 mul16(u16 num1,u16 num2,u32 * num3){
-	OPCON=0x02;        //复位乘除单元。
-	ARCON=0x80;        //16位乘法。
-	MD1MD0 =num1;      //装填被乘数。
-	MD5MD4 =num2;      //装填乘数。
-	OPCON=0x01;        //开始计算。
-	while(OPCON&0x01); //等待计算完成。
-	*num3=MD3MD2MD1MD0;//返回商。
-	return OPCON;      //返回计算状态。
+	MDU16_RESET;				//复位乘除单元。
+	MDU16_SET_16MUL;			//16位乘法。
+	MD1MD0 =num1;				//装填被乘数。
+	MD5MD4 =num2;				//装填乘数。
+	MDU16_START;				//开始计算。
+	while(MDU16_GET_END_FLAG);	//等待计算完成。
+	*num3=MD3MD2MD1MD0;			//返回商。
+	return MDU16_GET_MDOV_FLAG;	//返回计算状态。
 }
 #endif

@@ -37,18 +37,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<e>看门狗
 //<i>该选项只是让编译器编译看门狗的代码，并不会打开看门狗（为了防止看门狗打开得太早，初始化外设时不能喂狗导致单片机一直重启）。
 //<i>开启看门狗使用wdt_start();
-#define POWER_WDOG_EN 0
+#define ECBM_POWER_WDOG_EN 1
 //<q.3>IDLE模式时继续计数？
 //<i>在IDLE模式下，如果继续计数的话，单片机会因为没有喂狗而重启。
 //<o.0..2>看门狗定时器分频系数
 //<i>看门狗溢出时间=（12*32768*分频系数）/SYS_CLK。
 //<i>在溢出之前调用wdt_feed();喂狗函数就行。
 //<0=>2 <1=>4 <2=>8 <3=>16 <4=>32 <5=>64 <6=>128 <7=>256  
-#define WDT_MODE 0x02
+#define ECBM_POWER_WDT_MODE 0x05
 //</e>
 //<q>单片机重启函数
 //<i>建立函数只是为了方便在函数内添加其他代码，其实真正有用的就一句话，直接用宏定义指令也能重启单片机。
-#define POWER_RESET_EN 0
+#define ECBM_POWER_RESET_EN 0
 //<q>单片机电源控制函数
 //<i>建立函数只是为了方便在函数内添加其他代码，其实直接用宏定义指令也能控制单片机电源。
 #define ECBM_POWER_CONTROL_EN 0
@@ -57,13 +57,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<o.0..14>定时时间
 //<0-32767:1>
 //<i>公式：掉电唤醒定时器定时时间=(10^6*16*计数次数)/Fwt,单位微秒。Fwt在32KHz左右，具体值在F8H和F9H可获取。
-#define WKTC_EN 4095
+#define ECBM_POWER_WKTC_CONFIG 4095
 //</e>
 //</h>
 //<e>复位配置寄存器
 //<i>这里的功能和STC-ISP上设置的功能一样，如果没有特殊要求，推荐在STC-ISP上设置，优化掉这个功能来省点空间。
 //<i>使能之后会在system_init里自动调用power_rstcfg_init函数。
-#define POWER_RST_CFG_EN 0
+#define ECBM_POWER_RST_CFG_EN 0
 //<q.6>低压复位
 //<i>不勾选，当系统检测到低压事件时，会产生低压中断。
 //<i>勾选，当系统检测到低压事件时，会自动复位。
@@ -71,17 +71,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<0=>普通IO口(P54) <1=>复位脚
 //<o.0..1>低压检测门槛电压设置
 //<0=>2.2V <1=>2.4V <2=>2.7V <3=>3.0V
-#define RST_CFG_MODE 0x50
+#define ECBM_POWER_RST_CFG_MODE 0x50
 //</e>
 //<<< end of configuration section >>>
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 /*---------------------------------------头文件------------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
-/*---------------------------------------宏定义------------------------------------*/
-#define POWER_RESET do{_nop_();IAP_CONTR=0x60;_nop_();_nop_();}while(0)//相当于上电重启，数据会丢失。
-#define MCU_RESET   do{_nop_();IAP_CONTR=0x20;_nop_();_nop_();}while(0)//相当于按键复位，数据不会丢失。
-#define POWER_DOWN  do{_nop_();PCON|=0x02;_nop_();_nop_();}while(0)//掉电模式，唤醒后相当于上电复位。
-#define POWER_IDLE  do{_nop_();PCON|=0x01;_nop_();_nop_();}while(0)//空闲模式，唤醒后从该指令的下一句开始执行。
 /*--------------------------------------程序定义-----------------------------------*/
 /*程序区折叠专用*************************复位模块******************************/#if 1
 /*-------------------------------------------------------

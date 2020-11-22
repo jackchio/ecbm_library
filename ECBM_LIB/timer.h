@@ -34,7 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<<< Use Configuration Wizard in Context Menu >>>
 //<e>定时器0使能与设置
 //<i>勾选该选项会使能定时器0，开放和定时器0相关的操作函数。若未使用定时器0，可以关掉优化空间。
-#define ECBM_TIMER0_EN 0
+#define ECBM_TIMER0_EN 1
 //<o.3>定时器开关
 //<0=>软件开关 <1=>软硬件开关。
 //<i>当选择“软件开关”时，运行timer_start函数就能启动定时器0。
@@ -161,7 +161,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 //<e>定时器4使能与设置
 //<i>勾选该选项会使能定时器4，开放和定时器4相关的操作函数。若未使用定时器4，可以关掉优化空间。
-#define ECBM_TIMER4_EN 0
+#define ECBM_TIMER4_EN 1
 //<o.6>计数来源
 //<0=>对系统时钟计数（定时器应用）
 //<1=>对外部T4（P06）脚的脉冲信号计数（计数器应用）
@@ -172,7 +172,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<0=>系统时钟12分频（Fosc/12） <1=>系统时钟不分频
 //<o.4>对外输出时钟
 //<i>勾选该选项后，每次定时器4发生溢出时，T4CLKO（P07）脚的电平自动发生翻转。
-#define ECBM_TIMER4_T4T3M 0x10
+#define ECBM_TIMER4_T4T3M 0x00
 //<o>定时时间/计数数量
 //<0-65535>
 //<i>在这里填入脉冲数（在定时模式下，脉冲数=定时时间/时间基准。在计数模式下，就是你想计数的最大值）。
@@ -182,73 +182,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_TIMER4_COUNT 10000
 //<q>定时器4的中断使能
 //<i>注意：定时器4的中断函数里需要清除中断标志位。
-#define ECBM_TIMER4_IT_EN 0
+#define ECBM_TIMER4_IT_EN 1
 //</e>
 //<<< end of configuration section >>>
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 /*---------------------------------------头文件------------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
-/*---------------------------------------宏定义------------------------------------*/
-#define TIMER0_ON     do{TF0=0;TR0=1;}while(0) //打开定时器0。
-#define TIMER0_OFF    do{TR0=0;}while(0)       //关闭定时器0。
-#define TIMER0_IT_ON  do{ET0=1;}while(0)       //打开定时器0中断。
-#define TIMER0_IT_OFF do{ET0=0;}while(0)       //关闭定时器0中断。
-#define TIMER0_1T     do{AUXR|=0x80;}while(0)  //设定定时器0为1T模式。
-#define TIMER0_12T    do{AUXR&=0x7F;}while(0)  //设定定时器0为12T模式。
-#define TIMER0_TIMER  do{TMOD&=0xFB;}while(0)  //设定定时器0为定时器。
-#define TIMER0_COUNT  do{TMOD|=0x04;}while(0)  //设定定时器0为计数器。
-
-
-#define TIMER1_ON     do{TF1=0;TR1=1;}while(0) //打开定时器1。
-#define TIMER1_OFF    do{TR1=0;}while(0)       //关闭定时器1。
-#define TIMER1_IT_ON  do{ET1=1;}while(0)       //打开定时器1中断。
-#define TIMER1_IT_OFF do{ET1=0;}while(0)       //关闭定时器1中断。
-#define TIMER1_1T     do{AUXR|=0x40;}while(0)  //设定定时器1为1T模式。
-#define TIMER1_12T    do{AUXR&=0xBF;}while(0)  //设定定时器1为12T模式。
-#define TIMER1_TIMER  do{TMOD&=0xBF;}while(0)  //设定定时器1为定时器。
-#define TIMER1_COUNT  do{TMOD|=0x40;}while(0)  //设定定时器1为计数器。
-
-#define TIMER2_ON     do{AUXR|=0x10;}while(0)  //打开定时器2。
-#define TIMER2_OFF    do{AUXR&=0xEF;}while(0)  //关闭定时器2。
-#define TIMER2_IT_ON  do{IE2 |=0x04;}while(0)  //打开定时器2中断。
-#define TIMER2_IT_OFF do{IE2 &=0xFB;}while(0)  //关闭定时器2中断。
-#define TIMER2_IT_CLS do{AUXINTIF&=0xFE;}while(0)//清定时器2中断标志
-#define TIMER2_1T     do{AUXR|=0x04;}while(0)  //设定定时器2为1T模式。
-#define TIMER2_12T    do{AUXR&=0xFB;}while(0)  //设定定时器2为12T模式。
-#define TIMER2_TIMER  do{AUXR&=0xF7;}while(0)  //设定定时器2为定时器。
-#define TIMER2_COUNT  do{AUXR|=0x08;}while(0)  //设定定时器2为计数器。
-
-#define TIMER3_ON     do{T4T3M|=0x08;}while(0) //打开定时器3。
-#define TIMER3_OFF    do{T4T3M&=0xF7;}while(0) //关闭定时器3。
-#define TIMER3_IT_ON  do{IE2  |=0x20;}while(0) //打开定时器3中断。
-#define TIMER3_IT_OFF do{IE2  &=0xDF;}while(0) //关闭定时器3中断。
-#define TIMER3_IT_CLS do{AUXINTIF&=0xFD;}while(0)//清定时器3中断标志
-#define TIMER3_1T     do{T4T3M|=0x02;}while(0) //设定定时器3为1T模式。
-#define TIMER3_12T    do{T4T3M&=0xFD;}while(0) //设定定时器3为12T模式。
-#define TIMER3_TIMER  do{T4T3M&=0xFB;}while(0) //设定定时器3为定时器。
-#define TIMER3_COUNT  do{T4T3M|=0x04;}while(0) //设定定时器3为计数器。
-
-#define TIMER4_ON     do{T4T3M|=0x80;}while(0) //打开定时器4。
-#define TIMER4_OFF    do{T4T3M&=0x7F;}while(0) //关闭定时器4。
-#define TIMER4_IT_ON  do{IE2  |=0x40;}while(0) //打开定时器4中断。
-#define TIMER4_IT_OFF do{IE2  &=0xBF;}while(0) //关闭定时器4中断。
-#define TIMER4_IT_CLS do{AUXINTIF&=0xFB;}while(0)//清定时器4中断标志
-#define TIMER4_1T     do{T4T3M|=0x20;}while(0) //设定定时器4为1T模式。
-#define TIMER4_12T    do{T4T3M&=0xDF;}while(0) //设定定时器4为12T模式。
-#define TIMER4_TIMER  do{T4T3M&=0xBF;}while(0) //设定定时器4为定时器。
-#define TIMER4_COUNT  do{T4T3M|=0x40;}while(0) //设定定时器4为计数器。
-
-
-#define TIMER0_FUN interrupt 1 //定时器0的中断服务号。
-#define TIMER1_FUN interrupt 3 //定时器1的中断服务号。
-#define TIMER2_FUN interrupt 12//定时器2的中断服务号。
-#define TIMER3_FUN interrupt 19//定时器3的中断服务号。
-#define TIMER4_FUN interrupt 20//定时器4的中断服务号。
-
-
-
-/*--------------------------------------变量定义-----------------------------------*/
-//extern u8 value;//定义需要的变量。
 /*--------------------------------------程序定义-----------------------------------*/
 /*-------------------------------------------------------
 函数名：timer_start
@@ -274,6 +213,21 @@ extern void timer_start(u8 id);
 修改记录：
 -------------------------------------------------------*/
 extern void timer_stop(u8 id);
+
+/*-------------------------------------------------------
+函数名：timer_out
+描  述：定时器输出控制函数。用于控制一个定时器的时钟输出功能。
+输  入：
+		id	-	要控制的定时器编号。
+		en	-	1代表开启时钟输出，0代表关闭时钟输出。
+输  出：无
+返回值：无
+创建者：奈特
+调用例程：无
+创建日期：2020-11-10
+修改记录：
+-------------------------------------------------------*/
+extern void timer_out(u8 id,u8 en);
 /*-------------------------------------------------------
 函数名：timer_init
 描  述：定时器初始化函数。

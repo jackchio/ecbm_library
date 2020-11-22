@@ -40,19 +40,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<2=>定时器0的溢出脉冲 <3=>ECI脚的外部输入时钟 <4=>SYSCLK    <1=>SYSCLK/2 
 //<5=>SYSCLK/4         <6=>SYSCLK/6           <7=>SYSCLK/8  <0=>SYSCLK/12 
 //<q.0>PCA计数器溢出中断使能
-#define ECBM_PCA_CMOD 0x09
+#define ECBM_PCA_CMOD 0x08
 //<q>PCA计数器溢出回调函数
-#define ECBM_PCA_CALLBACK_EN 1
+#define ECBM_PCA_CALLBACK_EN 0
 //<o.4..5>PCA引脚
-//<0=>ECI-P12|CCP0-P17|CCP1-P16|CCP2-P15|CCP3-P14
-//<1=>ECI-P22|CCP0-P23|CCP1-P24|CCP2-P25|CCP3-P26
-//<2=>ECI-P74|CCP0-P70|CCP1-P71|CCP2-P72|CCP3-P73
-//<3=>ECI-P35|CCP0-P33|CCP1-P32|CCP2-P31|CCP3-P30
-#define ECBM_PCA_IO 0x00
+//<0=>ECI-P12|CCP0-P17|CCP1-P16|CCP2-P15|CCP3-P14(STC8A系列)
+//<1=>ECI-P22|CCP0-P23|CCP1-P24|CCP2-P25|CCP3-P26(STC8A系列)
+//<2=>ECI-P74|CCP0-P70|CCP1-P71|CCP2-P72|CCP3-P73(STC8A系列)
+//<3=>ECI-P35|CCP0-P33|CCP1-P32|CCP2-P31|CCP3-P30(STC8A系列)
+
+//<0=>ECI-P12|CCP0-P11|CCP1-P10|CCP2-P37(STC8G系列,除STC8G1K08A和STC8G1K08T之外)
+//<1=>ECI-P34|CCP0-P35|CCP1-P36|CCP2-P37(STC8G系列,除STC8G1K08A和STC8G1K08T之外)
+//<2=>ECI-P24|CCP0-P25|CCP1-P26|CCP2-P27(STC8G系列,除STC8G1K08A和STC8G1K08T之外)
+
+//<0=>ECI-P55|CCP0-P32|CCP1-P33|CCP2-P54(仅限STC8G1K08A)
+//<1=>ECI-P55|CCP0-P31|CCP1-P33|CCP2-P54(仅限STC8G1K08A)
+//<2=>ECI-P31|CCP0-P32|CCP1-P33|CCP2-P55(仅限STC8G1K08A)
+
+//<0=>ECI-P13|CCP0-P11|CCP1-P10|CCP2-P37(仅限STC8G1K08T)
+//<1=>ECI-P34|CCP0-P35|CCP1-P36|CCP2-P37(仅限STC8G1K08T)
+//<2=>ECI-P54|CCP0-P13|CCP1-P14|CCP2-P15(仅限STC8G1K08T)
+#define ECBM_PCA_IO 0x10
 //</h>
 //<e>PCA0
 //<i>捕获通道0的使能
-#define ECBM_PCA0_EN 0
+#define ECBM_PCA0_EN 1
 //<o>工作模式
 //<0=>无功能
 //<1=>6位PWM模式
@@ -62,18 +74,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<5=>16位捕获模式
 //<6=>16位软件定时器
 //<7=>16位高速脉冲输出
-#define ECBM_PCA0_MODE 5
+#define ECBM_PCA0_MODE 1
 //<q.5>上升沿中断/捕获
 //<i>在捕获模式下，勾选此选项，可以在收到外部信号的上升沿时中断。
 //<q.4>下降沿中断/捕获
 //<i>在捕获模式下，勾选此选项，可以在收到外部信号的下降沿时中断。
-#define ECBM_PCA0_UP_DOWN 0x20
+#define ECBM_PCA0_UP_DOWN 0x00
 //<q>自动重装定时值使能
 //<i>在PCA工作在定时器模式或者高速脉冲输出模式时，使能该功能可以在中断中自动重装定时器。
 //<i>但是因为每次的定时值都需要几us的时间去计算，如果定时的时间太短，中断就会卡住，然后单片机死机。
 #define ECBM_PCA0_TIMER_AUTO_EN 0
 //<q>PCA0模块中断回调函数
-#define ECBM_PCA0_CALLBACK_EN 1
+#define ECBM_PCA0_CALLBACK_EN 0
 //</e>
 
 //<e>PCA1
@@ -88,7 +100,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<5=>16位捕获模式
 //<6=>16位软件定时器
 //<7=>16位高速脉冲输出
-#define ECBM_PCA1_MODE 7
+#define ECBM_PCA1_MODE 4
 //<q.5>上升沿中断/捕获
 //<i>在捕获模式下，勾选此选项，可以在收到外部信号的上升沿时中断。
 //<q.4>下降沿中断/捕获
@@ -114,7 +126,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<5=>16位捕获模式
 //<6=>16位软件定时器
 //<7=>16位高速脉冲输出
-#define ECBM_PCA2_MODE 7
+#define ECBM_PCA2_MODE 1
 //<q.5>上升沿中断/捕获
 //<i>在捕获模式下，勾选此选项，可以在收到外部信号的上升沿时中断。
 //<q.4>下降沿中断/捕获
@@ -140,7 +152,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<5=>16位捕获模式
 //<6=>16位软件定时器
 //<7=>16位高速脉冲输出
-#define ECBM_PCA3_MODE 7
+#define ECBM_PCA3_MODE 3
 //<q.5>上升沿中断/捕获
 //<i>在捕获模式下，勾选此选项，可以在收到外部信号的上升沿时中断。
 //<q.4>下降沿中断/捕获
@@ -179,10 +191,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define PCA_ECCFn_1 0x01
 #define PCA_ECCFn_0 0xFE
 
-#define PCA_PIN_P1  0x00
-#define PCA_PIN_P2  0x10
-#define PCA_PIN_P7  0x20
-#define PCA_PIN_P3  0x30
+#define PCA_PIN_P12_P17_P16_P15_P14  0x00
+#define PCA_PIN_P22_P23_P24_P25_P26  0x10
+#define PCA_PIN_P74_P70_P71_P72_P73  0x20
+#define PCA_PIN_P35_P33_P32_P31_P30  0x30
+
+#define PCA_PIN_P12_P11_P10_P37  0x00
+#define PCA_PIN_P34_P35_P36_P37  0x10
+#define PCA_PIN_P24_P25_P26_P27  0x20
+
+#define PCA_PIN_P55_P32_P33_P54  0x00
+#define PCA_PIN_P55_P31_P33_P54  0x10
+#define PCA_PIN_P31_P32_P33_P55  0x20
+
+#define PCA_PIN_P13_P11_P10_P37  0x00
+#define PCA_PIN_P34_P35_P36_P37  0x10
+#define PCA_PIN_P54_P13_P14_P15  0x20
 /*--------------------------------------变量定义-----------------------------------*/
 extern u8  pca_mode_0;
 extern u8  pca_mode_1;

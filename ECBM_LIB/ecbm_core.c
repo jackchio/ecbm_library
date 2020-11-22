@@ -1,12 +1,12 @@
 #include "ecbm_core.h"
 /*------------------------------------资源冲突警告---------------------------------*/
-#if (ECBM_UART_EN == 0)&&(AUTO_DOWNLOAD_EN == 1)
+#if (ECBM_UART_LIB_EN == 0)&&(ECBM_AUTO_DOWNLOAD_EN == 1)
 #error 自动下载功能因串口库未加载而开启失败，请前往ecbm_core.h使能串口库！
 #endif
-#if (UART1_EN == 0)&&(AUTO_DOWNLOAD_EN == 1)
+#if (ECBM_UART1_EN == 0)&&(ECBM_AUTO_DOWNLOAD_EN == 1)
 #error 自动下载功能因串口1未使能而开启失败，请前往uart.h使能串口1！
 #endif
-#if (UART1_IO != 0)&&(AUTO_DOWNLOAD_EN == 1)
+#if (ECBM_UART1_IO != 0)&&(ECBM_AUTO_DOWNLOAD_EN == 1)
 #error 自动下载功能需要串口1映射到P30和P31，请前往uart.h修改串口1的输出IO！
 #endif
 /*--------------------------------------变量定义-----------------------------------*/
@@ -18,7 +18,7 @@ union{
 	u16 num16[2];
 	u8  num8[4];
 }fast_cout;
-/*-------------------------------------------------------
+/*-----------------------------------------`--------------
 毫秒级延时函数
 -------------------------------------------------------*/
 void delay_ms(u16 ms){
@@ -46,62 +46,78 @@ u16 delay_set_us(u16 us){
 	fast_cout.num32=((u32)ecbm_delay_base*(u32)(us))*131;
 	return fast_cout.num16[0]>>1;
 }
-/************************************串口调试模块***************/#if AUTO_DOWNLOAD_EN
+/************************************串口调试模块***************/#if ECBM_AUTO_DOWNLOAD_EN
 /*-------------------------------------------------------
 自动下载所需的变量
 -------------------------------------------------------*/
 __IO u8 xdata old_char;  //保存上一次接收的数据
 __IO u8 xdata char_count;//相同数据计数
-__IO     bit  debug_busy;//发送忙标志位
 /*-------------------------------------------------------
 下载流判断函数
 -------------------------------------------------------*/
 void system_uart_reset(){
-	if(SBUF!=old_char){			//判断重复字符，如果字符不重复
-		old_char=SBUF;			//就更新oldchar
-		char_count=0;			//计数器清零
-	}else{                      //如果字符重复
-		char_count++;			//则重复计数器+1
+	if(old_char!=UART1_GET_REG_SBUF){//判断重复字符，如果字符不重复
+		old_char=UART1_GET_REG_SBUF;	//就更新oldchar
+		char_count=0;				//计数器清零
+	}else{							//如果字符重复
+		char_count++;				//则重复计数器+1
 	}
-	if(char_count>=233){		//接收到233个重复数据时
-		BL_RESET;				//重启
+	if(char_count>=233){			//接收到233个重复数据时
+		_nop_();
+		POWER_RESET;				//重启
+		_nop_();
+		_nop_();
 	}
 }
-/*-------------------------------------------------------
-格式化发送函数
--------------------------------------------------------*/
-void debug(const char * str,...){
-	char xdata buf[64];  //字符串缓存。
-	va_list vp;          //定义参数地址。
-    va_start(vp, str);   //赋值参数的地址。
-    vsprintf(buf,str,vp);//使用内置的printf函数格式化。
-    va_end(vp);          //使用完要关闭。
-	uart_string(1,buf);  //将格式化之后的字符串发送出去。
-}
-#if CHECK_EN
+#if ECBM_MCU_CHECK_EN
 /*-------------------------------------------------------
 系统检查函数
 -------------------------------------------------------*/
 void system_check(){
 	u8 i,j;	
+	u16 aaa=0x1234;
 	debug("ECBM V%u.%u.%u on %s",(u16)ECBM_FVN,(u16)ECBM_RVN,(u16)ECBM_BVN,ECBM_MCU_NAME);//输出版本号和单片机型号
-	#if ECBM_MCU_ROM == 65024
-		debug("64");
-	#else
-		debug("%02u",(u16)(ECBM_MCU_ROM>>10));
-	#endif
-	#if ECBM_MCU_MAIN_RAM ==1
-	#if ECBM_MCU_UART > 1
-		debug("S%1u",(u16)(ECBM_MCU_UART));
-	#endif
-	#if (ECBM_MCU_ADC == 1024.0f)
-		debug("A10");
-	#elif (ECBM_MCU_ADC == 4096.0f)
-		debug("A12");
-	#endif
-	#endif
+	debug("%uK",(u16)((ECBM_MCU&0x0F0000)>>16));
+	debug("%02u",(u16)(ECBM_MCU_ROM_SIZE));
+#if		ECBM_MCU	==	0x110301
+	debug("-8PIN");
+#elif	ECBM_MCU	==	0x110302
+	debug("S2-16PIN/20PIN");
+#elif	ECBM_MCU	==	0x120502
+	debug("S2");
+#elif	ECBM_MCU	==	0x120504
+	debug("S4");
+#elif	ECBM_MCU	==	0x2405C2
+	debug("S2A12");
+#elif	ECBM_MCU	==	0x2805C4
+	debug("S4A12");
+#elif	ECBM_MCU	==	0x3103A2
+	debug("-16PIN/20PIN");
+#elif	ECBM_MCU	==	0x310201
+	debug("-8PIN ");
+#elif	ECBM_MCU	==	0x3102A1
+	debug("A-8PIN");
+#elif	ECBM_MCU	==	0x3103A1
+	debug("T-20PIN");
+#elif	ECBM_MCU	==	0x3205A2
+	debug("S2");
+#elif	ECBM_MCU	==	0x3205A4
+	debug("S4");
+#elif	ECBM_MCU	==	0x4103A2
+	debug("-20PIN");
+#elif	ECBM_MCU	==	0x4105A2
+	debug("-32PIN");	
+#elif	ECBM_MCU	==	0x4205C4
+	debug("T-48PIN");
+#elif	ECBM_MCU	==	0x4305C2
+	debug("S2-48PIN");	
+#elif	ECBM_MCU	==	0x4305C4
+	debug("S4-48PIN");
+#elif	ECBM_MCU	==	0x4805C4
+	debug("U-48PIN/64PIN");	
+#endif
 	j=0;
-	debug("\r\nChecking MCU");
+	debug("\r\nChecking MCU ID");
 	for(i=0;i<7;i++){
 		debug(".");
 		if((REG_ID(i))==(MCUID[i])){
@@ -114,80 +130,98 @@ void system_check(){
 		debug("OK\r\nID    :");for(i=0;i<7;i++){debug("%02X",(u16)(MCUID[i]));}debug("\r\n");		//输出唯一ID号
 		debug("DATA  :128\tByte\r\n");//DATA区固定是128Byte
 		debug("IDATA :128\tByte\r\n");//IDATA区固定是128Byte
-		debug("XDATA :%u\tByte\r\n",(u16)ECBM_MCU_XDATA);//从配置文件中获取XDATA区大小
-		debug("FLASH :%u\tByte\r\n",(u16)ECBM_MCU_ROM);//从配置文件中获取FLASH区大小
-		debug("EEPROM:%u\tByte\r\n",(u16)ECBM_MCU_EEPROM);//从配置文件中获取EEPROM区大小
-		debug("HSI   :%lu\tHz\r\n",ecbm_sys_clk);//输出内部晶振值，在图形界面上设置
+		debug("XDATA :%u\tByte\r\n",(u16)((ECBM_MCU&0x0F0000)>>16)*1024);//从配置文件中获取XDATA区大小
+		debug("FLASH :%lu\tByte\r\n",(u32)ECBM_MCU_ROM_SIZE*1024);//从配置文件中获取FLASH区大小
+		debug("EEPROM:%u\tByte\r\n",(u16)512);//从配置文件中获取EEPROM区大小
+		debug("SYSCLK:%lu\tHz\r\n",ecbm_sys_clk);//输出内部晶振值，在图形界面上设置
 		debug("LSI   :%u\tHz\r\n",REG_LSI);//输出内部晶振值，在图形界面上设置
 		debug("BGV   :%u\tmV\r\n",REG_BGV);//输出内部电压基准值，需要在STC-ISP上设置
+		debug("ENDIAN:");
+		if(*((char*)(&aaa))==0x12)debug("big\tendian\r\n");
+		if(*((char*)(&aaa))==0x34)debug("little\tendian\r\n");
 	}	
 }
 #endif
 /****************************************************************************/#endif
+/*-------------------------------------------------------
+格式化发送函数
+-------------------------------------------------------*/
+void debug(const char * str,...){
+	char xdata buf[64];  //字符串缓存。
+	va_list vp;          //定义参数地址。
+    va_start(vp, str);   //赋值参数的地址。
+    vsprintf(buf,str,vp);//使用内置的printf函数格式化。
+    va_end(vp);          //使用完要关闭。
+	uart_string(1,buf);  //将格式化之后的字符串发送出去。
+}
 /*----------------------------------其他系统函数-----------------------------------*/
 #define SYS_HSI_S 0 //内部高速时钟HSI(标准)
 #define SYS_HSI_C 1 //内部高速时钟HSI(自定义)
 #define SYS_LSI   2 //内部低速时钟LSI
-#define SYS_HSE_A 3 //外部有源晶振
-#define SYS_HSE_P 4 //外部无源晶振
+#define SYS_LSE   3 //外部低速时钟LSI
+#define SYS_HSE_A 4 //外部有源晶振
+#define SYS_HSE_P 5 //外部无源晶振
 void system_set_clock(u8 source){
 	switch(source){
 		case SYS_HSI_S:
 		case SYS_HSI_C:{
-			HIRCCR=0x80;          //使能HSI，即内部24M的IRC。
-			while(!(HIRCCR&0x01));//等待时钟稳定。
-			CKSEL&=0xFC;            //切换到HSI。
-			XOSCCR=0x00;            //关闭其他时钟源，省电。
-			IRC32KCR=0x00;          //关闭其他时钟源，省电。
+			CLK_HSI_POWER_ON;	//使能HSI，即内部24M的IRC。
+			CLK_SET_SOURCE_HSI;	//切换到HSI。
+			CLK_HSE_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_LSE_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_LSI_POWER_OFF;	//关闭其他时钟源，省电。
 		}break;
 		case SYS_LSI:{
-			IRC32KCR=0x80;          //使能LSI，即内部32K的IRC。
-			while(!(IRC32KCR&0x01));//等待时钟稳定。
-			CKSEL|=0x03;            //切换到LSI。
-			XOSCCR=0x00;            //关闭其他时钟源，省电。
-			HIRCCR=0x00;          //关闭其他时钟源，省电。
+			CLK_LSI_POWER_ON;	//使能LSI，即内部32K的IRC。
+			CLK_SET_SOURCE_LSI;	//切换到LSI。
+			CLK_HSI_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_LSE_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_HSE_POWER_OFF;	//关闭其他时钟源，省电。
+		}break;
+		case SYS_LSE:{
+			CLK_LSE_POWER_ON;	//使能LSE，即外部低速晶振。
+			CLK_SET_SOURCE_LSE;	//切换到LSE。
+			CLK_LSI_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_HSI_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_HSE_POWER_OFF;	//关闭其他时钟源，省电。
 		}break;
 		case SYS_HSE_A:{
-			XOSCCR=0x80;            //使能HSE（有源晶振）。
-			while(!(XOSCCR&0x01));  //等待时钟稳定。
-			CKSEL=(CKSEL&0xFC)|0x01;//切换到HSE（有源晶振）。
-			IRC32KCR=0x00;          //关闭其他时钟源，省电。
-			HIRCCR=0x00;          //关闭其他时钟源，省电。
+			CLK_HSE_A_POWER_ON;	//使能HSE（有源晶振）。
+			CLK_SET_SOURCE_HSE;	//切换到HSE。
+			CLK_HSI_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_LSE_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_LSI_POWER_OFF;	//关闭其他时钟源，省电。
 		}break;
 		case SYS_HSE_P:{
-			XOSCCR=0xC0;            //使能HSE（无源晶振）。
-			while(!(XOSCCR&0x01));  //等待时钟稳定。
-			CKSEL=(CKSEL&0xFC)|0x02;//切换到HSE（无源晶振）。
-			IRC32KCR=0x00;          //关闭其他时钟源，省电。
-			HIRCCR=0x00;          //关闭其他时钟源，省电。
+			CLK_HSE_P_POWER_ON;	//使能HSE（无源晶振）。
+			CLK_SET_SOURCE_HSE;	//切换到HSE。
+			CLK_HSI_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_LSE_POWER_OFF;	//关闭其他时钟源，省电。
+			CLK_LSI_POWER_OFF;	//关闭其他时钟源，省电。
 		}break;
 	}
 }
 void system_set_div(u8 div){
-	if(div==0){     //排除掉0这个不稳定选项。
-		CLKDIV=1;   //如果输入0的话就改成1。
+	if(div==0){					//排除掉0这个不稳定选项。
+		CLK_SET_REG_CLKDIV(1);	//如果输入0的话就改成1。
 	}else{
-		CLKDIV=div; //如果不是0，就直接写入寄存器。
+		CLK_SET_REG_CLKDIV(div);//如果不是0，就直接写入寄存器。
 	}
 }
 /*-------------------------------------------------------
 库函数系统初始化函数
 -------------------------------------------------------*/
 void system_init(void){
-	#if SYS_CLOCK == 0    
-	u32 sys_count;
-	#endif
-	EX_SFR_ON;//打开额外的寄存器。
-
-
 	#define ECBM_SYSCLK_STEP1 48000
 	#define ECBM_SYSCLK_STEP2 76000
 	#define ECBM_SYSCLK_STEP  54000	
-	
-	
-	#if SYS_CLOCK == 0//如果使能了标准频率（HSI），
-	#if (ECBM_MCU_MAIN_RAM >= 2)
-	//检查是不是有两个频段的型号。
+	#if ECBM_SYSCLK_TYPE == 0    
+	u32 sys_count;
+	#endif
+	EX_SFR_ENABLE;//打开额外的寄存器。
+//-------------获取系统时钟------------//
+#if ECBM_SYSCLK_TYPE == 0//如果使能了标准频率（HSI），
+	#if ((ECBM_MCU&0xF00000)>0x200000)//检查是不是有两个频段的型号。
 		if(IRCBAND){//如果用的是33M频段，就用中心频率36M来计算。
 			sys_count=36000000L-(s32)((s32)REG_HSI1-(s32)IRTRIM)*ECBM_SYSCLK_STEP2;
 		}else{//如果用的是24M频段，就用中心频率24M来计算。
@@ -222,41 +256,57 @@ void system_init(void){
 	}else{
 		ecbm_sys_clk=35000000;    //最大支持到33M
 	}
-	#elif SYS_CLOCK == 2
-	ecbm_sys_clk=REG_LSI;
-	#else 
+#elif ECBM_SYSCLK_TYPE == 2//如果使能了内部低速时钟，
+	ecbm_sys_clk=REG_LSI;//从ram里读出时钟值。
+#else 
 	ecbm_sys_clk=SYS_CLK_SET;
-	#endif
+#endif
+#if ECBM_SYSCLK_TYPE >1//根据界面的选择，设置时钟源。
+	system_set_clock(ECBM_SYSCLK_TYPE);
+#endif	
+//-------------设置延时基准------------//		
 	ecbm_delay_base=ecbm_sys_clk/10000;
-	#if SYS_CLOCK >1
-	system_set_clock(SYS_CLOCK);
-	#endif
-	
-	#if AUTO_DOWNLOAD_EN//判断否需要开启自动下载。
+//---------------自动下载--------------//
+#if ECBM_AUTO_DOWNLOAD_EN//判断否需要开启自动下载。
 	old_char=0;         //初始化串口相关变量
 	char_count=0;       //初始化串口相关变量
-	debug_busy=0;       //初始化串口相关变量
 	uart_init();
-	#endif
-	#if SYSCLK_OUT_EN //判断是否需要开启时钟输出。
-	CKSEL&=0x07;      //填充准备。
-	CKSEL|=SYSCLK_OUT;//将图形界面的设置写入参数。
-	#endif
-	#if ECBM_POWER_EN
-		#if POWER_RST_CFG_EN
+#endif
+//-------------基本硬件设置------------//
+#if ECBM_POWER_LIB_EN
+	#if ECBM_POWER_RST_CFG_EN
 		power_rstcfg_init();
-		#endif
 	#endif
-	EA_ON;//打开总中断。
-	#if CHECK_EN
+#endif	
+//-------------时钟输出设置------------//	
+#if ECBM_SYSCLK_OUT_EN //判断是否需要开启时钟输出。
+	#if ((ECBM_MCU&0xF00000)>0x200000)//检查是不是GH。
+		#if ECBM_SYSLCK_OUT_PIN
+			CLK_SET_OUT_TO_P16_GH;
+		#else
+			CLK_SET_OUT_TO_P54_GH;
+		#endif
+		CLK_OUT_SET_DIV_GH(ECBM_SYSCLK_OUT_SETTING_GH);
+	#else
+		#if ECBM_SYSLCK_OUT_PIN
+			CLK_SET_OUT_TO_P16_FA;
+		#else
+			CLK_SET_OUT_TO_P54_FA;
+		#endif
+		CLK_OUT_SET_DIV_FA(ECBM_SYSCLK_OUT_SETTING_FA);
+	#endif
+#endif
+//--------------设置确认---------------//
+	EA_ENABLE;//打开总中断。
+#if ECBM_MCU_CHECK_EN
 	delay_ms(500);
 	system_check();
-	#endif
+#endif
 }
 /*-------------------------------------------------------
 错误函数
 -------------------------------------------------------*/
-#if SYS_ERROR_EN
+#if ECBM_ERROR_PRINTF_EN
 void error_printf(const char * str,...){
 	u8 ch,i;         //字符缓存、位发送计数。
 	u16 j,len;       //字符发送计数、字符长度。
@@ -294,8 +344,8 @@ void error_printf(const char * str,...){
 /*-------------------------------------------------------
 软件串口。
 -------------------------------------------------------*/
-#if SOFT_DEBUG
-#if ECBM_GPIO_EN == 0  
+#if ECBM_SOFT_DEBUG_EN
+#if ECBM_GPIO_LIB_EN == 0  
 #error 软调试功能需要GPIO库的支持，请确认GPIO库呈使能状态。
 #endif 
 void debug_soft(u8 io,const char * str,...){
@@ -327,13 +377,12 @@ void debug_soft(u8 io,const char * str,...){
 	}
 }
 #endif
-/**********************************str系列函数************************/#if SYS_STR_EN
+/**********************************str系列函数************************/#if ECBM_STRING_EN
 /*-------------------------------------------------------
 字符串查找函数。
 -------------------------------------------------------*/
 u16 str_find(char * dest,char * key){
 	u16 key_count=0,key_first=0,count=0;
-	
 	while(*dest){	//判断目标字符串。
 		count++;	//记录循环的次数。
 		if(key[key_count]==(*dest)){//假如关键词字符串当前位比对成功，
@@ -449,7 +498,7 @@ u8 str_push_len(u8 * dest,u16 dlen,u8 * key,u16 klen){
 	}
 }
 /*****************************************************************************/#endif
-/*程序区折叠专用******************CRC16模块***********************/#if SYS_CRC16_EN
+/*程序区折叠专用******************CRC16模块***********************/#if ECBM_CRC16_EN
 /*-------------------------------------------------------
 计算CRC16函数。
 -------------------------------------------------------*/

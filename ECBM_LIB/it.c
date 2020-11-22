@@ -1,5 +1,5 @@
 #include "ecbm_core.h"//统一加载核心头文件
-#if ECBM_IT_EN      //编译开关，当配置文件没有加载该外设的.h文件时，就不编译该.c文件
+#if ECBM_IT_LIB_EN      //编译开关，当配置文件没有加载该外设的.h文件时，就不编译该.c文件
 /*--------------------------------------变量定义-----------------------------------*/
 #if ECBM_IT_CHECK_EN == 1
 u8 STC8A_IT_LIST[22][9]={
@@ -126,22 +126,10 @@ void it_priority_check(void){
 -------------------------------------------------------*/
 void it_set_int0(u8 priority){
 	switch(priority){
-		case 0:{
-			IPH&=~0x01;
-			IP &=~0x01;
-		}break;
-		case 1:{
-			IPH&=~0x01;
-			IP |= 0x01;
-		}break;
-		case 2:{
-			IPH|= 0x01;
-			IP &=~0x01;
-		}break;
-		case 3:{
-			IPH|= 0x01;
-			IP |= 0x01;
-		}break;
+		case 0:{IT_SET_EXTI0_PRIORITY_0;}break;
+		case 1:{IT_SET_EXTI0_PRIORITY_1;}break;
+		case 2:{IT_SET_EXTI0_PRIORITY_2;}break;
+		case 3:{IT_SET_EXTI0_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -149,22 +137,10 @@ void it_set_int0(u8 priority){
 -------------------------------------------------------*/
 void it_set_timer0(u8 priority){
 	switch(priority){
-		case 0:{
-			IPH&=~0x02;
-			IP &=~0x02;
-		}break;
-		case 1:{
-			IPH&=~0x02;
-			IP |= 0x02;
-		}break;
-		case 2:{
-			IPH|= 0x02;
-			IP &=~0x02;
-		}break;
-		case 3:{
-			IPH|= 0x02;
-			IP |= 0x02;
-		}break;
+		case 0:{IT_SET_TIMER0_PRIORITY_0;}break;
+		case 1:{IT_SET_TIMER0_PRIORITY_1;}break;
+		case 2:{IT_SET_TIMER0_PRIORITY_2;}break;
+		case 3:{IT_SET_TIMER0_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -172,22 +148,10 @@ void it_set_timer0(u8 priority){
 -------------------------------------------------------*/
 void it_set_int1(u8 priority){
 	switch(priority){
-		case 0:{
-			IPH&=~0x04;
-			IP &=~0x04;
-		}break;
-		case 1:{
-			IPH&=~0x04;
-			IP |= 0x04;
-		}break;
-		case 2:{
-			IPH|= 0x04;
-			IP &=~0x04;
-		}break;
-		case 3:{
-			IPH|= 0x04;
-			IP |= 0x04;
-		}break;
+		case 0:{IT_SET_EXTI1_PRIORITY_0;}break;
+		case 1:{IT_SET_EXTI1_PRIORITY_1;}break;
+		case 2:{IT_SET_EXTI1_PRIORITY_2;}break;
+		case 3:{IT_SET_EXTI1_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -195,22 +159,10 @@ void it_set_int1(u8 priority){
 -------------------------------------------------------*/
 void it_set_timer1(u8 priority){
 	switch(priority){
-		case 0:{
-			IPH&=~0x08;
-			IP &=~0x08;
-		}break;
-		case 1:{
-			IPH&=~0x08;
-			IP |= 0x08;
-		}break;
-		case 2:{
-			IPH|= 0x08;
-			IP &=~0x08;
-		}break;
-		case 3:{
-			IPH|= 0x08;
-			IP |= 0x08;
-		}break;
+		case 0:{IT_SET_TIMER1_PRIORITY_0;}break;
+		case 1:{IT_SET_TIMER1_PRIORITY_1;}break;
+		case 2:{IT_SET_TIMER1_PRIORITY_2;}break;
+		case 3:{IT_SET_TIMER1_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -218,22 +170,10 @@ void it_set_timer1(u8 priority){
 -------------------------------------------------------*/
 void it_set_uart1(u8 priority){
 	switch(priority){
-		case 0:{
-			IPH&=~0x10;
-			IP &=~0x10;
-		}break;
-		case 1:{
-			IPH&=~0x10;
-			IP |= 0x10;
-		}break;
-		case 2:{
-			IPH|= 0x10;
-			IP &=~0x10;
-		}break;
-		case 3:{
-			IPH|= 0x10;
-			IP |= 0x10;
-		}break;
+		case 0:{IT_SET_UART1_PRIORITY_0;}break;
+		case 1:{IT_SET_UART1_PRIORITY_1;}break;
+		case 2:{IT_SET_UART1_PRIORITY_2;}break;
+		case 3:{IT_SET_UART1_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -241,22 +181,10 @@ ADC的中断优先级设置函数。
 -------------------------------------------------------*/
 void it_set_adc(u8 priority){
 	switch(priority){
-		case 0:{
-			IPH&=~0x20;
-			IP &=~0x20;
-		}break;
-		case 1:{
-			IPH&=~0x20;
-			IP |= 0x20;
-		}break;
-		case 2:{
-			IPH|= 0x20;
-			IP &=~0x20;
-		}break;
-		case 3:{
-			IPH|= 0x20;
-			IP |= 0x20;
-		}break;
+		case 0:{IT_SET_ADC_PRIORITY_0;}break;
+		case 1:{IT_SET_ADC_PRIORITY_1;}break;
+		case 2:{IT_SET_ADC_PRIORITY_2;}break;
+		case 3:{IT_SET_ADC_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -264,22 +192,10 @@ LVD的中断优先级设置函数。
 -------------------------------------------------------*/
 void it_set_lvd(u8 priority){
 	switch(priority){
-		case 0:{
-			IPH&=~0x40;
-			IP &=~0x40;
-		}break;
-		case 1:{
-			IPH&=~0x40;
-			IP |= 0x40;
-		}break;
-		case 2:{
-			IPH|= 0x40;
-			IP &=~0x40;
-		}break;
-		case 3:{
-			IPH|= 0x40;
-			IP |= 0x40;
-		}break;
+		case 0:{IT_SET_LVD_PRIORITY_0;}break;
+		case 1:{IT_SET_LVD_PRIORITY_1;}break;
+		case 2:{IT_SET_LVD_PRIORITY_2;}break;
+		case 3:{IT_SET_LVD_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -295,22 +211,10 @@ void it_set_lvd(u8 priority){
 -------------------------------------------------------*/
 void it_set_pca(u8 priority){
 	switch(priority){
-		case 0:{
-			IPH&=~0x80;
-			IP &=~0x80;
-		}break;
-		case 1:{
-			IPH&=~0x80;
-			IP |= 0x80;
-		}break;
-		case 2:{
-			IPH|= 0x80;
-			IP &=~0x80;
-		}break;
-		case 3:{
-			IPH|= 0x80;
-			IP |= 0x80;
-		}break;
+		case 0:{IT_SET_PCA_PRIORITY_0;}break;
+		case 1:{IT_SET_PCA_PRIORITY_1;}break;
+		case 2:{IT_SET_PCA_PRIORITY_2;}break;
+		case 3:{IT_SET_PCA_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -318,22 +222,10 @@ void it_set_pca(u8 priority){
 -------------------------------------------------------*/
 void it_set_uart2(u8 priority){
 	switch(priority){
-		case 0:{
-			IP2H&=~0x01;
-			IP2 &=~0x01;
-		}break;
-		case 1:{
-			IP2H&=~0x01;
-			IP2 |= 0x01;
-		}break;
-		case 2:{
-			IP2H|= 0x01;
-			IP2 &=~0x01;
-		}break;
-		case 3:{
-			IP2H|= 0x01;
-			IP2 |= 0x01;
-		}break;
+		case 0:{IT_SET_UART2_PRIORITY_0;}break;
+		case 1:{IT_SET_UART2_PRIORITY_1;}break;
+		case 2:{IT_SET_UART2_PRIORITY_2;}break;
+		case 3:{IT_SET_UART2_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -341,22 +233,10 @@ SPI的中断优先级设置函数。
 -------------------------------------------------------*/
 void it_set_spi(u8 priority){
 	switch(priority){
-		case 0:{
-			IP2H&=~0x02;
-			IP2 &=~0x02;
-		}break;
-		case 1:{
-			IP2H&=~0x02;
-			IP2 |= 0x02;
-		}break;
-		case 2:{
-			IP2H|= 0x02;
-			IP2 &=~0x02;
-		}break;
-		case 3:{
-			IP2H|= 0x02;
-			IP2 |= 0x02;
-		}break;
+		case 0:{IT_SET_SPI_PRIORITY_0;}break;
+		case 1:{IT_SET_SPI_PRIORITY_1;}break;
+		case 2:{IT_SET_SPI_PRIORITY_2;}break;
+		case 3:{IT_SET_SPI_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -364,22 +244,10 @@ PWM的中断优先级设置函数。
 -------------------------------------------------------*/
 void it_set_pwm(u8 priority){
 	switch(priority){
-		case 0:{
-			IP2H&=~0x04;
-			IP2 &=~0x04;
-		}break;
-		case 1:{
-			IP2H&=~0x04;
-			IP2 |= 0x04;
-		}break;
-		case 2:{
-			IP2H|= 0x04;
-			IP2 &=~0x04;
-		}break;
-		case 3:{
-			IP2H|= 0x04;
-			IP2 |= 0x04;
-		}break;
+		case 0:{IT_SET_PWM_PRIORITY_0;}break;
+		case 1:{IT_SET_PWM_PRIORITY_1;}break;
+		case 2:{IT_SET_PWM_PRIORITY_2;}break;
+		case 3:{IT_SET_PWM_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -387,22 +255,10 @@ PWMFD的中断优先级设置函数。
 -------------------------------------------------------*/
 void it_set_pwmfd(u8 priority){
 	switch(priority){
-		case 0:{
-			IP2H&=~0x08;
-			IP2 &=~0x08;
-		}break;
-		case 1:{
-			IP2H&=~0x08;
-			IP2 |= 0x08;
-		}break;
-		case 2:{
-			IP2H|= 0x08;
-			IP2 &=~0x08;
-		}break;
-		case 3:{
-			IP2H|= 0x08;
-			IP2 |= 0x08;
-		}break;
+		case 0:{IT_SET_PWMFD_PRIORITY_0;}break;
+		case 1:{IT_SET_PWMFD_PRIORITY_1;}break;
+		case 2:{IT_SET_PWMFD_PRIORITY_2;}break;
+		case 3:{IT_SET_PWMFD_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -410,22 +266,10 @@ void it_set_pwmfd(u8 priority){
 -------------------------------------------------------*/
 void it_set_int4(u8 priority){
 	switch(priority){
-		case 0:{
-			IP2H&=~0x10;
-			IP2 &=~0x10;
-		}break;
-		case 1:{
-			IP2H&=~0x10;
-			IP2 |= 0x10;
-		}break;
-		case 2:{
-			IP2H|= 0x10;
-			IP2 &=~0x10;
-		}break;
-		case 3:{
-			IP2H|= 0x10;
-			IP2 |= 0x10;
-		}break;
+		case 0:{IT_SET_EXTI4_PRIORITY_0;}break;
+		case 1:{IT_SET_EXTI4_PRIORITY_1;}break;
+		case 2:{IT_SET_EXTI4_PRIORITY_2;}break;
+		case 3:{IT_SET_EXTI4_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -433,22 +277,10 @@ CMP的中断优先级设置函数。
 -------------------------------------------------------*/
 void it_set_cmp(u8 priority){
 	switch(priority){
-		case 0:{
-			IP2H&=~0x20;
-			IP2 &=~0x20;
-		}break;
-		case 1:{
-			IP2H&=~0x20;
-			IP2 |= 0x20;
-		}break;
-		case 2:{
-			IP2H|= 0x20;
-			IP2 &=~0x20;
-		}break;
-		case 3:{
-			IP2H|= 0x20;
-			IP2 |= 0x20;
-		}break;
+		case 0:{IT_SET_CMP_PRIORITY_0;}break;
+		case 1:{IT_SET_CMP_PRIORITY_1;}break;
+		case 2:{IT_SET_CMP_PRIORITY_2;}break;
+		case 3:{IT_SET_CMP_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
@@ -456,43 +288,31 @@ IIC的中断优先级设置函数。
 -------------------------------------------------------*/
 void it_set_iic(u8 priority){
 	switch(priority){
-		case 0:{
-			IP2H&=~0x40;
-			IP2 &=~0x40;
-		}break;
-		case 1:{
-			IP2H&=~0x40;
-			IP2 |= 0x40;
-		}break;
-		case 2:{
-			IP2H|= 0x40;
-			IP2 &=~0x40;
-		}break;
-		case 3:{
-			IP2H|= 0x40;
-			IP2 |= 0x40;
-		}break;
+		case 0:{IT_SET_IIC_PRIORITY_0;}break;
+		case 1:{IT_SET_IIC_PRIORITY_1;}break;
+		case 2:{IT_SET_IIC_PRIORITY_2;}break;
+		case 3:{IT_SET_IIC_PRIORITY_3;}break;
 	}
 }
 /*-------------------------------------------------------
 全体中断优先级一键设置函数。
 -------------------------------------------------------*/
 void it_set_all(void){
-	it_set_int0  (ECBM_IT_INT0_PRIORITY);
+	it_set_int0  (ECBM_IT_INT0_PRIORITY  );
 	it_set_timer0(ECBM_IT_TIMER0_PRIORITY);
-	it_set_int1  (ECBM_IT_INT1_PRIORITY);
+	it_set_int1  (ECBM_IT_INT1_PRIORITY  );
 	it_set_timer1(ECBM_IT_TIMER1_PRIORITY);
-	it_set_uart1 (ECBM_IT_UART1_PRIORITY);
-	it_set_adc   (ECBM_IT_ADC_PRIORITY);
-	it_set_lvd   (ECBM_IT_LVD_PRIORITY);
-	it_set_pca   (ECBM_IT_PCA_PRIORITY);
-	it_set_uart2 (ECBM_IT_UART2_PRIORITY);
-	it_set_spi   (ECBM_IT_SPI_PRIORITY);
-	it_set_pwm   (ECBM_IT_PWM_PRIORITY);
-	it_set_pwmfd (ECBM_IT_PWMFD_PRIORITY);
-	it_set_int4  (ECBM_IT_INT4_PRIORITY);
-	it_set_cmp   (ECBM_IT_CMP_PRIORITY);
-	it_set_iic   (ECBM_IT_IIC_PRIORITY);
+	it_set_uart1 (ECBM_IT_UART1_PRIORITY );
+	it_set_adc   (ECBM_IT_ADC_PRIORITY   );
+	it_set_lvd   (ECBM_IT_LVD_PRIORITY   );
+	it_set_pca   (ECBM_IT_PCA_PRIORITY   );
+	it_set_uart2 (ECBM_IT_UART2_PRIORITY );
+	it_set_spi   (ECBM_IT_SPI_PRIORITY   );
+	it_set_pwm   (ECBM_IT_PWM_PRIORITY   );
+	it_set_pwmfd (ECBM_IT_PWMFD_PRIORITY );
+	it_set_int4  (ECBM_IT_INT4_PRIORITY  );
+	it_set_cmp   (ECBM_IT_CMP_PRIORITY   );
+	it_set_iic   (ECBM_IT_IIC_PRIORITY   );
 }
 /*-------------------------------------------------------
 全体中断优先级一键还原函数。

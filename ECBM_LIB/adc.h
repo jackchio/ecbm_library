@@ -32,185 +32,235 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------*/
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
-//<h>STC8A8K系列设置
+//<h>通道使能设置
 //<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
-//<i>当前的设置针对于STC8A8K系列。
-//<q>通道0(P1.0)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P1.7冲突，请不要将P1.7设为高阻态。
-#define ECBM_T1_ADC_CH0 0
-//<q>通道1(P1.1)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P0.0冲突，请不要将P0.0设为高阻态。
-#define ECBM_T1_ADC_CH1 0
-//<q>通道2(P1.2)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P0.1冲突，请不要将P0.1设为高阻态。
-#define ECBM_T1_ADC_CH2 0
-//<q>通道3(P1.3)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P0.2冲突，请不要将P0.2设为高阻态。
-#define ECBM_T1_ADC_CH3 0
-//<q>通道4(P1.4)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P0.3冲突，请不要将P0.3设为高阻态。
-#define ECBM_T1_ADC_CH4 0
-//<q>通道5(P1.5)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P0.4冲突，请不要将P0.4设为高阻态。
-#define ECBM_T1_ADC_CH5 0
-//<q>通道6(P1.6)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P0.5冲突，请不要将P0.5设为高阻态。
-#define ECBM_T1_ADC_CH6 0
-//<q>通道7(P1.7)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P0.6冲突，请不要将P0.6设为高阻态。
-#define ECBM_T1_ADC_CH7 0
-//<q>通道8(P0.0)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P1.0冲突，请不要将P1.0设为高阻态。
-#define ECBM_T1_ADC_CH8 0
-//<q>通道9(P0.1)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P1.1冲突，请不要将P1.1设为高阻态。
-#define ECBM_T1_ADC_CH9 0
-//<q>通道10(P0.2)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P1.2冲突，请不要将P1.2设为高阻态。
-#define ECBM_T1_ADC_CH10 0
-//<q>通道11(P0.3)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P1.3冲突，请不要将P1.3设为高阻态。
-#define ECBM_T1_ADC_CH11 0
-//<q>通道12(P0.4)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P1.4冲突，请不要将P1.4设为高阻态。
-#define ECBM_T1_ADC_CH12 0
-//<q>通道13(P0.5)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P1.5冲突，请不要将P1.5设为高阻态。
-#define ECBM_T1_ADC_CH13 0
-//<q>通道14(P0.6)
-//<i>该通道对应的IO只适用于STC8A8K系列。
-//<i>对于STC8A8K系列来说，该通道会和P1.6冲突，请不要将P1.6设为高阻态。
-#define ECBM_T1_ADC_CH14 0
-//<q>通道15(BGV)
-//<i>对于STC8A8K系列来说，该通道会和P1.7冲突，请不要将P1.7设为高阻态。
-#define ECBM_T1_ADC_CH15 0
+//<i>有些通道可能和某些引脚互相影响，会导致测量结果不准。详情请看STC的数据手册。
+//<q>通道0
+//<i>STC8A4KxxS2A12_ALL    :P1.0
+//<i>STC8A8KxxS4A12_ALL    :P1.0
+//<i>STC8G1Kxx_16PIN_20PIN :P1.0
+//<i>STC8G1KxxA_8PIN       :P3.0
+//<i>STC8G1KxxT_20PIN      :P1.0
+//<i>STC8G2KxxS2_ALL       :P1.0
+//<i>STC8G2KxxS4_ALL       :P1.0
+//<i>STC8H1Kxx_20PIN       :P1.0
+//<i>STC8H1Kxx_32PIN       :P1.0
+//<i>STC8H2KxxT_48PIN      :P1.0
+//<i>STC8H3KxxS2_48PIN     :P1.0
+//<i>STC8H3KxxS4_48PIN     :P1.0
+//<i>STC8H8KxxU_48PIN_64PIN:P1.0
+#define ECBM_ADC_CH0 1
+//<q>通道1
+//<i>STC8A4KxxS2A12_ALL    :P1.1
+//<i>STC8A8KxxS4A12_ALL    :P1.1
+//<i>STC8G1Kxx_16PIN_20PIN :P1.1
+//<i>STC8G1KxxA_8PIN       :P3.1
+//<i>STC8G1KxxT_20PIN      :P1.1
+//<i>STC8G2KxxS2_ALL       :P1.1
+//<i>STC8G2KxxS4_ALL       :P1.1
+//<i>STC8H1Kxx_20PIN       :P1.1
+//<i>STC8H1Kxx_32PIN       :P1.1
+//<i>STC8H2KxxT_48PIN      :P1.1
+//<i>STC8H3KxxS2_48PIN     :P1.1
+//<i>STC8H3KxxS4_48PIN     :P1.1
+//<i>STC8H8KxxU_48PIN_64PIN:P1.1
+#define ECBM_ADC_CH1 0
+//<q>通道2
+//<i>STC8A4KxxS2A12_ALL    :P1.2
+//<i>STC8A8KxxS4A12_ALL    :P1.2
+//<i>STC8G1Kxx_16PIN_20PIN :P1.2
+//<i>STC8G1KxxA_8PIN       :P3.2
+//<i>STC8G1KxxT_20PIN      :P5.4
+//<i>STC8G2KxxS2_ALL       :P1.2
+//<i>STC8G2KxxS4_ALL       :P1.2
+//<i>STC8H1Kxx_20PIN       :无
+//<i>STC8H1Kxx_32PIN       :P1.2
+//<i>STC8H2KxxT_48PIN      :无
+//<i>STC8H3KxxS2_48PIN     :P1.2
+//<i>STC8H3KxxS4_48PIN     :P1.2
+//<i>STC8H8KxxU_48PIN_64PIN:P5.4
+#define ECBM_ADC_CH2 0
+//<q>通道3
+//<i>STC8A4KxxS2A12_ALL    :P1.3
+//<i>STC8A8KxxS4A12_ALL    :P1.3
+//<i>STC8G1Kxx_16PIN_20PIN :P1.3
+//<i>STC8G1KxxA_8PIN       :P3.3
+//<i>STC8G1KxxT_20PIN      :P1.3
+//<i>STC8G2KxxS2_ALL       :P1.3
+//<i>STC8G2KxxS4_ALL       :P1.3
+//<i>STC8H1Kxx_20PIN       :P3.0
+//<i>STC8H1Kxx_32PIN       :P1.3
+//<i>STC8H2KxxT_48PIN      :P1.3
+//<i>STC8H3KxxS2_48PIN     :无
+//<i>STC8H3KxxS4_48PIN     :无
+//<i>STC8H8KxxU_48PIN_64PIN:P1.3
+#define ECBM_ADC_CH3 0
+//<q>通道4
+//<i>STC8A4KxxS2A12_ALL    :P1.4
+//<i>STC8A8KxxS4A12_ALL    :P1.4
+//<i>STC8G1Kxx_16PIN_20PIN :P1.4
+//<i>STC8G1KxxA_8PIN       :P5.4
+//<i>STC8G1KxxT_20PIN      :P1.4
+//<i>STC8G2KxxS2_ALL       :P1.4
+//<i>STC8G2KxxS4_ALL       :P1.4
+//<i>STC8H1Kxx_20PIN       :无
+//<i>STC8H1Kxx_32PIN       :P1.4
+//<i>STC8H2KxxT_48PIN      :P1.4
+//<i>STC8H3KxxS2_48PIN     :无
+//<i>STC8H3KxxS4_48PIN     :无
+//<i>STC8H8KxxU_48PIN_64PIN:P1.4
+#define ECBM_ADC_CH4 0
+//<q>通道5
+//<i>STC8A4KxxS2A12_ALL    :P1.5
+//<i>STC8A8KxxS4A12_ALL    :P1.5
+//<i>STC8G1Kxx_16PIN_20PIN :P1.5
+//<i>STC8G1KxxA_8PIN       :P5.5
+//<i>STC8G1KxxT_20PIN      :P1.5
+//<i>STC8G2KxxS2_ALL       :P1.5
+//<i>STC8G2KxxS4_ALL       :P1.5
+//<i>STC8H1Kxx_20PIN       :无
+//<i>STC8H1Kxx_32PIN       :P1.5
+//<i>STC8H2KxxT_48PIN      :P1.5
+//<i>STC8H3KxxS2_48PIN     :无
+//<i>STC8H3KxxS4_48PIN     :无
+//<i>STC8H8KxxU_48PIN_64PIN:P1.5
+#define ECBM_ADC_CH5 0
+//<q>通道6
+//<i>STC8A4KxxS2A12_ALL    :P1.6
+//<i>STC8A8KxxS4A12_ALL    :P1.6
+//<i>STC8G1Kxx_16PIN_20PIN :P1.6
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P1.6
+//<i>STC8G2KxxS2_ALL       :P1.6
+//<i>STC8G2KxxS4_ALL       :P1.6
+//<i>STC8H1Kxx_20PIN       :无
+//<i>STC8H1Kxx_32PIN       :P1.6
+//<i>STC8H2KxxT_48PIN      :P1.6
+//<i>STC8H3KxxS2_48PIN     :P1.6
+//<i>STC8H3KxxS4_48PIN     :P1.6
+//<i>STC8H8KxxU_48PIN_64PIN:P1.6
+#define ECBM_ADC_CH6 0
+//<q>通道7
+//<i>STC8A4KxxS2A12_ALL    :P1.7
+//<i>STC8A8KxxS4A12_ALL    :P1.7
+//<i>STC8G1Kxx_16PIN_20PIN :P1.7
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P1.7
+//<i>STC8G2KxxS2_ALL       :P1.7
+//<i>STC8G2KxxS4_ALL       :P1.7
+//<i>STC8H1Kxx_20PIN       :无
+//<i>STC8H1Kxx_32PIN       :P1.7
+//<i>STC8H2KxxT_48PIN      :P1.7
+//<i>STC8H3KxxS2_48PIN     :P1.7
+//<i>STC8H3KxxS4_48PIN     :P1.7
+//<i>STC8H8KxxU_48PIN_64PIN:P1.7
+#define ECBM_ADC_CH7 0
+//<q>通道8
+//<i>STC8A4KxxS2A12_ALL    :P0.0
+//<i>STC8A8KxxS4A12_ALL    :P0.0
+//<i>STC8G1Kxx_16PIN_20PIN :P3.0
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P3.0
+//<i>STC8G2KxxS2_ALL       :P0.0
+//<i>STC8G2KxxS4_ALL       :P0.0
+//<i>STC8H1Kxx_20PIN       :无
+//<i>STC8H1Kxx_32PIN       :P0.0
+//<i>STC8H2KxxT_48PIN      :P0.0
+//<i>STC8H3KxxS2_48PIN     :P0.0
+//<i>STC8H3KxxS4_48PIN     :P0.0
+//<i>STC8H8KxxU_48PIN_64PIN:P0.0
+#define ECBM_ADC_CH8 0
+//<q>通道9
+//<i>STC8A4KxxS2A12_ALL    :P0.1
+//<i>STC8A8KxxS4A12_ALL    :P0.1
+//<i>STC8G1Kxx_16PIN_20PIN :P3.1
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P3.1
+//<i>STC8G2KxxS2_ALL       :P0.1
+//<i>STC8G2KxxS4_ALL       :P0.1
+//<i>STC8H1Kxx_20PIN       :P3.1
+//<i>STC8H1Kxx_32PIN       :P0.1
+//<i>STC8H2KxxT_48PIN      :P0.1
+//<i>STC8H3KxxS2_48PIN     :P0.1
+//<i>STC8H3KxxS4_48PIN     :P0.1
+//<i>STC8H8KxxU_48PIN_64PIN:P0.1
+#define ECBM_ADC_CH9 0
+//<q>通道10
+//<i>STC8A4KxxS2A12_ALL    :P0.2
+//<i>STC8A8KxxS4A12_ALL    :P0.2
+//<i>STC8G1Kxx_16PIN_20PIN :P3.2
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P3.2
+//<i>STC8G2KxxS2_ALL       :P0.2
+//<i>STC8G2KxxS4_ALL       :P0.2
+//<i>STC8H1Kxx_20PIN       :P3.2
+//<i>STC8H1Kxx_32PIN       :P0.2
+//<i>STC8H2KxxT_48PIN      :P0.2
+//<i>STC8H3KxxS2_48PIN     :P0.2
+//<i>STC8H3KxxS4_48PIN     :P0.2
+//<i>STC8H8KxxU_48PIN_64PIN:P0.2
+#define ECBM_ADC_CH10 0
+//<q>通道11
+//<i>STC8A4KxxS2A12_ALL    :P0.3
+//<i>STC8A8KxxS4A12_ALL    :P0.3
+//<i>STC8G1Kxx_16PIN_20PIN :P3.3
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P3.3
+//<i>STC8G2KxxS2_ALL       :P0.3
+//<i>STC8G2KxxS4_ALL       :P0.3
+//<i>STC8H1Kxx_20PIN       :P3.3
+//<i>STC8H1Kxx_32PIN       :P0.3
+//<i>STC8H2KxxT_48PIN      :P0.3
+//<i>STC8H3KxxS2_48PIN     :P0.3
+//<i>STC8H3KxxS4_48PIN     :P0.3
+//<i>STC8H8KxxU_48PIN_64PIN:P0.3
+#define ECBM_ADC_CH11 0
+//<q>通道12
+//<i>STC8A4KxxS2A12_ALL    :P0.4
+//<i>STC8A8KxxS4A12_ALL    :P0.4
+//<i>STC8G1Kxx_16PIN_20PIN :P3.4
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P3.4
+//<i>STC8G2KxxS2_ALL       :P0.4
+//<i>STC8G2KxxS4_ALL       :P0.4
+//<i>STC8H1Kxx_20PIN       :P3.4
+//<i>STC8H1Kxx_32PIN       :无
+//<i>STC8H2KxxT_48PIN      :P0.4
+//<i>STC8H3KxxS2_48PIN     :P0.4
+//<i>STC8H3KxxS4_48PIN     :P0.4
+//<i>STC8H8KxxU_48PIN_64PIN:P0.4
+#define ECBM_ADC_CH12 0
+//<q>通道13
+//<i>STC8A4KxxS2A12_ALL    :P0.5
+//<i>STC8A8KxxS4A12_ALL    :P0.5
+//<i>STC8G1Kxx_16PIN_20PIN :P3.5
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P3.5
+//<i>STC8G2KxxS2_ALL       :P0.5
+//<i>STC8G2KxxS4_ALL       :P0.5
+//<i>STC8H1Kxx_20PIN       :P3.5
+//<i>STC8H1Kxx_32PIN       :无
+//<i>STC8H2KxxT_48PIN      :P0.5
+//<i>STC8H3KxxS2_48PIN     :P0.5
+//<i>STC8H3KxxS4_48PIN     :P0.5
+//<i>STC8H8KxxU_48PIN_64PIN:P0.5
+#define ECBM_ADC_CH13 0
+//<q>通道14
+//<i>STC8A4KxxS2A12_ALL    :P0.6
+//<i>STC8A8KxxS4A12_ALL    :P0.6
+//<i>STC8G1Kxx_16PIN_20PIN :P3.6
+//<i>STC8G1KxxA_8PIN       :无
+//<i>STC8G1KxxT_20PIN      :P3.6
+//<i>STC8G2KxxS2_ALL       :P0.6
+//<i>STC8G2KxxS4_ALL       :P0.6
+//<i>STC8H1Kxx_20PIN       :P3.6
+//<i>STC8H1Kxx_32PIN       :无
+//<i>STC8H2KxxT_48PIN      :P0.6
+//<i>STC8H3KxxS2_48PIN     :P0.6
+//<i>STC8H3KxxS4_48PIN     :P0.6
+//<i>STC8H8KxxU_48PIN_64PIN:P0.6
+#define ECBM_ADC_CH14 0
 //</h>
-//<h>STC8G2K系列设置
-//<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
-//<i>当前的设置针对于STC8G2K64S4-48PIN系列。
-//<q>通道0(P1.0)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH0 0
-//<q>通道1(P1.1)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH1 0
-//<q>通道2(P1.2)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH2 0
-//<q>通道3(P1.3)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH3 0
-//<q>通道4(P1.4)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH4 0
-//<q>通道5(P1.5)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH5 0
-//<q>通道6(P1.6)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH6 0
-//<q>通道7(P1.7)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH7 0
-//<q>通道8(P0.0)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH8 0
-//<q>通道9(P0.1)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH9 0
-//<q>通道10(P0.2)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH10 0
-//<q>通道11(P0.3)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH11 0
-//<q>通道12(P0.4)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH12 0
-//<q>通道13(P0.5)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH13 0
-//<q>通道14(P0.6)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH14 0
-//<q>通道15(BGV)
-//<i>该通道对应的IO只适用于STC8G2K64S4-48PIN系列。
-#define ECBM_T2_ADC_CH15 1
-//</h>
-//<h>STC8G1K08A-8PIN设置
-//<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
-//<i>当前的设置针对于STC8G1K08A-8PIN。
-//<q>通道0(P3.0)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
-#define ECBM_T3_ADC_CH0 0
-//<q>通道1(P3.1)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
-#define ECBM_T3_ADC_CH1 0
-//<q>通道2(P3.2)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
-#define ECBM_T3_ADC_CH2 0
-//<q>通道3(P3.3)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
-#define ECBM_T3_ADC_CH3 0
-//<q>通道4(P5.4)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
-#define ECBM_T3_ADC_CH4 0
-//<q>通道5(P5.5)
-//<i>该通道对应的IO只适用于STC8G1K08A-8PIN。
-#define ECBM_T3_ADC_CH5 0
-//<q>通道15(BGV)
-#define ECBM_T3_ADC_CH15 1
-//</h>
-
-//<h>STC8H1K08设置
-//<i>ADC在转换的时候需要IO是高阻模式，在这里设置使能之后，会在adc_init函数中把相应的IO口设置成高阻模式。
-//<i>当前的设置针对于STC8H1K08。
-//<q>通道0(P1.0)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH0 1
-//<q>通道1(P1.1)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH1 0
-//<q>通道8(P3.0)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH8 0
-//<q>通道9(P3.1)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH9 0
-//<q>通道10(P3.2)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH10 0
-//<q>通道11(P3.3)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH11 0
-//<q>通道12(P3.4)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH12 0
-//<q>通道13(P3.5)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH13 0
-//<q>通道14(P3.6)
-//<i>该通道对应的IO只适用于STC8H1K08。
-#define ECBM_T4_ADC_CH14 0
-//<q>通道15(BGV)
-#define ECBM_T4_ADC_CH15 1
-//</h>
-
-
 //<h>ADC参数设置
 //<o.0..3>ADC的分频系数
 //<6-15>
@@ -226,7 +276,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>右对齐：ADC_RES保存结果的高4位（对于12位ADC来说），ADC_RESL保存结果的低8位。
 //<i>右对齐的布局为[0 0 0 0 D11 D10 D9 D8][D7 D6 D5 D4 D3 D2 D1 D0]，取值范围为0~4095，步进值为1。
 //<i>和左对齐一比较就知道右对齐模式下可以直接把两个寄存器结果拼在一起作为一个16位数据来使用。
-#define ECBM_ADC_SPEED 47
+#define ECBM_ADC_SPEED 15
 //<q>舍弃低位数据
 //<i>根据上面的讲解，如果确实需要舍弃低位数据，请勾选此选项，之后adc_read函数就只输出ADC_RES的值，ADC_RESL的值会被舍去。
 #define ECBM_ADC_8BIT 0
@@ -238,11 +288,200 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /*---------------------------------------头文件------------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
 /*---------------------------------------宏定义------------------------------------*/
-#define ADC_FUN    interrupt 5                    //中断号，放置于中断函数之后。中断函数由用户自定义。
-#define ADC_CLS_IT do{ADC_CONTR&=0xDF;adc_busy=0;}while(0)//清中断标志
-
+/*#####################################ADC位数解析##################################*/
+#if			(ECBM_MCU&0x0000F0)==0x0000C0
+#  define   ECBM_MCU_ADC_MAX  4096.0f
+#elif		(ECBM_MCU&0x0000F0)==0x0000A0
+#  define   ECBM_MCU_ADC_MAX  1024.0f
+#else
+#  define   ECBM_MCU_ADC_MAX  1.0f//防止空定义
+#endif
+/*#####################################ADC通道解析#################################*/
+#if			ECBM_MCU	==	0x2405C2//STC8A4KxxS2A12_ALL
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#elif		ECBM_MCU	==	0x2805C4//STC8A8KxxS4A12_ALL 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#elif		ECBM_MCU	==	0x3103A2//STC8G1Kxx_16PIN_20PIN 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x30
+#  define   A09 0x31
+#  define   A10 0x32
+#  define   A11 0x33
+#  define   A12 0x34
+#  define   A13 0x35
+#  define   A14 0x36
+#elif		ECBM_MCU	==	0x3102A1//STC8G1KxxA_8PIN 
+#  define   A00 0x30
+#  define   A01 0x31
+#  define   A02 0x32
+#  define   A03 0x33
+#  define   A04 0x54
+#  define   A05 0x55
+#elif		ECBM_MCU	==	0x3103A1//STC8G1KxxT_20PIN 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x54
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x30
+#  define   A09 0x31
+#  define   A10 0x32
+#  define   A11 0x33
+#  define   A12 0x34
+#  define   A13 0x35
+#  define   A14 0x36
+#elif		ECBM_MCU	==	0x3205A2//STC8G2KxxS2_ALL 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#elif		ECBM_MCU	==	0x3205A4//STC8G2KxxS4_ALL 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#elif		ECBM_MCU	==	0x4103A2//STC8H1Kxx_20PIN 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A08 0x30
+#  define   A09 0x31
+#  define   A10 0x32
+#  define   A11 0x33
+#  define   A12 0x34
+#  define   A13 0x35
+#  define   A14 0x36
+#elif		ECBM_MCU	==	0x4105A2//STC8H1Kxx_32PIN  
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#elif		ECBM_MCU	==	0x4205C4//STC8H2KxxT_48PIN 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#elif		ECBM_MCU	==	0x4305C2//STC8H3KxxS2_48PIN  
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#elif		ECBM_MCU	==	0x4305C4//STC8H3KxxS4_48PIN 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x12
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#elif		ECBM_MCU	==	0x4805C4//STC8H8KxxU_48PIN_64PIN 
+#  define   A00 0x10
+#  define   A01 0x11
+#  define   A02 0x54
+#  define   A03 0x13
+#  define   A04 0x14
+#  define   A05 0x15
+#  define   A06 0x16
+#  define   A07 0x17
+#  define   A08 0x00
+#  define   A09 0x01
+#  define   A10 0x02
+#  define   A11 0x03
+#  define   A12 0x04
+#  define   A13 0x05
+#  define   A14 0x06
+#endif
 /*--------------------------------------变量定义-----------------------------------*/
-extern u8 xdata adc_busy;
 extern float xdata adc_ch15;
 /*--------------------------------------程序定义-----------------------------------*/
 /*-------------------------------------------------------
@@ -270,7 +509,7 @@ extern void adc_init(void);
 修改记录：
 2020-07-28：只保留一个函数
 -------------------------------------------------------*/
-extern u16 adc_read(u8 pin);
+extern u16 adc_read(u8 ch);
 /*-------------------------------------------------------
 函数名：adc_read_start
 描  述：ADC转换开始函数（中断法）。用于开启对某通道对应的IO口电压的转换。该函数只开始一次转换，并不会马上得到结果。
@@ -282,7 +521,7 @@ extern u16 adc_read(u8 pin);
 创建日期：2019-8-5
 修改记录：
 -------------------------------------------------------*/
-extern void adc_read_start(u8 pin);
+extern void adc_read_start(u8 ch);
 /*-------------------------------------------------------
 函数名：adc_read_it
 描  述：中断法读取AD值函数。在ADC中断中调用本函数，可得到ADC转换的结果。转换的通道用adc_read_start函数设置。
@@ -305,7 +544,7 @@ extern u16 adc_read_it();
 函数名：adc_voltage
 描  述：读取电压函数。用于读取某通道对应的IO口电压值。
 输  入：
-       pin  - 要读取的通道号，可输入0~15。
+       ch   - 要读取的通道号，可输入0~15。
        vref - adc的vref电压，最好实测得到。
 输  出：无
 返回值：该通道的电压值。
@@ -314,7 +553,7 @@ extern u16 adc_read_it();
 创建日期：2019-7-31
 修改记录：
 -------------------------------------------------------*/
-extern float adc_voltage(u8 pin,float vref);
+extern float adc_voltage(u8 ch,float vref);
 /*-------------------------------------------------------
 函数名：adc_it_start
 描  述：开启ADC中断函数。用于打开ADC的中断。

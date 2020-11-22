@@ -1,5 +1,5 @@
 #include "ecbm_core.h"//统一加载核心头文件
-#if ECBM_SOFT_IIC_EN
+#if ECBM_SOFTIIC_LIB_EN
 /*--------------------------------------变量定义-----------------------------------*/
 u8 xdata soft_iic_def_sda_port;
 u8 xdata soft_iic_def_sda_pin;
@@ -181,6 +181,7 @@ u8 soft_iic_read(void){
 /*-------------------------------------------------------
 软件IIC主机寻找函数。
 -------------------------------------------------------*/
+#if SOFT_IIC_FIND_EN == 1
 u8 soft_iic_find(u8 addr[]){
 	u8 i,c;
 	c=0;
@@ -195,4 +196,5 @@ u8 soft_iic_find(u8 addr[]){
 	}	
 	return c;
 }
+#endif
 #endif
