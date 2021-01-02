@@ -259,7 +259,7 @@ void system_init(void){
 #elif ECBM_SYSCLK_TYPE == 2//如果使能了内部低速时钟，
 	ecbm_sys_clk=REG_LSI;//从ram里读出时钟值。
 #else 
-	ecbm_sys_clk=SYS_CLK_SET;
+	ecbm_sys_clk=ECBM_SYSCLK_SETTING;
 #endif
 #if ECBM_SYSCLK_TYPE >1//根据界面的选择，设置时钟源。
 	system_set_clock(ECBM_SYSCLK_TYPE);
