@@ -1,9 +1,9 @@
-#ifndef _ECBM_SOFT_IIC_H_
-#define _ECBM_SOFT_IIC_H_
+#ifndef _ECBM_SOFT_IIC_H_//头文件防止重加载必备，先看看有没有定义过这个，定义说明已经加载过一次了。
+#define _ECBM_SOFT_IIC_H_//没定义说明是首次加载，那么往下执行。并且定义这个宏定义，防止下一次被加载。
 /*-------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2019 奈特
+Copyright (c) 2023 奈特
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -23,48 +23,50 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 免责说明：
-	本软件库以MIT开源协议免费向大众提供。作者只保证原始版本是由作者在维护修BUG，
+    本软件库以MIT开源协议免费向大众提供。作者只保证原始版本是由作者在维护修BUG，
 其他通过网络传播的版本也许被二次修改过，由此出现的BUG与作者无关。而当您使用原始
 版本出现BUG时，请联系作者解决。
-                             **************************
-                             * 联系方式：进群778916610 *
-							 ************************** 
+                            ***************************
+                            * 联系方式 ：进群778916610 *
+                            * 若1群满人：进群927297508 *
+                            ***************************
 ------------------------------------------------------------------------------------*/
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
 //<h>深度优化
 //<q>软件IIC扫描器件函数使能
-#define SOFT_IIC_FIND_EN 1
+#define SOFT_IIC_FIND_EN (0)
 //</h>
 //<<< end of configuration section >>>
 //-----------------以上是图形设置界面，可在Configuration Wizard界面设置-----------------
-/*---------------------------------------头文件------------------------------------*/
+/*-------------------------------------头文件加载-----------------------------------*/
 #include "ecbm_core.h"    //ECBM库的头文件，里面已经包含了STC8的头文件。
 /*--------------------------------------变量定义-----------------------------------*/
-extern u8 xdata soft_iic_def_sda_port;//软件IIC数据脚所在的P口。
-extern u8 xdata soft_iic_def_sda_pin; //软件IIC数据脚所在的IO口。
-extern u8 xdata soft_iic_def_scl_port;//软件IIC时钟脚所在的P口。
-extern u8 xdata soft_iic_def_scl_pin; //软件IIC时钟脚所在的IO口。
-extern u8 xdata soft_iic_max;         //软件IIC设备的数量。
-extern u8 xdata soft_iic_index;       //当前软件IIC函数所操作的对象。
+extern u8 data soft_iic_def_sda_port_gdu8;//软件IIC数据脚所在的P口。
+extern u8 data soft_iic_def_sda_pin_gdu8; //软件IIC数据脚所在的IO口。
+extern u8 data soft_iic_def_scl_port_gdu8;//软件IIC时钟脚所在的P口。
+extern u8 data soft_iic_def_scl_pin_gdu8; //软件IIC时钟脚所在的IO口。
+extern u8 data soft_iic_max_gdu8;         //软件IIC设备的数量。
+extern u8 data soft_iic_index_gdu8;       //当前软件IIC函数所操作的对象。
 typedef struct{
-	u8 scl_pin;//IIC里的时钟脚。
-	u8 sda_pin;//IIC里的数据脚。
-	u8 dev_id; //软件IIC的唯一ID。作为切换的凭证。
+    u8 scl_pin;//IIC里的时钟脚。
+    u8 sda_pin;//IIC里的数据脚。
+    u8 dev_id; //软件IIC的唯一ID。作为切换的凭证。
 }soft_iic_def;
 /*--------------------------------------程序定义-----------------------------------*/
 /*-------------------------------------------------------
 函数名：soft_iic_set_pin
 描  述：软件IIC引脚切换函数。在多器件的应用下，切换IIC函数的操作对象。
-输  入：软件IIC信息包。
+输  入：
+    dev     软件IIC信息包
 输  出：无
 返回值：无
 创建者：奈特
 调用例程：
-	soft_iic_set_pin(&sht30);  //将IIC对象切换到名为SHT30的信息包。
-	val=get_temp();            //读取SHT30的温度数据。
-	soft_iic_set_pin(&at24c02);//将IIC对象切换到名为at24c02的信息包。
-	at24_write(0,val);         //将温度数据写入到eeprom（24c02）里。
+    soft_iic_set_pin(&sht30);  //将IIC对象切换到名为SHT30的信息包。
+    val=get_temp();            //读取SHT30的温度数据。
+    soft_iic_set_pin(&at24c02);//将IIC对象切换到名为at24c02的信息包。
+    at24_write(0,val);         //将温度数据写入到eeprom（24c02）里。
 创建日期：2019-10-18
 修改记录：
 -------------------------------------------------------*/
@@ -72,15 +74,16 @@ extern void soft_iic_set_pin(soft_iic_def * dev);
 /*-------------------------------------------------------
 函数名：soft_iic_init
 描  述：软件IIC初始化函数。
-输  入：dev - 软件IIC信息包。
-		scl - 软件IIC的时钟脚。
-		sda - 软件IIC的数据脚。
+输  入：
+    dev     软件IIC信息包
+    scl     软件IIC的时钟脚
+    sda     软件IIC的数据脚
 输  出：无
 返回值：无
 创建者：奈特
 调用例程：
-	soft_iic_def at24;           //定义一个软件IIC操作对象，名字随意，但是推荐和目标器件有联系，方便记忆。
-	soft_iic_init(&at24,D10,D11);//该对象所连接的引脚，先输入时钟脚SCL，再输入数据脚SDA。
+    soft_iic_def at24;           //定义一个软件IIC操作对象，名字随意，但是推荐和目标器件有联系，方便记忆。
+    soft_iic_init(&at24,D10,D11);//该对象所连接的引脚，先输入时钟脚SCL，再输入数据脚SDA。
 创建日期：2019-10-18
 修改记录：
 -------------------------------------------------------*/
@@ -88,9 +91,10 @@ extern void soft_iic_init(soft_iic_def * dev,u8 scl,u8 sda);
 /*-------------------------------------------------------
 函数名：soft_iic_set_pin_linkage
 描  述：软件IIC引脚切换函数（内联版）。主要用于其他库的调用，若不清楚原理请调用soft_iic_set_pin函数。
-输  入：id  -  初始化软件IIC时分配的id号。
-		scl - 软件IIC的时钟脚。
-		sda - 软件IIC的数据脚。
+输  入：
+    id      初始化软件IIC时分配的id号
+    scl     软件IIC的时钟脚
+    sda     软件IIC的数据脚
 输  出：无
 返回值：无
 创建者：奈特
@@ -102,8 +106,9 @@ extern void soft_iic_set_pin_linkage(u8 id,u8 scl,u8 sda);
 /*-------------------------------------------------------
 函数名：soft_iic_init_linkage
 描  述：软件IIC初始化函数（内联版），主要用于其他库的调用，若不清楚原理请调用soft_iic_init函数。
-输  入：	scl - 软件IIC的时钟脚。
-		sda - 软件IIC的数据脚。
+输  入：
+    scl     软件IIC的时钟脚
+    sda     软件IIC的数据脚
 输  出：无
 返回值：无
 创建者：奈特
@@ -117,8 +122,9 @@ extern u8 soft_iic_init_linkage(u8 scl,u8 sda);
 描  述：软件IIC启动函数，用于启动一次IIC传输。
 输  入：无
 输  出：无
-返回值：0   - 正常通信，器件存在。
-        -1 -  总线出错，器件忙。
+返回值：
+    0       正常通信，器件存在。
+    -1      总线出错，器件忙。
 创建者：奈特
 调用例程：见于下面的例子。
 创建日期：2019-10-18
@@ -170,8 +176,9 @@ extern void soft_iic_write_nack(void);
 描  述：软件IIC主机读ACK函数，用于在传输8bit后读取从机的ACK信号。
 输  入：无
 输  出：无
-返回值：0  - 收到ACK信号
-		-1 - 没收到ACK信号，或者收到NO ACK信号。
+返回值：
+    0       收到ACK信号
+    -1      没收到ACK信号，或者收到NO ACK信号。
 创建者：奈特
 调用例程：见于下面的例子。
 创建日期：2019-10-18
@@ -182,7 +189,8 @@ extern u8 soft_iic_read_ack(void);
 /*-------------------------------------------------------
 函数名：soft_iic_write
 描  述：软件IIC主机写函数，用于发送一个字节数据。
-输  入：要发送的数据。
+输  入：
+    dat     要发送的数据
 输  出：无
 返回值：无
 创建者：奈特
@@ -208,11 +216,13 @@ extern u8 soft_iic_read(void);
 函数名：soft_iic_find
 描  述：软件IIC主机寻找函数，用寻找一个可用设备。
 输  入：无
-输  出：存在的设备的地址列表。
-返回值：返回存在的设备的个数。
+输  出：
+    addr    存在的设备的地址列表。
+返回值：
+    返回存在的设备的个数。
 创建者：奈特
 调用例程：
-		count=soft_iic_find(iic_addr);//读取当前IIC总线上存在设备的地址，同时把设备数量存入变量count。
+        count=soft_iic_find(iic_addr);//读取当前IIC总线上存在设备的地址，同时把设备数量存入变量count。
 创建日期：2019-11-25
 修改记录：
 -------------------------------------------------------*/
@@ -220,16 +230,17 @@ extern u8 soft_iic_find(u8 addr[]);
 /*-------------------------------------------------------
 SOFT_IIC系列函数调用例程：
 void OLED_send_cmd(unsigned char cmd){//OLED发送一个指令函数
-	soft_iic_start   ();     //开启一次传输
-	soft_iic_write   (0x78); //写入OLED的地址
-	soft_iic_read_ack();     //等待ack
-	soft_iic_write   (00);   //写入指令的代号
-	soft_iic_read_ack();     //等待ack
-	soft_iic_write   (cmd);  //写入具体的指令
-	soft_iic_read_ack();     //等待ack
-	soft_iic_stop    ();     //结束一次传输
+    soft_iic_start   ();     //开启一次传输
+    soft_iic_write   (0x78); //写入OLED的地址
+    soft_iic_read_ack();     //等待ack
+    soft_iic_write   (00);   //写入指令的代号
+    soft_iic_read_ack();     //等待ack
+    soft_iic_write   (cmd);  //写入具体的指令
+    soft_iic_read_ack();     //等待ack
+    soft_iic_stop    ();     //结束一次传输
 }
 创建日期：2019-10-18
 修改记录：
 -------------------------------------------------------*/
-#endif
+#endif  //和最上面的#ifndef配合成一个程序段。
+        //以一个空行为结尾。

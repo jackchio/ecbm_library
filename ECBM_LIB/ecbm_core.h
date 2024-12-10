@@ -1,9 +1,9 @@
-#ifndef _ECBM_CORE_H_
-#define _ECBM_CORE_H_
+#ifndef _ECBM_CORE_H_//Í·ÎÄ¼þ·ÀÖ¹ÖØ¼ÓÔØ±Ø±¸£¬ÏÈ¿´¿´ÓÐÃ»ÓÐ¶¨Òå¹ýÕâ¸ö£¬¶¨ÒåËµÃ÷ÒÑ¾­¼ÓÔØ¹ýÒ»´ÎÁË¡£
+#define _ECBM_CORE_H_//Ã»¶¨ÒåËµÃ÷ÊÇÊ×´Î¼ÓÔØ£¬ÄÇÃ´ÍùÏÂÖ´ÐÐ¡£²¢ÇÒ¶¨ÒåÕâ¸öºê¶¨Òå£¬·ÀÖ¹ÏÂÒ»´Î±»¼ÓÔØ¡£
 /*-------------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2020 ÄÎÌØ
+Copyright (c) 2023 ÄÎÌØ
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -23,504 +23,191 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ÃâÔðËµÃ÷£º
-	±¾Èí¼þ¿âÒÔMIT¿ªÔ´Ð­ÒéÃâ·ÑÏò´óÖÚÌá¹©¡£×÷ÕßÖ»±£Ö¤Ô­Ê¼°æ±¾ÊÇÓÉ×÷ÕßÔÚÎ¬»¤ÐÞBUG£¬
+    ±¾Èí¼þ¿âÒÔMIT¿ªÔ´Ð­ÒéÃâ·ÑÏò´óÖÚÌá¹©¡£×÷ÕßÖ»±£Ö¤Ô­Ê¼°æ±¾ÊÇÓÉ×÷ÕßÔÚÎ¬»¤ÐÞBUG£¬
 ÆäËûÍ¨¹ýÍøÂç´«²¥µÄ°æ±¾Ò²Ðí±»¶þ´ÎÐÞ¸Ä¹ý£¬ÓÉ´Ë³öÏÖµÄBUGÓë×÷ÕßÎÞ¹Ø¡£¶øµ±ÄúÊ¹ÓÃÔ­Ê¼
 °æ±¾³öÏÖBUGÊ±£¬ÇëÁªÏµ×÷Õß½â¾ö¡£
-                             **************************
-                             * ÁªÏµ·½Ê½£º½øÈº778916610 *
-							 ************************** 
+                            **************************
+                            * ÁªÏµ·½Ê½£º½øÈº778916610 *
+                            * Èô1ÈºÂúÈË£º½øÈº927297508*
+                            **************************
 ------------------------------------------------------------------------------------*/
 //-----------------ÒÔÏÂÊÇÍ¼ÐÎÉèÖÃ½çÃæ£¬¿ÉÔÚConfiguration Wizard½çÃæÉèÖÃ-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
 //Frame Version Number ¿ò¼Ü°æ±¾ºÅ
-#define ECBM_FVN 3
+#define ECBM_FVN (3)
 //Release Version Number ·¢²¼°æ±¾ºÅ
 //µ±·¢Éú¹Ø¼ü¿âÎÄ¼þÔö¼õÊ±£¬¸Ã°æ±¾ºÅ¼ÓÒ»¡£
-#define ECBM_RVN 0
+#define ECBM_RVN (5)
 //BUG Version Number ·¢²¼°æ±¾ºÅ
 //Ã¿´Î·¢²¼µ½ÍøÉÏÊ±£¬ÈôÖ»ÊÇÐÞ¸ÄBUG£¬¸Ã°æ±¾ºÅ¼ÓÒ»¡£
-#define ECBM_BVN 1
-//<o>STC8ÏµÁÐÐÍºÅÑ¡Ôñ
-//<i>ÁÐ±íÌá¹©µÄÐ¾Æ¬ÀàÐÍ¶¼ÊÇÔÚÊý¾ÝÊÖ²áÖÐ³öÏÖµÄ£¬½ö¸ù¾ÝÀíÂÛ½øÐÐÉèÖÃ£¬ÈôÓÐ¼æÈÝÐÔÎÊÌâÇëÈëÈº¸æÖªÎÒ¡£
-//<i>ROMÈÝÁ¿Áô¿Õ£¬ÔÚÏÂÒ»¸öÑ¡ÏîÖÐÑ¡Ôñ¡£
-//<0x110301=>STC8F1Kxx_8PIN 
-//<0x110302=>STC8F1KxxS2_16PIN_20PIN 
-//<0x120502=>STC8F2KxxS2_ALL 
-//<0x120504=>STC8F2KxxS4_ALL 
-//<0x2405C2=>STC8A4KxxS2A12_ALL 
-//<0x2805C4=>STC8A8KxxS4A12_ALL 
-//<0x3103A2=>STC8G1Kxx_16PIN_20PIN 
-//<0x310201=>STC8G1Kxx_8PIN 
-//<0x3102A1=>STC8G1KxxA_8PIN 
-//<0x3103A1=>STC8G1KxxT_20PIN 
-//<0x3205A2=>STC8G2KxxS2_ALL 
-//<0x3205A4=>STC8G2KxxS4_ALL 
-//<0x4103A2=>STC8H1Kxx_20PIN 
-//<0x4105A2=>STC8H1Kxx_32PIN  
-//<0x4205C4=>STC8H2KxxT_48PIN 
-//<0x4305C2=>STC8H3KxxS2_48PIN  
-//<0x4305C4=>STC8H3KxxS4_48PIN  
-//<0x4805C4=>STC8H8KxxU_48PIN_64PIN 
-#define ECBM_MCU 3278244
-//<o>ROMÑ¡Ôñ
-//<i>Ñ¡Ôñµ¥Æ¬»úµÄflashÈÝÁ¿´óÐ¡£¬Ö÷ÒªÓ°ÏìÎ¨Ò»IDµÄ¶ÁÈ¡¡£
-//<8=>08 <12=>12 <16=>16 <17=>17 <28=>28 
-//<32=>32 <60=>60 <64=>64
-#define ECBM_MCU_ROM_SIZE 64
+#define ECBM_BVN (1)
 //<h>µ¥Æ¬»úÏµÍ³ÉèÖÃ
 //<i>¸Ã¿òÄÚµÄÑ¡ÏîÓÐ»¥³âµÄÑ¡Ïî£¬Çë×ÐÏ¸ÔÄ¶ÁÁË½âÁË½á¹ûÔÙÑ¡Ôñ¡£
-//<o>µ¥Æ¬»úÏµÍ³Ê±ÖÓÉèÖÃ
-//<i>¸ÃÑ¡Ïî¿ÉÒÔÑ¡Ôñµ¥Æ¬»úÊ±ÖÓÀ´Ô´¡£ºóÆÚÒ²¿ÉÒÔÓÃº¯ÊýÐÞ¸ÄÊ±ÖÓÀ´Ô´¡£
-//<i>ÄÚ²¿¸ßËÙÊ±ÖÓHSI(±ê×¼)£ºÑ¡ÔñÕâ¸öÑ¡ÏîµÄ»°£¬ecbm¿â»á×Ô¶¯»ñÈ¡STCISP¹¤¾ßµÄÉèÖÃµÄ±ê×¼ÆµÂÊ¡££¨±ê×¼ÆµÂÊÊÇÖ¸11.0592M¡¢12M¡¢24MÕâÖÖ£©
-//<i>ÄÚ²¿¸ßËÙÊ±ÖÓHSI(×Ô¶¨Òå)£º×Ô¶¨ÒåÆµÂÊÊÇÖ¸6.666M¡¢22.33MÕâÖÖ×Ô¼ºÊäÈëµÄÆµÂÊ¡£ÐèÒªÔÚÏÂÃæµÄ¡°¸ßËÙ(HSI/HSE)ÆµÂÊÑ¡Ôñ¡±Ñ¡ÏîÖÐÊäÈë¸ÃÆµÂÊ¡£
-//<i>ÄÚ²¿µÍËÙÊ±ÖÓLSI£ºÓÉÓÚÄÚ²¿32K¾§ÕñÎó²îºÜ´ó£¬Ê¹ÓÃÕâ¸öÊ±ÖÓÔ´»áµ¼ÖÂºÜ¶à¹ØÓÚÊ±ÐòµÄ²Ù×÷Ê§Ð§¡£·Ç³£²»ÍÆ¼öÊ¹ÓÃÕâ¸ö¡£
-//<i>Íâ²¿ÓÐÔ´¾§Õñ£ºÑ¡ÔñÕâ¸öÑ¡ÏîµÄ»°£¬ÐèÒªÔÚÏÂÃæµÄ¡°¸ßËÙ(HSI/HSE)ÆµÂÊÑ¡Ôñ¡±Ñ¡ÏîÖÐ°ÑÊ±ÖÓÆµÂÊÉèÖÃ³ÉÍâ²¿ÓÐÔ´¾§ÕñµÄÆµÂÊ¡£
-//<i>Íâ²¿ÎÞÔ´¾§Õñ£ºÑ¡ÔñÕâ¸öÑ¡ÏîµÄ»°£¬ÐèÒªÔÚÏÂÃæµÄ¡°¸ßËÙ(HSI/HSE)ÆµÂÊÑ¡Ôñ¡±Ñ¡ÏîÖÐ°ÑÊ±ÖÓÆµÂÊÉèÖÃ³ÉÍâ²¿ÎÞÔ´¾§ÕñµÄÆµÂÊ¡£
-//<0=>ÄÚ²¿¸ßËÙÊ±ÖÓHSI(±ê×¼) <1=>ÄÚ²¿¸ßËÙÊ±ÖÓHSI(×Ô¶¨Òå) <2=>ÄÚ²¿µÍËÙÊ±ÖÓLSI <3=>Íâ²¿µÍËÙ¾§Õñ <4=>Íâ²¿¸ßËÙÓÐÔ´¾§Õñ <5=>Íâ²¿¸ßËÙÎÞÔ´¾§Õñ 
-#define ECBM_SYSCLK_TYPE 0
-//<o>¸ßËÙ(HSI/HSE)ÆµÂÊÑ¡Ôñ
+//<o>XDATAÇø³õÊ¼»¯µÄ´óÐ¡
+//<i>µ¥Î»£º×Ö½Ú¡£
+//<i>ÎªÁË¼Ó¿ìÆô¶¯ËÙ¶È£¬Æô¶¯ÎÄ¼þÖÐ²»»áÔÙÇåÁãXDATAÇøÊý¾Ý£¬ÕâÒâÎ¶×ÅÈç¹ûÄãÃ»ÓÐ¶ÔXDATAÇø±äÁ¿½øÐÐ¸³³õÖµµÄ»°£¬ÆäÄÚÈÝ¿ÉÄÜÊÇËæ»úµÄ¡£
+//<i>µ«ÓÖÓÉÓÚÇåÁãÓï¾äÔÚsystem_initº¯ÊýÖÐÖ´ÐÐ£¬ËùÒÔ»áµ¼ÖÂ¸ö±ð¸³³õÖµµÄ±äÁ¿±»ÇåÁã¡£
+//<i>Õâ¸öÈ¡ÉáÎÊÌâÇëÒÆ²½ÖÁËµÃ÷ÎÄµµ¡¾ECBM-V3ËµÃ÷Êé×ÜÕÂ.pdf¡¿¡£
+//<i>ÒòÎªÇåÁãÔ­Àí¾ÍÊÇÒ»¸öforÑ­»·¼Ó¸³Öµ0Óï¾ä£¬ËùÒÔ¿Ï¶¨ÇåÁãµÄ×Ö½ÚÔ½¶à¾ÍºÄÊ±Ô½³¤¡£
+//<i>µ±Êµ¼ÊÓ¦ÓÃµÄÄÚ´æÔ¶Ô¶Ð¡ÓÚµ¥Æ¬»ú×î´óÈÝÁ¿Ê±£¬½¨ÒéÔÚÕâÀï°ÑÖµÉèÖÃÐ¡Ò»Ð©£¬¼Ó¿ìÇåÁãËÙ¶È¡£
+//<0-65535>
+#define SYSTEM_CLEAR_XDATA_LEN  (0)
+//<o>ÏµÍ³Ê±ÖÓÆµÂÊÑ¡Ôñ
 //<i>¶¨Òåµ¥Æ¬»úÔËÐÐµÄÊ±ÖÓÆµÂÊ£¨µ¥Î»Hz£©¡£
-//<i>µ±ÄãÔÚstcisp¹¤¾ßÉÏÊäÈëÁË×Ô¶¨ÒåÆµÂÊ»òÕßÊ¹ÓÃÁËÍâ²¿¾§ÕñµÄÊ±ºò£¬ÐèÒªÔÚÕâÀïÊäÈë¾§ÕñÆµÂÊ¡£
-#define ECBM_SYSCLK_SETTING 16000000L
+//<5529600UL => 5.5296M 
+//<6000000UL => 6.0000M 
+//<11059200UL=>11.0592M 
+//<12000000UL=>12.0000M 
+//<18432000UL=>18.4320M  
+//<20000000UL=>20.0000M 
+//<22118400UL=>22.1184M 
+//<24000000UL=>24.0000M 
+//<26000000UL=>26.0000M
+//<27000000UL=>27.0000M
+//<30000000UL=>30.0000M 
+//<33000000UL=>33.0000M 
+//<33177600UL=>33.1776M 
+//<35000000UL=>35.0000M 
+//<36864000UL=>36.8640M 
+//<40000000UL=>40.0000M 
+//<44236800UL=>44.2368M 
+//<45000000UL=>45.0000M 
+//<45158400UL=>45.1584M 
+#define ECBM_SYSCLK_SETTING (24000000L)
 //<e>ÏµÍ³Ê±ÖÓÊä³ö
 //<i>¿ÉÒÔÊä³öÊ±ÖÓÆµÂÊÓÃÓÚÇý¶¯ÆäËûÍâÉè£¬»òÕßÓÃÓÚ¼ì²âÄÚ²¿µÄ¹¤×÷ÆµÂÊ¡£
-#define ECBM_SYSCLK_OUT_EN 0
+#define ECBM_SYSCLK_OUT_EN (0)
 //<o>Êä³öÒý½Å
-//<0=>Êä³öµ½P54 <1=>Êä³öµ½P16
-#define	ECBM_SYSLCK_OUT_PIN 1
+//<0=>Êä³öµ½P54 
+//<1=>Êä³öµ½P16
+#define ECBM_SYSLCK_OUT_PIN (1)
 //<o.4..7>STC8FºÍSTC8AÉèÖÃÊä³ö·ÖÆµ
 //<i>¸ù¾ÝÉÏÃæµÄÐÍºÅÑ¡Ôñ£¬Á½¸öÉèÖÃ·ÖÆµµÄÑ¡ÏîÖ»»áÉúÐ§Ò»¸ö¡£
-//< 1=>SYSCLK/ 1  < 2=>SYSCLK/ 2 < 4=>SYSCLK/ 4 
-//< 6=>SYSCLK/ 8  < 8=>SYSCLK/16 <10=>SYSCLK/32 
-//<12=>SYSCLK/64  <14=>SYSCLK/128
-#define ECBM_SYSCLK_OUT_SETTING_FA 0x18
+//< 1=>SYSCLK/ 1  
+//< 2=>SYSCLK/ 2 
+//< 4=>SYSCLK/ 4 
+//< 6=>SYSCLK/ 8  
+//< 8=>SYSCLK/16 
+//<10=>SYSCLK/32 
+//<12=>SYSCLK/64  
+//<14=>SYSCLK/128
+#define ECBM_SYSCLK_OUT_SETTING_FA (0x18)
 //<o>STC8GºÍSTC8HÉèÖÃÊä³ö·ÖÆµ
 //<1-127>
 //<i>¸ù¾ÝÉÏÃæµÄÐÍºÅÑ¡Ôñ£¬Á½¸öÉèÖÃ·ÖÆµµÄÑ¡ÏîÖ»»áÉúÐ§Ò»¸ö¡£
 //<i>Ìî¶àÉÙ¾ÍÊÇ·ÖÆµ¶àÉÙ£¬±ÈÈçÌî6£¬¾ÍÊÇSYSCLK/6¡£
-#define ECBM_SYSCLK_OUT_SETTING_GH 1
+#define ECBM_SYSCLK_OUT_SETTING_GH (1)
 //</e>
+//<q>µ¥Æ¬»úÉèÖÃ¼ì²é
+//<i>¹´Ñ¡´ËÑ¡Ïî£¬»á×Ô¶¯µ÷ÓÃsystem_checkº¯Êý£¬È»ºóÔÚµçÄÔ¶ËµÄ´®¿ÚÖúÊÖ¿´µ½µ¥Æ¬»úµÄÒ»Ð©ÐÅÏ¢¡£
+//<i>Ö»ÒªÄÜ¿´µ½Õý³£µÄÐÅÏ¢Êä³ö£¬¾ÍËµÃ÷¿âÀïµÄÉèÖÃ»ù±¾ÕýÈ·¡£
+#define ECBM_MCU_CHECK_EN  (0) 
 //</h>
-//<h>ECBM»ù´¡¹¦ÄÜ
+//<h>µ¥Æ¬»úÍâÉè¿âµÄÑ¡ÓÃ
+//<i>ÕâÐ©ÊÇÓÃÓÚÇý¶¯µ¥Æ¬»úÓ²¼þÍâÉèµÄÇý¶¯¿â£¬ÓÐÐ©¿â»á¶Ô±ðµÄ¿âÓÐÒÀÀµ£¬Çë×¢Òâ¿´ËµÃ÷²¿·Ö¡£ÔÚ¹´Ñ¡Ä³¿âµÄÊ±ºòÁ¬Í¬ÒÀÀµµÄ¿âÒ»Æð¹´Ñ¡¡£
+//<q>POWER¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄµçÔ´¡¢¸´Î»¡¢¿´ÃÅ¹·Ïà¹Ø²Ù×÷º¯Êý¡£
+#define ECBM_POWER_LIB_EN (0)
+//<e>UART¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þUARTÏà¹Ø²Ù×÷º¯Êý¡£
+#define ECBM_UART_LIB_EN (0)
 //<q>×Ô¶¯ÏÂÔØ¹¦ÄÜ
 //<i>¹´Ñ¡´ËÑ¡Ïî£¬¾ÍÄÜÊ¹ÓÃ×Ô¶¯ÏÂÔØ¹¦ÄÜ¡£ÓÉÓÚÏÂÔØÊ¹ÓÃÁË´®¿Ú1£¬ËùÒÔµÃÈ·±£´®¿Ú1³ÊÊ¹ÄÜ×´Ì¬²¢ÇÒÊä³öÒý½ÅÓ³Éäµ½P30ºÍP31¡£
 //<i>¿ªÆô×Ô¶¯ÏÂÔØ¹¦ÄÜºó£¬uart_intº¯Êý¾Í»áÔÚsystem_initÀï±»µ÷ÓÃ£¬²»ÓÃÔÙÊÖ¶¯µ÷ÓÃuart_intº¯ÊýÁË¡£
-#define ECBM_AUTO_DOWNLOAD_EN  1
-//<q>µ¥Æ¬»úÉèÖÃ¼ì²é
-//<i>¹´Ñ¡´ËÑ¡Ïî£¬»á×Ô¶¯µ÷ÓÃsystem_checkº¯Êý£¬È»ºóÔÚµçÄÔ¶ËµÄ´®¿ÚÖúÊÖ¿´µ½µ¥Æ¬»úµÄÒ»Ð©ÐÅÏ¢¡£
-//<i>system_checkº¯Êý»á¶Ô¾§ÕñÆµÂÊµÈÐÅÏ¢½øÐÐ¼ì²â£¬È»ºó¸ø³ö½á¹û¡£Èç¹ûÓÐÉèÖÃ´íÎóµÄ£¬¿É¸ù¾ÝÌáÊ¾ÐÞ¸Ä¡£
-#define ECBM_MCU_CHECK_EN  0 
-//<q>Èíµ÷ÊÔ¹¦ÄÜ
-//<i>ÎªÁË×Ô¶¯ÏÂÔØ¹¦ÄÜ£¬Ò»°ã¶¼»á´ò¿ª´®¿Ú1¡£Æ½Ê±Ê¹ÓÃ´®¿Ú1À´µ÷ÊÔ½Ô¿É¡£
-//<i>µ«ÊÇÈç¹ûÓÐÌØÊâÐèÇó£¬±ÈÈçÃ»ÓÐÓ²¼þ´®¿Ú»òÕß´®¿Ú±»Õ¼ÓÃµÄÇé¿ö£¬¿ÉÒÔÊ¹ÓÃ¸Ã¹¦ÄÜ¡£
-//<i>Ö»ÐèÖ¸¶¨Ä³¸öIO¿Ú£¬¸ÃIO¿Ú¾Í»áÒÔ9600µÄ²¨ÌØÂÊ·¢ËÍµ÷ÊÔÐÅÏ¢¡£ÐèÒªÑÓÊ±º¯ÊýºÍGPIO¿âµÄÖ§³Ö¡£
-#define ECBM_SOFT_DEBUG_EN 0
-//</h>
-//<h>Éî¶ÈÓÅ»¯
-//<i>µ±ÄãÏëÔÚ8KÈÝÁ¿µÄÐ¡µ¥Æ¬»ú»òÕß¸üÐ¡µÄµ¥Æ¬»úÀïÊ¹ÓÃ±¾¿âµÄÊ±ºò£¬ÔÚÕâÀï°Ñ¶àÓàµÄº¯ÊýÓÅ»¯µô¡£
-//<q>error_printf
-//<i>¸Ãº¯ÊýÖ÷ÒªÊÇÎªÁË¿âº¯ÊýµÄ±¨´í¹¦ÄÜ¡£
-#define ECBM_ERROR_PRINTF_EN 1
-//<q>strÏµÁÐ
-//<i>¸ÃÏµÁÐº¯ÊýÖ÷ÒªÊÇÎªÁË´Ó×Ö·û´®ÖÐ»ñÈ¡ÓÐÓÃµÄÐÅÏ¢¡£Ä³Ð©¿â¿ÉÄÜÊ¹ÓÃµ½£¬µ«ÊÇ×÷ÎªÀ©Õ¹¹¦ÄÜ£¬ÔÚÊµÏÖ×î»ù±¾µÄ¿âµÄÊ±ºò¿ÉÒÔÓÅ»¯µô¡£
-#define ECBM_STRING_EN 1
-//<q>crc16ÏµÁÐ
-//<i>¸ÃÏµÁÐº¯ÊýÖ÷ÒªÓÃÓÚ¼ÆËã¡¢Éú³É¡¢¼ì²âCRC16¡£»áÓÃÔÚÍ¨ÐÅÖÐµÄÐ£Ñé²¿·Ö£¬Èç¹û²»Éæ¼°µ½Í¨ÐÅ£¬¿ÉÒÔÓÅ»¯µô¡£
-//<i>ËãÊýÒò×ÓÊÇX16+X15+X2+1£¬²»¹ý³ÌÐòÀ´Ô´ÓÚÍøÉÏ£¬ËùÒÔËüÓÃµÄÊÇµ¹ÐòµÄA001¡£
-#define ECBM_CRC16_EN 0
-//</h>
-//<h>µ¥Æ¬»úÍâÉè¿âµÄÑ¡ÓÃ
-//<i>ÓÐÐ©¿â»á¶Ô±ðµÄ¿âÓÐÒÀÀµ£¬Çë×¢Òâ¿´ËµÃ÷²¿·Ö¡£ÔÚ¹´Ñ¡Ä³¿âµÄÊ±ºòÁ¬Í¬ÒÀÀµµÄ¿âÒ»Æð¹´Ñ¡¡£
-//<q>POWER¿â
-//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄµçÔ´¡¢¸´Î»¡¢¿´ÃÅ¹·Ïà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_POWER_LIB_EN 0
-//<q>UART¿â
-//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þUARTÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_UART_LIB_EN 1
+#define ECBM_AUTO_DOWNLOAD_EN  (0)
+//</e>
 //<q>EXTI¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÍâ²¿ÖÐ¶ÏÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_EXTI_LIB_EN 0
+#define ECBM_EXTI_LIB_EN (0)
 //<q>TIMER¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þTIMERÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_TIMER_LIB_EN 0
+#define ECBM_TIMER_LIB_EN (0)
 //<q>EEPROM¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8Ê¹ÓÃÄÚÖÃFLASHÄ£ÄâµÄEEPROMÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_EEPROM_LIB_EN 0
+#define ECBM_EEPROM_LIB_EN (0)
 //<q>SPI¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þSPIÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_SPI_LIB_EN 0
-//<q>SOFT_SPI¿â
-//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8»ùÓÚGPIO¿âµÄÈí¼þSPIÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_SOFTSPI_LIB_EN 0
+#define ECBM_SPI_LIB_EN (0)
 //<q>IIC¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þIICÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_IIC_LIB_EN 0
-//<q>SOFT_IIC¿â
-//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8»ùÓÚGPIO¿âµÄÈí¼þIICÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_SOFTIIC_LIB_EN 0
+#define ECBM_IIC_LIB_EN (0)
 //<q>ADC¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þADCÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_ADC_LIB_EN 0
+#define ECBM_ADC_LIB_EN (0)
 //<q>CMP¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þCMPÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_CMP_LIB_EN 0
+#define ECBM_CMP_LIB_EN (0)
 //<q>MDU16¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8GµÄÓ²¼þ³Ë³ý·¨Ïà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_MDU16_LIB_EN 0
-//<q>IT¿â
-//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÖÐ¶ÏÓÅÏÈ¼¶Ïà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_IT_LIB_EN 0
+#define ECBM_MDU16_LIB_EN (0)
 //<q>PCA¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8AµÄÓ²¼þPCAÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_PCA_LIB_EN 0
+#define ECBM_PCA_LIB_EN (0)
 //<q>PWM¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þPWMÏà¹Ø²Ù×÷º¯Êý¡£
-#define ECBM_PWM_LIB_EN 0
+#define ECBM_PWM_LIB_EN (0)
+//<q>LCM¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þLCMÏà¹Ø²Ù×÷º¯Êý¡£
+#define ECBM_LCM_LIB_EN (0)
+//<q>LED¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þLEDÏà¹Ø²Ù×÷º¯Êý¡£
+#define ECBM_LED_LIB_EN (0)
+//<q>LCD¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þLCDÏà¹Ø²Ù×÷º¯Êý¡£
+#define ECBM_LCD_LIB_EN (0)
+//</h>
+
+//<h>µ¥Æ¬»úÈí¼þ¿âµÄÑ¡ÓÃ
+//<i>ÕâÐ©ÊÇ»ùÓÚÍâÉè¿âµÄÉÏ²ãÓ¦ÓÃ¿â»òÕßÊÇÈí¼þÊµÏÖµÄÄ³Ð©ÍâÉè¹¦ÄÜ¿â£¬ÕâÐ©¿â¿ÉÄÜ»á¶Ô±ðµÄ¿âÓÐÒÀÀµ£¬Çë×¢Òâ¿´ËµÃ÷²¿·Ö¡£ÔÚ¹´Ñ¡Ä³¿âµÄÊ±ºòÁ¬Í¬ÒÀÀµµÄ¿âÒ»Æð¹´Ñ¡¡£
+//<q>delayÏµÁÐº¯Êý
+//<i>¸ÃÏµÁÐº¯ÊýÖ÷Òª¾ÍÊÇËÀÑ­»·ÑÓÊ±£¬Èç¹ûÓÐÆäËûÊµÏÖ·½·¨£¬¿ÉÒÔ²»ÓÃÕâ¸ö¡£
+//<i>Ä³Ð©¿â»áÊ¹ÓÃµ½£¬µ«ÊÇ×÷ÎªÀ©Õ¹¹¦ÄÜ£¬ÔÚÊµÏÖ×î»ù±¾µÄ²Ù×÷Ê±¿ÉÒÔÓÅ»¯µô¡£
+#define ECBM_DELAY_EN (0)
+//<q>printfÏµÁÐº¯Êý
+//<i>¸ÃÏµÁÐº¯ÊýÖ÷ÒªÊÇÎªÁË½«Êý¾Ý°´×Ö·û´®Õ¼Î»·ûµÄ¸ñÊ½Êä³ö¡£
+//<i>Ä³Ð©¿â£¨ÌØ±ðÊÇ´®¿Ú£©¿ÉÄÜÊ¹ÓÃµ½£¬µ«ÊÇ×÷ÎªÀ©Õ¹¹¦ÄÜ£¬ÔÚÊµÏÖ×î»ù±¾µÄ²Ù×÷Ê±¿ÉÒÔÓÅ»¯µô¡£
+#define ECBM_PRINTF_EN (0)
+//<q>str´¦Àíº¯Êý
+//<i>¸ÃÏµÁÐº¯ÊýÖ÷ÒªÊÇÎªÁË´Ó×Ö·û´®ÖÐ»ñÈ¡ÓÐÓÃµÄÐÅÏ¢¡£
+//<i>Ä³Ð©¿â¿ÉÄÜÊ¹ÓÃµ½£¬µ«ÊÇ×÷ÎªÀ©Õ¹¹¦ÄÜ£¬ÔÚÊµÏÖ×î»ù±¾µÄ¿âµÄÊ±ºò¿ÉÒÔÓÅ»¯µô¡£
+#define ECBM_STRING_EN (0)
+//<q>SOFT_SPI¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÈí¼þSPIÏà¹Ø²Ù×÷º¯Êý¡£
+//<i>ÒÀÀµGPIO¿â¡£
+#define ECBM_SOFTSPI_LIB_EN (0)
+//<q>SOFT_IIC¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÈí¼þIICÏà¹Ø²Ù×÷º¯Êý¡£
+//<i>ÒÀÀµGPIO¿â¡£
+#define ECBM_SOFTIIC_LIB_EN (0)
+//<q>Eeprom-Data-System¿â
+//<i>ÕâÊÇÒ»¸ö×¨ÎªflashÐéÄâµÄeeprom´òÔìµÄÊý¾Ý¹ÜÀíÏµÍ³¡£Ä£·ÂÆ½ºâ²ÁµÄ¸ÅÄî£¬Ê¹ÓÃflash¿Õ¼äÀ´»»flashÊÙÃü¡£
+//<i>Í¬Ê±»¹ÊµÏÖÁËÕæeepromµÄÐ§¹û£¬¼´Ð´Èëº¯Êý¿ÉÒÔÖ±½ÓÐ´Èë£¬²»ÐèÒª²Á³ý¡£
+//<i>ÒÀÀµEEPROM¿â¡£
+#define ECBM_EDS_LIB_EN (0)
+//<e>10mSÁªÃË
+//<i>¸ÃÁªÃËÏÂµÄËùÓÐ¿â»òÕß¿ò¼Ü¶¼ÊÇ»ùÓÚ10mSµÄ¶¨Ê±Æ÷ÖÐ¶ÏÍê³É¡£
+#define ECBM_10MS_EN (0)
+//<o>Ñ¡Ôñ10mSÊ±»ùµÄÉú³É¶¨Ê±Æ÷
+//<0=>¶¨Ê±Æ÷0
+//<1=>¶¨Ê±Æ÷1
+//<2=>¶¨Ê±Æ÷2
+//<3=>¶¨Ê±Æ÷3
+//<4=>¶¨Ê±Æ÷4
+#define ECBM_10MS_TIMER (0)
+//<q>stream¿ò¼Ü
+//<i>Ê¹ÄÜÖ®ºó¿ÉÒÔÊ¹ÓÃÇ¿´óµÄstream×é¼þ£¬µ«ÊÇÏà¹ØµÄÉèÖÃÇëÒÆ²½µ½stream.hÖÐÈ¥²Ù×÷¡£
+//<i>ÒÀÀµUART¿â¡£
+#define ECBM_STREAM_LIB_EN (0)
+//</e>
 //</h>
 //<<< end of configuration section >>>
 //-----------------ÒÔÉÏÊÇÍ¼ÐÎÉèÖÃ½çÃæ£¬¿ÉÔÚConfiguration Wizard½çÃæÉèÖÃ-----------------
 /*------------------------------------Í·ÎÄ¼þ¼ÓÔØ------------------------------------*/
-#include "ecbm.h"        //µ¥Æ¬»ú¼Ä´æÆ÷µÄÍ·ÎÄ¼þ¡£
+#include "ecbm_reg.h"   //µ¥Æ¬»ú¼Ä´æÆ÷µÄÍ·ÎÄ¼þ¡£
 #include "intrins.h"    //µ¥Æ¬»úCÓïÑÔÊ¹ÓÃ»ã±àÖ¸ÁîµÄÍ·ÎÄ¼þ¡£
-#include <STDARG.H>     //¶à²ÎÊýº¯ÊýÖ§³ÖµÄÍ·ÎÄ¼þ¡£	
+#include "STDARG.H"     //¶à²ÎÊýº¯ÊýÖ§³ÖµÄÍ·ÎÄ¼þ¡£
+#if (ECBM_PRINTF_EN)
 #include "stdio.h"      //sprintfÏà¹Øº¯ÊýÖ§³ÖµÄÍ·ÎÄ¼þ¡£
-/*----------------------------------±äÁ¿ÀàÐÍÖØÓ³Éä----------------------------------*/
-#define __IO     volatile  //·ÀÖ¹ÓÅ»¯µÄÉùÃ÷£¬Ä¿µÄÊÇÈÃ±àÒëÆ÷Ã¿´ÎÊ¹ÓÃµÄÊ±ºò¶¼µÃÈ¥ÄÚ´æÄÃÖµ¡£
-typedef unsigned char u8;  //ÎÞ·ûºÅµÄ 8Î»±äÁ¿£¬ÔÚC51Àï¾ÍÊÇÎÞ·ûºÅ×Ö·ûÐÍ±äÁ¿¡£
-typedef unsigned int  u16; //ÎÞ·ûºÅµÄ16Î»±äÁ¿£¬ÔÚC51Àï¾ÍÊÇÎÞ·ûºÅ  ÕûÐÍ±äÁ¿¡£
-typedef unsigned long u32; //ÎÞ·ûºÅµÄ32Î»±äÁ¿£¬ÔÚC51Àï¾ÍÊÇÎÞ·ûºÅ³¤ÕûÐÍ±äÁ¿¡£
-typedef   signed char s8;  //ÓÐ·ûºÅµÄ 8Î»±äÁ¿£¬ÔÚC51Àï¾ÍÊÇÓÐ·ûºÅ×Ö·ûÐÍ±äÁ¿¡£
-typedef   signed int  s16; //ÓÐ·ûºÅµÄ16Î»±äÁ¿£¬ÔÚC51Àï¾ÍÊÇÓÐ·ûºÅ  ÕûÐÍ±äÁ¿¡£
-typedef   signed long s32; //ÓÐ·ûºÅµÄ32Î»±äÁ¿£¬ÔÚC51Àï¾ÍÊÇÓÐ·ûºÅ³¤ÕûÐÍ±äÁ¿¡£
-/*--------------------------------------±äÁ¿¶¨Òå-----------------------------------*/
-extern u32 xdata ecbm_sys_clk;
-extern u16 xdata ecbm_delay_base;
-/*------------------------------------Ð¾Æ¬ÅäÖÃ¼ÓÔØ----------------------------------*/
-/*####################################Ð¾Æ¬Ãû×Ö½âÎö##################################*/
-#if			(ECBM_MCU&0xF00000)==0x100000
-#	define	ECBM_MCU_NAME	"STC8F"
-#elif		(ECBM_MCU&0xF00000)==0x200000
-#	define	ECBM_MCU_NAME	"STC8A"
-#elif		(ECBM_MCU&0xF00000)==0x300000
-#	define	ECBM_MCU_NAME	"STC8G"
-#elif		(ECBM_MCU&0xF00000)==0x400000
-#	define	ECBM_MCU_NAME	"STC8H"
-#endif
-/*##################################ÌØÊâ²ÎÊýµØÖ·½âÎö################################*/
-#if		(ECBM_MCU==0x110301)||(ECBM_MCU==0x110302)//STC8F1Kxx_8PIN//STC8F1KxxS2_16PIN_20PIN 
-#	if		ECBM_MCU_ROM_SIZE==8
-#		define	MCUID			(  (unsigned char code *)(0x1FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x1FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x1FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x1FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x1FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==12
-#		define	MCUID			(  (unsigned char code *)(0x2FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x2FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x2FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x2FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x2FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==17
-#		define	MCUID			(  (unsigned char code *)(0x43F9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x43F7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x43F5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x43F4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x43F3)))	//24MHzµÄIRC²ÎÊý¡£
-#	endif
-#elif	(ECBM_MCU==0x120502)||(ECBM_MCU==0x120504)||(ECBM_MCU==0x2405C2)||(ECBM_MCU==0x2805C4)//STC8F2KxxS2_ALL//STC8F2KxxS4_ALL//STC8A4KxxS2A12_ALL//STC8A8KxxS4A12_ALL    
-#	if		ECBM_MCU_ROM_SIZE==16
-#		define	MCUID			(  (unsigned char code *)(0x3FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x3FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x3FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x3FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x3FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==32
-#		define	MCUID			(  (unsigned char code *)(0x7FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x7FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x7FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x7FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x7FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==60
-#		define	MCUID			(  (unsigned char code *)(0xEFF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0xEFF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0xEFF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0xEFF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0xEFF3)))	//24MHzµÄIRC²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==64
-#		define	MCUID			(  (unsigned char code *)(0xFDF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0xFDF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0xFDF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0xFDF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0xFDF3)))	//24MHzµÄIRC²ÎÊý¡£
-#	endif
-#elif	(ECBM_MCU==0x3103A2)||(ECBM_MCU==0x310201)||(ECBM_MCU==0x3102A1)||(ECBM_MCU==0x3103A1)//STC8G1Kxx_16PIN_20PIN//STC8G1Kxx_8PIN//STC8G1KxxA_8PIN//STC8G1KxxT_20PIN 
-#	if		ECBM_MCU_ROM_SIZE==8
-#		define	MCUID			(  (unsigned char code *)(0x1FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x1FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x1FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x1FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x1FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x1FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x1FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x1FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x1FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x1FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x1FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x1FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x1FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==12
-#		define	MCUID			(  (unsigned char code *)(0x2FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x2FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x2FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x2FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x2FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x2FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x2FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x2FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x2FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x2FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x2FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x2FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x2FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==17
-#		define	MCUID			(  (unsigned char code *)(0x43F9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x43F7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x43F5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x43F4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x43F3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x43F2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x43F1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x43F0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x43EF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x43EE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x43ED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x43EA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x43E9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	endif
-#elif	(ECBM_MCU==0x3205A2)||(ECBM_MCU==0x3205A4)//STC8G2KxxS2_ALL//STC8G2KxxS4_ALL 
-#	if		ECBM_MCU_ROM_SIZE==16
-#		define	MCUID			(  (unsigned char code *)(0x3FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x3FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x3FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x3FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x3FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x3FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x3FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x3FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x3FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x3FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x3FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x3FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x3FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==32
-#		define	MCUID			(  (unsigned char code *)(0x7FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x7FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x7FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x7FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x7FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x7FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x7FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x7FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x7FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x7FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x7FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x7FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x7FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==60
-#		define	MCUID			(  (unsigned char code *)(0xEFF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0xEFF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0xEFF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0xEFF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0xEFF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0xEFF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0xEFF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0xEFF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0xEFEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0xEFEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0xEFED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0xEFEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0xEFE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==64
-#		define	MCUID			(  (unsigned char code *)(0xFDF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0xFDF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0xFDF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0xFDF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0xFDF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0xFDF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0xFDF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0xFDF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0xFDEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0xFDEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0xFDED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0xFDEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0xFDE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	endif
-#elif	(ECBM_MCU==0x4103A2)||(ECBM_MCU==0x4105A2)//STC8H1Kxx_20PIN//STC8H1Kxx_32PIN 
-#	if		ECBM_MCU_ROM_SIZE==8
-#		define	MCUID			(  (unsigned char code *)(0x1FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x1FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x1FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x1FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x1FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x1FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x1FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x1FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x1FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x1FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x1FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x1FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x1FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==12
-#		define	MCUID			(  (unsigned char code *)(0x2FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x2FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x2FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x2FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x2FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x2FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x2FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x2FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x2FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x2FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x2FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x2FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x2FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==17
-#		define	MCUID			(  (unsigned char code *)(0x43F9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x43F7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x43F5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x43F4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x43F3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x43F2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x43F1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x43F0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x43EF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x43EE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x43ED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x43EA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x43E9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==16
-#		define	MCUID			(  (unsigned char code *)(0x3FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x3FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x3FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x3FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x3FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x3FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x3FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x3FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x3FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x3FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x3FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x3FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x3FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==28
-#		define	MCUID			(  (unsigned char code *)(0x6FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x6FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x6FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x6FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x6FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x6FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x6FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x6FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x6FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x6FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x6FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x6FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x6FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	endif
-#elif	(ECBM_MCU==0x4205C4)||(ECBM_MCU==0x4305C2)||(ECBM_MCU==0x4305C4)//STC8H2KxxT_48PIN//STC8H3KxxS2_48PIN//STC8H3KxxS4_48PIN 
-#	if		ECBM_MCU_ROM_SIZE==32
-#		define	MCUID			(  (unsigned char code *)(0x7FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x7FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x7FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x7FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x7FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0x7FF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x7FF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x7FF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x7FEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x7FEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x7FED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0x7FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0x7FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==60
-#		define	MCUID			(  (unsigned char code *)(0xEFF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0xEFF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0xEFF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0xEFF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0xEFF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0xEFF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0xEFF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0xEFF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0xEFEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0xEFEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0xEFED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0xEFEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0xEFE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==64
-#		define	MCUID			(  (unsigned char code *)(0xFDF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0xFDF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0xFDF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0xFDF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0xFDF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC20MHZ		(*((unsigned char code *)(0xFDF2)))	//20MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0xFDF1)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0xFDF0)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0xFDEF)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0xFDEE)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0xFDED)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC20M_VRTRIM	(*((unsigned char code *)(0xFDEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC35M_VRTRIM	(*((unsigned char code *)(0xFDE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	endif
-#elif	ECBM_MCU == 0x4805C4//STC8H8KxxU_48PIN_64PIN 
-#	if		ECBM_MCU_ROM_SIZE==32
-#		define	MCUID			(  (unsigned char code *)(0x7FF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0x7FF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0x7FF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0x7FF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0x7FF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0x7FF2)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0x7FF1)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0x7FF0)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0x7FEF)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0x7FEE)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC40MHZ		(*((unsigned char code *)(0x7FED)))	//40MHzµÄIRC²ÎÊý¡£
-#		define	IRC44_2368MHZ	(*((unsigned char code *)(0x7FEC)))	//44.2368MHzµÄIRC²ÎÊý¡£
-#		define	IRC48MHZ		(*((unsigned char code *)(0x7FEB)))	//48MHzµÄIRC²ÎÊý¡£
-#		define	IRC24M_VRTRIM	(*((unsigned char code *)(0x7FEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC40M_VRTRIM	(*((unsigned char code *)(0x7FE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==60
-#		define	MCUID			(  (unsigned char code *)(0xEFF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0xEFF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0xEFF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0xEFF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0xEFF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0xEFF2)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0xEFF1)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0xEFF0)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0xEFEF)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0xEFEE)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC40MHZ		(*((unsigned char code *)(0xEFED)))	//40MHzµÄIRC²ÎÊý¡£
-#		define	IRC44_2368MHZ	(*((unsigned char code *)(0xEFEC)))	//44.2368MHzµÄIRC²ÎÊý¡£
-#		define	IRC48MHZ		(*((unsigned char code *)(0xEFEB)))	//48MHzµÄIRC²ÎÊý¡£
-#		define	IRC24M_VRTRIM	(*((unsigned char code *)(0xEFEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC40M_VRTRIM	(*((unsigned char code *)(0xEFE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	elif	ECBM_MCU_ROM_SIZE==64
-#		define	MCUID			(  (unsigned char code *)(0xFDF9))	//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
-#		define	BGV				(*((unsigned int  code *)(0xFDF7)))	//Æ¬ÄÚ¼äÏ¶µçÑ¹µÄÊµ²âÖµ¡£
-#		define	IRC32KHZ		(*((unsigned int  code *)(0xFDF5)))	//32Kµôµç»½ÐÑ¶¨Ê±Æ÷ÆµÂÊ¡£
-#		define	IRC22_1184MHZ	(*((unsigned char code *)(0xFDF4)))	//22.1184MHzµÄIRC²ÎÊý¡£
-#		define	IRC24MHZ		(*((unsigned char code *)(0xFDF3)))	//24MHzµÄIRC²ÎÊý¡£
-#		define	IRC27MHZ		(*((unsigned char code *)(0xFDF2)))	//27MHzµÄIRC²ÎÊý¡£
-#		define	IRC30MHZ		(*((unsigned char code *)(0xFDF1)))	//30MHzµÄIRC²ÎÊý¡£
-#		define	IRC33_1776MHZ	(*((unsigned char code *)(0xFDF0)))	//33.1776MHzµÄIRC²ÎÊý¡£
-#		define	IRC35MHZ		(*((unsigned char code *)(0xFDEF)))	//35MHzµÄIRC²ÎÊý¡£
-#		define	IRC36_864MHZ	(*((unsigned char code *)(0xFDEE)))	//36.864MHzµÄIRC²ÎÊý¡£
-#		define	IRC40MHZ		(*((unsigned char code *)(0xFDED)))	//40MHzµÄIRC²ÎÊý¡£
-#		define	IRC44_2368MHZ	(*((unsigned char code *)(0xFDEC)))	//44.2368MHzµÄIRC²ÎÊý¡£
-#		define	IRC48MHZ		(*((unsigned char code *)(0xFDEB)))	//48MHzµÄIRC²ÎÊý¡£
-#		define	IRC24M_VRTRIM	(*((unsigned char code *)(0xFDEA)))	//24MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#		define	IRC40M_VRTRIM	(*((unsigned char code *)(0xFDE9)))	//40MÆµ¶ÎµÄVRTRIM²ÎÊý¡£
-#	endif
 #endif
 /*------------------------------------Í¨ÓÃÅäÖÃÉè¶¨----------------------------------*/
 sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡£
@@ -529,26 +216,11 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 #define LED_BLINK LED=!LED;  //ÈÃLEDÉÁË¸¡£
 /*------------------------------------³£ÓÃ¹¦ÄÜÉè¶¨----------------------------------*/
 //ÒÔÏÂ¼¸¸ö²ÎÊý£¬µ±idataÓÃÂúµÄÊ±ºò»áÓÐ±»¸²¸ÇµÄ·çÏÕ£¬½¨Òé±£³ÖidataÇø²»ÒªÊ¹ÓÃ£¬¶àÊ¹ÓÃxdataÇø¡£
-#define REG_HSI1  read_idata_u8 (0xFA)//Æ¬ÄÚ24MµçÂ·µÄÉèÖÃÖµ¡£
-#define REG_HSI   read_idata_u8 (0xFB)//Æ¬ÄÚ24MµçÂ·µÄÉèÖÃÖµ¡£
 #define REG_BGV   read_idata_u16(0xEF)//Æ¬ÄÚ1.3VµçÑ¹µÄÊµ²âÖµ¡£
-#define REG_LSI   read_idata_u16(0xF8)//Æ¬ÄÚ32KµçÂ·µÄÉèÖÃÖµ¡£
 #define REG_ID(x) read_idata_u8 (0xF1+x)//µ¥Æ¬»úµÄÎ¨Ò»IDÂë¡£
 
-#define io2port(n) (n)>>4           //È¡Òý½ÅËùÔÚµÄP¿Ú£¬Òý½Å¸ñÊ½Ðè·ûºÏ0xXXµÄ¸ñÊ½¡£
-#define io2pin(n)  0x01<<((n)&0x0f) //È¡Òý½ÅËùÔÚµÄPIN£¬Òý½Å¸ñÊ½Ðè·ûºÏ0xXXµÄ¸ñÊ½¡£
-#define read_idata_u8(x)  (*((u8  volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu8 ±äÁ¿¡£
-#define read_idata_u16(x) (*((u16 volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu16±äÁ¿¡£
-#define read_idata_u32(x) (*((u32 volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸öu32±äÁ¿¡£
-#define read_xdata_u8(x)  (*((u8  volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu8 ±äÁ¿¡£
-#define read_xdata_u16(x) (*((u16 volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu16±äÁ¿¡£
-#define read_xdata_u32(x) (*((u32 volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸öu32±äÁ¿¡£
-#define read_idata_s8(x)  (*((s8  volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös8 ±äÁ¿¡£
-#define read_idata_s16(x) (*((s16 volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös16±äÁ¿¡£
-#define read_idata_s32(x) (*((s32 volatile idata *)x))//´ÓidataÇø¶ÁÈ¡Ò»¸ös32±äÁ¿¡£
-#define read_xdata_s8(x)  (*((s8  volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös8 ±äÁ¿¡£
-#define read_xdata_s16(x) (*((s16 volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös16±äÁ¿¡£
-#define read_xdata_s32(x) (*((s32 volatile xdata *)x))//´ÓxdataÇø¶ÁÈ¡Ò»¸ös32±äÁ¿¡£
+#define io2port(n) ((n)>>4)           //È¡Òý½ÅËùÔÚµÄP¿Ú£¬Òý½Å¸ñÊ½Ðè·ûºÏ0xXXµÄ¸ñÊ½¡£
+#define io2pin(n)  (0x01<<((n)&0x0f)) //È¡Òý½ÅËùÔÚµÄPIN£¬Òý½Å¸ñÊ½Ðè·ûºÏ0xXXµÄ¸ñÊ½¡£
 /*-----------------------------------¿âº¯Êý¼ÓÔØ-----------------------------------*/
 #include "gpio.h"
 #include "power.h"
@@ -563,9 +235,22 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 #include "adc.h"
 #include "cmp.h"
 #include "mdu16.h"
-#include "it.h"
 #include "pca.h"
-//#include "pwm.h"
+#include "lcm.h"
+#include "pwm.h"
+#include "led.h"
+#include "lcd.h"
+#include "nvic.h"
+#include "stream.h"
+#include "stream_fur.h"
+#include "stream_modbus.h"
+// #include "stream_xmodem.h"Î´¿ª·¢
+#include "stream_ecp.h"
+#include "eds.h"
+/*--------------------------------------±äÁ¿¶¨Òå-----------------------------------*/
+extern bit     auto_download_en_gb;          //×Ô¶¯ÏÂÔØµÄÊ¹ÄÜ
+extern u8 data auto_download_old_char_gdu8;  //±£´æÉÏÒ»´Î½ÓÊÕµÄÊý¾Ý
+extern u8 data auto_download_char_count_gdu8;//ÏàÍ¬Êý¾Ý¼ÆÊý
 /*--------------------------------------³ÌÐò¶¨Òå-----------------------------------*/
 /*-------------------------------------------------------
 º¯ÊýÃû£ºdelay_ms
@@ -574,28 +259,30 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 Êä  ³ö£ºÎÞ
 ·µ»ØÖµ£ºÎÞ
 ´´½¨Õß£ºÄÎÌØ
-µ÷ÓÃÀý³Ì£ºdelay_ms(500);//ÑÓÊ±500ºÁÃë
+µ÷ÓÃÀý³Ì£º
+    delay_ms(500);//ÑÓÊ±500ºÁÃë
 ´´½¨ÈÕÆÚ£º2019-10-8
 ÐÞ¸Ä¼ÇÂ¼£º
 2020-06-02:ÐÞ¸´ÁËÑÓÊ±0ms±ä³ÉÑÓÊ±65535msµÄBUG¡£
+2022-02-06:´Ó±äÁ¿¿ØÖÆÑÓÊ±¸Ä³Éºê¶¨Òå¿ØÖÆÑÓÊ±¡£
 -------------------------------------------------------*/
 extern void delay_ms(u16 ms);
 /*-------------------------------------------------------
 º¯ÊýÃû£ºdelay_us
 Ãè  Êö£ºÎ¢Ãë¼¶ÑÓÊ±º¯Êý
-Êä  Èë£ºÐèÒªÑÓÊ±µÄ½ÚÅÄÊý£¬²»ÊÇÎ¢ÃëÊý¡£¿ÉÒÔÍ¨¹ýdelay_set_us
-        º¯ÊýËã³öËùÐèÎ¢Ãë¶ÔÓ¦µÄ½ÚÅÄÊý¡£
+Êä  Èë£ºÐèÒªÑÓÊ±µÄ½ÚÅÄÊý£¬²»ÊÇÎ¢ÃëÊý¡£¿ÉÒÔÍ¨¹ýdelay_set_usº¯ÊýËã³öËùÐèÎ¢Ãë¶ÔÓ¦µÄ½ÚÅÄÊý¡£
 Êä  ³ö£ºÎÞ
 ·µ»ØÖµ£ºÎÞ
 ´´½¨Õß£ºÄÎÌØ
 µ÷ÓÃÀý³Ì£º
-		us_val=delay_set_us(20);//ÏÈËã³ö20us¶ÔÓ¦µÄ½ÚÅÄÊý¡£
-		...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
-		delay_us(us_val);//ÑÓÊ±20us¡£
-		...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
+    us_val=delay_set_us(20);//ÏÈËã³ö20us¶ÔÓ¦µÄ½ÚÅÄÊý¡£
+    ...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
+    delay_us(us_val);//ÑÓÊ±20us¡£
+    ...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
 ´´½¨ÈÕÆÚ£º2019-10-8
 ÐÞ¸Ä¼ÇÂ¼£º
 2020-1-3£ºÈ¥µôÁËus_code.hÎÄ¼þ
+2022-02-06:´Ó±äÁ¿¿ØÖÆÑÓÊ±¸Ä³Éºê¶¨Òå¿ØÖÆÑÓÊ±¡£
 -------------------------------------------------------*/
 extern void delay_us(u16 us);
 /*-------------------------------------------------------
@@ -606,17 +293,14 @@ extern void delay_us(u16 us);
 ·µ»ØÖµ£º¸ÃÎ¢ÃëÊý¶ÔÓ¦µÄ½ÚÅÄÊý¡£
 ´´½¨Õß£ºÄÎÌØ
 µ÷ÓÃÀý³Ì£º
-		us_val=delay_set_us(20);//ÏÈËã³ö20us¶ÔÓ¦µÄ½ÚÅÄÊý¡£
-		...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
-		delay_us(us_val);//ÑÓÊ±20us¡£
-		...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
+    us_val=delay_set_us(20);//ÏÈËã³ö20us¶ÔÓ¦µÄ½ÚÅÄÊý¡£
+    ...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
+    delay_us(us_val);//ÑÓÊ±20us¡£
+    ...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
 ´´½¨ÈÕÆÚ£º2019-10-8
 ÐÞ¸Ä¼ÇÂ¼£º
 -------------------------------------------------------*/
 extern u16  delay_set_us(u16 us);
-/***********************************´®¿Úµ÷ÊÔÄ£¿é***************/#if ECBM_AUTO_DOWNLOAD_EN
-extern u8 xdata old_char;  //±£´æÉÏÒ»´Î½ÓÊÕµÄÊý¾Ý
-extern u8 xdata char_count;//ÏàÍ¬Êý¾Ý¼ÆÊý
 /*-------------------------------------------------------
 º¯ÊýÃû£ºsystem_uart_reset
 Ãè  Êö£º×Ô¶¯ÖØÆôº¯Êý£¬½«Æä·ÅÖÃµ½´®¿ÚÖÐ¶ÏµÄ½ÓÊÕ²¿·Ö¾ÍÄÜÊµÏÖ×Ô¶¯ÏÂÔØ¡£
@@ -627,39 +311,25 @@ extern u8 xdata char_count;//ÏàÍ¬Êý¾Ý¼ÆÊý
 µ÷ÓÃÀý³Ì£ºÎÞ
 ´´½¨ÈÕÆÚ£º2019-10-8
 ÐÞ¸Ä¼ÇÂ¼£º
+2022-2-9£ºµ÷ÕûÁË´úÂë£¬ÌáÉýÁËÏÂÔØ³É¹¦ÂÊ¡£
 -------------------------------------------------------*/
-extern void system_uart_reset();
+extern void system_uart_reset(void);
 /*-------------------------------------------------------
 º¯ÊýÃû£ºsystem_check
-Ãè  Êö£ºÏµÍ³¼ì²âº¯Êý£¬»áÏò´®¿Ú·¢ËÍµ¥Æ¬»úµÄÒ»Ð©»ù´¡ÐÅÏ¢¡£µçÄÔÊÕµÄµ½
-		ÐÅÏ¢ËµÃ÷¿âº¯ÊýÔË×÷Õý³£¡£Õâ¸öº¯ÊýÒ»°ã²»³£ÓÃ¡£ÔÚÍ¼ÐÎ½çÃæÖÐ¿É
-		ÒÔÓÅ»¯µô±¾º¯Êý¡£
+Ãè  Êö£ºÏµÍ³¼ì²âº¯Êý£¬»áÏò´®¿Ú·¢ËÍµ¥Æ¬»úµÄÒ»Ð©»ù´¡ÐÅÏ¢¡£
+    µçÄÔÊÕµÄµ½ÐÅÏ¢ËµÃ÷¿âº¯ÊýÔË×÷Õý³£¡£Õâ¸öº¯ÊýÒ»°ã²»³£ÓÃ¡£
+    ÔÚÍ¼ÐÎ½çÃæÖÐ¿ÉÒÔÓÅ»¯µô±¾º¯Êý¡£
 Êä  Èë£ºÎÞ
 Êä  ³ö£ºÎÞ
 ·µ»ØÖµ£ºÎÞ
 ´´½¨Õß£ºÄÎÌØ
-µ÷ÓÃÀý³Ì£ºsystem_check();//·¢ËÍµ¥Æ¬»úÐÅÏ¢µ½´®¿Ú¡£
+µ÷ÓÃÀý³Ì£º
+    system_check();//·¢ËÍµ¥Æ¬»úÐÅÏ¢µ½´®¿Ú¡£
 ´´½¨ÈÕÆÚ£º2019-10-8
 ÐÞ¸Ä¼ÇÂ¼£º
 2020-01-02£ºÔö¼ÓÁË¼ì²âµÄÏîÄ¿¡£
 -------------------------------------------------------*/
-extern void system_check();
-/****************************************************************************/#endif
-/*-------------------------------------------------------
-º¯ÊýÃû£ºdebug
-Ãè  Êö£ºÏàµ±ÓÚÓ¦ÓÃÓÚµ¥Æ¬»úµÄprintfº¯Êý¡£ÓÉÓÚÄÚ²¿Ö»¿ªÁË64×Ö½Ú»º´æ£¬
-		ËùÒÔ½¨ÒéÔÚÊ¹ÓÃÖÐ£¬×Ö·û´®²»Òª³¬¹ý64×Ö½ÚµÄ³¤¶È¡£
-Êä  Èë£º¶à²ÎÊý£¬ºÍprintfÒ»ÑùµÄÓÃ·¨¡£
-Êä  ³ö£ºÎÞ
-·µ»ØÖµ£ºÎÞ
-´´½¨Õß£ºÄÎÌØ
-µ÷ÓÃÀý³Ì£ºdebug("i=%d\r\n",(u16)i);//½«±äÁ¿iµÄÖµ·¢ËÍµ½´®¿Ú¡£
-´´½¨ÈÕÆÚ£º2019-10-8
-ÐÞ¸Ä¼ÇÂ¼£º
-2019-12-28£ºÐÞ¸Ä³Éµ÷ÓÃ´®¿Ú1µÄ·¢ËÍº¯Êý¡£
-2020-10-09£ºÒÆ³ö×Ô¶¯ÏÂÔØÊ¹ÄÜµÄ¿ØÖÆ¡£
--------------------------------------------------------*/
-extern void debug(const char * str,...);
+extern void system_check(void);
 /*----------------------------------ÆäËûÏµÍ³º¯Êý-----------------------------------*/
 /*-------------------------------------------------------
 º¯ÊýÃû£ºsystem_init
@@ -669,157 +339,83 @@ extern void debug(const char * str,...);
 ·µ»ØÖµ£ºÎÞ
 ´´½¨Õß£ºÄÎÌØ
 µ÷ÓÃÀý³Ì£º
-	void main(){
-		system_init();//³õÊ¼»¯Õû¸ö¿âº¯Êý¡£
-		while(1){  
-		}	
-	}
+    void main(){
+        system_init();//³õÊ¼»¯Õû¸ö¿âº¯Êý¡£
+        while(1){  
+        }    
+    }
 ´´½¨ÈÕÆÚ£º2019-10-8
 ÐÞ¸Ä¼ÇÂ¼£º
 2020-1-3£ºÐÂ¼ÓÁË×Ô¶¯ÅÐ¶Ï¾§ÕñµÄ¹¦ÄÜ¡£
+2022-2-6£ºÈ¡ÏûÁË×Ô¶¯ÅÐ¶Ï¾§ÕñµÄ¹¦ÄÜ¡£
 -------------------------------------------------------*/
 extern void system_init(void);
-/*-------------------------------------------------------
-º¯ÊýÃû£ºerror_printf
-Ãè  Êö£º´íÎóÐÅÏ¢´òÓ¡º¯Êý£¬²»ÒÀÀµÈÎºÎ¿âº¯ÊýºÍÍâÉè¡£»áÒÔÃ¿ÃëÁ½´ÎµÄÆµÂÊ·¢ËÍ³ö´íÐÅÏ¢¡£
-		Í¬Ê±³ÌÐòÎÞ·¨ÏòÏÂ×ß£¬ÀàËÆstm32µÄÓ²¼þ´íÎóÖÐ¶Ï¡£¿ÉÒÔÉèÖÃºê¶¨Òå¸Ä±äÊä³öµÄIO¡£
-		µ«ÊÇ²¨ÌØÂÊ¹Ì¶¨Îª9600¡£
-Êä  Èë£º¶à²ÎÊý£¬ºÍprintfÒ»ÑùµÄÓÃ·¨¡£
-Êä  ³ö£ºÎÞ
-·µ»ØÖµ£ºÎÞ
-´´½¨Õß£ºÄÎÌØ
-µ÷ÓÃÀý³Ì£º
-	...//ÆäËûÎÞ¹ØµÄ´úÂë¡£
-	case GPIO_P7:P7=dat;break;
-	default:error_printf("gpio_write(<%d>,%d);²»´æÔÚ¸ÃP¿Ú\r\n",(u16)port,(u16)dat);break;
-	...//ÆäËûÎÞ¹ØµÄ´úÂë
-´´½¨ÈÕÆÚ£º2019-10-8
-ÐÞ¸Ä¼ÇÂ¼£º
--------------------------------------------------------*/
-#define error_io P31//´Ë´¦¿ÉÒÔÐÞ¸Ä±¨´íµÄIO¿Ú£¬ÐÞ¸ÄÎªP31¿ÉÍ¨¹ý´®¿ÚÊä³ö¡£ÐÞ¸Ä³ÉLED¿É±ä³ÉÖÇÄÜLED¡£
-extern void error_printf(const char * str,...); 
-/*---------------------------------ÆäËû·ÇÏµÍ³º¯Êý---------------------------------*/
-/*-------------------------------------------------------
-º¯ÊýÃû£ºdebug_soft
-Ãè  Êö£ºÈí¼þ´®¿Ú£¬¿ÉÒÔÓÃÀ´µ÷ÊÔ(Ã»ÓÐ½ÓÊÕ¹¦ÄÜ)£¬ÒÀÀµÑÓÊ±¿âºÍGPIO¿â¡£ÊÊºÏÃ»ÓÐÓ²¼þ´®¿ÚµÄµ¥Æ¬»ú¡£
-		²¨ÌØÂÊ¹Ì¶¨Îª9600¡£
-Êä  Èë£ºio - ÐèÒªÊä³öµ÷ÊÔÐÅÏ¢µÄIO¿Ú¡£
-		ÆäÓà²ÎÊýºÍprintfÒ»ÑùµÄÓÃ·¨¡£
-Êä  ³ö£ºÎÞ
-·µ»ØÖµ£ºÎÞ
-´´½¨Õß£ºÄÎÌØ
-µ÷ÓÃÀý³Ì£º
-	debug_soft(D31,"i=%d",i);//ÏòP31¿Ú·¢ËÍ±äÁ¿iµÄÖµ¡£
-´´½¨ÈÕÆÚ£º2019-10-8
-ÐÞ¸Ä¼ÇÂ¼£º
--------------------------------------------------------*/
-extern void debug_soft(u8 io,const char * str,...);
-/********************************strÏµÁÐº¯Êý************************/#if ECBM_STRING_EN
 /*-------------------------------------------------------
 º¯ÊýÃû£ºstr_find
 Ãè  Êö£º×Ö·û´®²éÕÒº¯Êý£¬ÓÃÓÚ²éÕÒÒ»¸ö×Ö·û´®ÊÇ·ñÔÚÁíÒ»¸ö×Ö·û´®ÄÚ¡£
 Êä  Èë£º
-		dest - ÐèÒª²éÕÒµÄÄ¿±ê×Ö·û´®¡£
-		key  - ÐèÒª²éÕÒµÄ×Ö·û´®ÌØÕ÷¡£
+    dest    ÐèÒª²éÕÒµÄÄ¿±ê×Ö·û´®¡£
+    key     ÐèÒª²éÕÒµÄ×Ö·û´®ÌØÕ÷¡£
 Êä  ³ö£ºÎÞ
 ·µ»ØÖµ£º×Ö·û´®ÌØÕ÷ÔÚÄ¿±ê×Ö·û´®µÄÎ»ÖÃ£¬´Ó0¿ªÊ¼¼ÆËã¡£Èç¹ûÊÇ-1£¬ËµÃ÷Ä¿±ê×Ö·û´®Ã»ÓÐ¸ÃÌØÕ÷¡£
 ´´½¨Õß£ºÄÎÌØ
 µ÷ÓÃÀý³Ì£º
-	str_find("0123456789","4",i);//ÔÚ"0123456789"ÖÐ²éÕÒ"4"ËùÔÚµÄÎ»ÖÃ¡£
+    str_find("0123456789","4",i);//ÔÚ"0123456789"ÖÐ²éÕÒ"4"ËùÔÚµÄÎ»ÖÃ¡£
 ´´½¨ÈÕÆÚ£º2019-10-9
 ÐÞ¸Ä¼ÇÂ¼£º
+2022-2-6£ºÐÞ¸´ÁËÖØ¸´×Ö·û»áÕÒ²»µ½µÄbug¡£
 -------------------------------------------------------*/
-extern u16 str_find(char * dest,char * key);
+extern u16 str_find(s8 * dest,s8 * key);
 /*-------------------------------------------------------
 º¯ÊýÃû£ºstr_read_pin
 Ãè  Êö£ºIOÐÅÏ¢¶ÁÈ¡º¯Êý£¬ÓÃÓÚ¶ÁÈ¡×Ö·û´®ÄÚÄ¿±êÎ»ÖÃµÄIOÐÅÏ¢¡£
 Êä  Èë£º
-		str - ´æÓÐIOÐÅÏ¢µÄ×Ö·û´®¡£
-		pos - IOÐÅÏ¢µÄÎ»ÖÃ£¬Í¨¹ýÕâ¸öÀ´Çø·Ö×Ö·û´®ÄÚµÄ¶à¸öIOÐÅÏ¢¡£
+    str     ´æÓÐIOÐÅÏ¢µÄ×Ö·û´®¡£
+    pos     IOÐÅÏ¢µÄÎ»ÖÃ£¬Í¨¹ýÕâ¸öÀ´Çø·Ö×Ö·û´®ÄÚµÄ¶à¸öIOÐÅÏ¢¡£
 Êä  ³ö£ºÎÞ
 ·µ»ØÖµ£ºÔÚ¸ÃÎ»ÖÃµÄIOÐÅÏ¢¡£
 ´´½¨Õß£ºÄÎÌØ
 µ÷ÓÃÀý³Ì£º
-	str_read_pin("SCL=D13,SDA=D14",11);//¶ÁÈ¡´ÓÏÂ±ê11¿ªÊ¼µÄIOÐÅÏ¢£¬¼´»á·µ»Ø0x14¡£
+    str_read_pin("SCL=D13,SDA=D14",11);//¶ÁÈ¡´ÓÏÂ±ê11¿ªÊ¼µÄIOÐÅÏ¢£¬¼´»á·µ»Ø0x14¡£
 ´´½¨ÈÕÆÚ£º2019-10-9
 ÐÞ¸Ä¼ÇÂ¼£º
 -------------------------------------------------------*/
-extern u8 str_read_pin(char * str,u16 pos);
+extern u8 str_read_pin(s8 * str,u16 pos);
 /*-------------------------------------------------------
 º¯ÊýÃû£ºstr_read_u16
 Ãè  Êö£ºu16±äÁ¿¶ÁÈ¡º¯Êý£¬ÓÃÓÚ¶ÁÈ¡×Ö·û´®ÄÚÄ¿±êÎ»ÖÃµÄu16ÐÍÊýÖµ¡£
 Êä  Èë£º
-		str - ´æÓÐÊýÖµµÄ×Ö·û´®¡£
-		pos - ÊýÖµµÄÎ»ÖÃ£¬Í¨¹ýÕâ¸öÀ´Çø·Ö×Ö·û´®ÄÚµÄ¶à¸öÊýÖµ¡£
+    str     ´æÓÐÊýÖµµÄ×Ö·û´®¡£
+    pos     ÊýÖµµÄÎ»ÖÃ£¬Í¨¹ýÕâ¸öÀ´Çø·Ö×Ö·û´®ÄÚµÄ¶à¸öÊýÖµ¡£
 Êä  ³ö£ºÎÞ
 ·µ»ØÖµ£ºÔÚ¸ÃÎ»ÖÃµÄÊýÖµ¡£U16ÀàÐÍ£¬¼´0~65535¡£
 ´´½¨Õß£ºÄÎÌØ
 µ÷ÓÃÀý³Ì£º
-	str_read_u16("SCL=D13,w=128",9);//¶ÁÈ¡´ÓÏÂ±ê8¿ªÊ¼µÄÊýÖµ£¬¼´»á·µ»Ø128¡£
+    str_read_u16("SCL=D13,w=128",9);//¶ÁÈ¡´ÓÏÂ±ê8¿ªÊ¼µÄÊýÖµ£¬¼´»á·µ»Ø128¡£
 ´´½¨ÈÕÆÚ£º2019-10-9
 ÐÞ¸Ä¼ÇÂ¼£º
 2020-02-17£ºÔö¼ÓÁËÒ»¸öÍ£Ö¹µÄÌõ¼þ£¬¼´Óöµ½µãºÅÒ²ÒªÍ£Ö¹¡£
 -------------------------------------------------------*/
-extern u16 str_read_u16(char * str,u16 pos);
+extern u16 str_read_u16(s8 * str,u16 pos);
 /*-------------------------------------------------------
 º¯ÊýÃû£ºstr_push_len
 Ãè  Êö£º×Ö·û´®ÍÆ³öÖ¸Áîº¯Êý£¨´ø×Ö·û´®³¤¶È²ÎÊý°æ£©¡£ÓÃÓÚ°ÑÖ¸¶¨»º´æÖÐµÄÖ¸¶¨¹Ø¼ü´ÊÍÆ³ö¸Ã»º´æ¡£
-		ÎªÁË·ÀÖ¹Ç°ºóÊý¾ÝÖØ×éÔì³É¸ÉÈÅ£¨±ÈÈç¡°LEDLED_ON_OFF¡±ÔÚÍÆ³ö¡°LED_ON¡±ºó£¬Ê£ÏÂµÄ²¿·Ö»¹ÄÜÖØ×é³É¡°LED_OFF¡±£©£¬
-		ËùÒÔÍÆ³ö¹Ø¼ü´ÊÖ®ºó£¬Ö»»á°Ñ¹Ø¼ü´ÊËùÔÚÎ»ÖÃÇåÁã£¬²»»áÁ¬½ÓÊ×Î²Êý¾Ý£¨¼´¡°LEDLED_ON_OFF¡±ÔÚÍÆ³ö¡°LED_ON¡±ºóÊ£ÏÂ¡°LED      _OFF¡±£©¡£
-Êä  Èë£ºdest  -  Ä¿±ê×Ö·û´®»º´æ¡£
-		dlen  -  Ä¿±ê×Ö·û´®»º´æµÄ³¤¶È¡£
-		key   -  ÐèÒªÍÆ³öµÄ¹Ø¼ü´Ê¡£
-		klen  -  ¹Ø¼ü´ÊµÄ³¤¶È¡£
+        ÎªÁË·ÀÖ¹Ç°ºóÊý¾ÝÖØ×éÔì³É¸ÉÈÅ£¨±ÈÈç¡°LEDLED_ON_OFF¡±ÔÚÍÆ³ö¡°LED_ON¡±ºó£¬Ê£ÏÂµÄ²¿·Ö»¹ÄÜÖØ×é³É¡°LED_OFF¡±£©£¬
+        ËùÒÔÍÆ³ö¹Ø¼ü´ÊÖ®ºó£¬Ö»»á°Ñ¹Ø¼ü´ÊËùÔÚÎ»ÖÃÇåÁã£¬²»»áÁ¬½ÓÊ×Î²Êý¾Ý£¨¼´¡°LEDLED_ON_OFF¡±ÔÚÍÆ³ö¡°LED_ON¡±ºóÊ£ÏÂ¡°LED      _OFF¡±£©¡£
+Êä  Èë£º
+    dest    Ä¿±ê×Ö·û´®»º´æ¡£
+    dlen    Ä¿±ê×Ö·û´®»º´æµÄ³¤¶È¡£
+    key     ÐèÒªÍÆ³öµÄ¹Ø¼ü´Ê¡£
+    klen    ¹Ø¼ü´ÊµÄ³¤¶È¡£
 Êä  ³ö£ºÎÞ
-·µ»ØÖµ£º0 - ÍÆ³öÊ§°Ü£¬¿ÉÄÜÊÇÄ¿±ê»º´æÄÚÃ»ÓÐ¸Ã¹Ø¼ü´Ê¡£
-		1 - ÍÆ³ö³É¹¦¡£
+·µ»ØÖµ£º
+    0   ÍÆ³öÊ§°Ü£¬¿ÉÄÜÊÇÄ¿±ê»º´æÄÚÃ»ÓÐ¸Ã¹Ø¼ü´Ê¡£
+    1   ÍÆ³ö³É¹¦¡£
 ´´½¨Õß£ºÄÎÌØ
 µ÷ÓÃÀý³Ì£ºÎÞ
 ´´½¨ÈÕÆÚ£º2020-02-17
 ÐÞ¸Ä¼ÇÂ¼£º
 -------------------------------------------------------*/
 extern u8 str_push_len(u8 * dest,u16 dlen,u8 * key,u16 klen);
-/**************************************************************************/#endif
-/*³ÌÐòÇøÕÛµþ×¨ÓÃ******************CRC16Ä£¿é***********************/#if ECBM_CRC16_EN
-/*-------------------------------------------------------
-º¯ÊýÃû£ºcrc16
-Ãè  Êö£º¼ÆËãCRC16º¯Êý£¬²ÉÓÃµÄÊÇMODBUSÄ£Ê½£¬¼´X16+X15+X2+1¡£
-Êä  Èë£ºbuf - ÐèÒª¼ÆËãCRC16µÄ»º´æÊý×é¡£
-		len - ¸ÃÊý×éµÄ³¤¶È£¬CRC16»á¼ÆËã´Ó0µ½len-1µÄÔªËØµÄCRC16Öµ¡£
-Êä  ³ö£ºÎÞ
-·µ»ØÖµ£º¸Ã»º´æÊý×é¼ÆËã³öÀ´µÄCRC16Öµ¡£
-´´½¨Õß£ºÀ´Ô´ÓÚÍøÉÏ£¬ÓÉÄÎÌØÕûÀí
-µ÷ÓÃÀý³Ì£ºÎÞ
-´´½¨ÈÕÆÚ£º2020-02-17
-ÐÞ¸Ä¼ÇÂ¼£º
--------------------------------------------------------*/
-extern u16 crc16(u8 buf[],u16 len);
-/*-------------------------------------------------------
-º¯ÊýÃû£ºcrc16_insert_buf
-Ãè  Êö£º²åÈëCRC16º¯Êý¡£¼ÆËãÒ»¸ö»º´æµÄCRC16½á¹û£¬È»ºó²åÈëµ½»º´æµÄ½áÎ²´¦¡£
-Êä  Èë£ºbuf - ÐèÒª¼ÆËãCRC16µÄ»º´æÊý×é¡£
-		len - ¸ÃÊý×éµÄ³¤¶È£¬CRC16»á¼ÆËã´Ó0µ½len-2µÄÔªËØµÄCRC16Öµ£¬È»ºó²åÈëµ½len-2~len-1µÄÎ»ÖÃ¡£
-Êä  ³ö£ºÎÞ
-·µ»ØÖµ£ºÎÞ
-´´½¨Õß£ºÄÎÌØ
-µ÷ÓÃÀý³Ì£ºÎÞ
-´´½¨ÈÕÆÚ£º2020-02-17
-ÐÞ¸Ä¼ÇÂ¼£º
--------------------------------------------------------*/
-extern void crc16_insert_buf(u8 buf[],u16 len);
-/*-------------------------------------------------------
-º¯ÊýÃû£ºcrc16_check_buf
-Ãè  Êö£º¼ì²éCRC16º¯Êý¡£¼ì²éÒ»¸ö°üº¬CRC16½á¹ûµÄ»º´æµÄCRC16½á¹ûÊÇ·ñÕýÈ·¡£
-		¿ÉÒÔÓÃÀ´¼ì²âÍ¨ÐÅÊÇ·ñÕýÈ·£¬ÍÆ¼öÓÃcrc16_insert_bufº¯ÊýÀ´Éú³ÉÄ¿±ê¸ñÊ½»º´æ¡£
-Êä  Èë£ºbuf - ÐèÒª¼ÆËãCRC16µÄ»º´æÊý×é¡£
-		len - ¸ÃÊý×éµÄ³¤¶È£¬CRC16»á¼ÆËã´Ó0µ½len-2µÄÔªËØµÄCRC16Öµ£¬È»ºó±È½ÏÊý×é×îºó´¢´æµÄCRC16ÖµÊÇ·ñÕýÈ·¡£
-Êä  ³ö£ºÎÞ
-·µ»ØÖµ£ºÎÞ
-´´½¨Õß£ºÄÎÌØ
-µ÷ÓÃÀý³Ì£ºÎÞ
-´´½¨ÈÕÆÚ£º2020-02-17
-ÐÞ¸Ä¼ÇÂ¼£º
--------------------------------------------------------*/
-extern u8 crc16_check_buf(u8 buf[],u16 len);
-/*³ÌÐòÇøÕÛµþ×¨ÓÃ************************************************************/#endif
-#endif
+#endif  //ºÍ×îÉÏÃæµÄ#ifndefÅäºÏ³ÉÒ»¸ö³ÌÐò¶Î¡£
+        //ÒÔÒ»¸ö¿ÕÐÐÎª½áÎ²¡£

@@ -1,109 +1,95 @@
 $NOMOD51
 ;------------------------------------------------------------------------------
-;  This file is part of the C51 Compiler package
-;  Copyright (c) 1988-2005 Keil Elektronik GmbH and Keil Software, Inc.
-;  Version 8.01
-;
-;  *** <<< Use Configuration Wizard in Context Menu >>> ***
-;------------------------------------------------------------------------------
-;  STARTUP.A51:  This code is executed after processor reset.
-;
-;  To translate this file use A51 with the following invocation:
-;
-;     A51 STARTUP.A51
-;
-;  To link the modified STARTUP.OBJ file to your application use the following
-;  Lx51 invocation:
-;
-;     Lx51 your object file list, STARTUP.OBJ  controls
-;
+;这个文件是C51编译器包的一部分
+;Keil Elektronik GmbH and Keil Software, Inc.版权所有(c) 1988-2005
+;版本8.01
+;<<< Use Configuration Wizard in Context Menu >>>
 ;------------------------------------------------------------------------------
 ;
-;  User-defined <h> Power-On Initialization of Memory
+;用户自定义<h>上电初始化内存
+;  使用以下EQU语句初始化内存
+;  在处理器复位时可以定义:
 ;
-;  With the following EQU statements the initialization of memory
-;  at processor reset can be defined:
+; <o> IDATALEN: IDATA内存大小 <0x0-0x100>
+;     <i> 注意:IDATA内存起始地址的绝对值总是0
+;     <i>IDATA空间在物理上与DATA和BIT区域重叠。
+IDATALEN        EQU     128
 ;
-; <o> IDATALEN: IDATA memory size <0x0-0x100>
-;     <i> Note: The absolute start-address of IDATA memory is always 0
-;     <i>       The IDATA space overlaps physically the DATA and BIT areas.
-IDATALEN        EQU     80H
-;
-; <o> XDATASTART: XDATA memory start address <0x0-0xFFFF> 
-;     <i> The absolute start address of XDATA memory
+; <o> XDATASTART: XDATA内存起始地址 <0x0-0xFFFF> 
+;     <i>XDATA内存的绝对起始地址
 XDATASTART      EQU     0     
 ;
-; <o> XDATALEN: XDATA memory size <0x0-0xFFFF> 
-;     <i> The length of XDATA memory in bytes.
+; <o> XDATALEN: XDATA内存大小 <0x0-0xFFFF> 
+;     <i>XDATA内存长度(以字节为单位)。
 XDATALEN        EQU     0      
 ;
-; <o> PDATASTART: PDATA memory start address <0x0-0xFFFF> 
-;     <i> The absolute start address of PDATA memory
-PDATASTART      EQU     0H
+; <o> PDATASTART: PDATA内存起始地址 <0x0-0xFFFF> 
+;     <i>PDATA内存的绝对起始地址
+PDATASTART      EQU     0
 ;
-; <o> PDATALEN: PDATA memory size <0x0-0xFF> 
-;     <i> The length of PDATA memory in bytes.
-PDATALEN        EQU     0H
+; <o> PDATALEN: PDATA内存大小 <0x0-0xFF> 
+;     <i>PDATA内存长度(以字节为单位)。
+PDATALEN        EQU     0
 ;
 ;</h>
 ;------------------------------------------------------------------------------
 ;
-;<h> Reentrant Stack Initialization
+;<h> 可重入栈的初始化
 ;
-;  The following EQU statements define the stack pointer for reentrant
-;  functions and initialized it:
+;  下面的EQU语句定义了用于重入的堆栈指针
+;  函数并初始化中断:
 ;
-; <h> Stack Space for reentrant functions in the SMALL model.
-;  <q> IBPSTACK: Enable SMALL model reentrant stack
-;     <i> Stack space for reentrant functions in the SMALL model.
-IBPSTACK        EQU     0       ; set to 1 if small reentrant is used.
-;  <o> IBPSTACKTOP: End address of SMALL model stack <0x0-0xFF>
-;     <i> Set the top of the stack to the highest location.
-IBPSTACKTOP     EQU     0xFF +1     ; default 0FFH+1  
+; <h> 在SMALL模型中可重入函数的堆栈空间。
+;  <q> IBPSTACK: 启用SMALL模型可重入堆栈
+;     <i> 在SMALL模型中可重入函数的堆栈空间。
+IBPSTACK        EQU     0       ; 设置为1代表使用small型可重入模型。
+;  <o> IBPSTACKTOP: SMALL模型堆栈的结束地址 <0x0-0xFF>
+;     <i> 将堆栈顶部设置为最高位置。
+IBPSTACKTOP     EQU     0xFF +1     ; 默认 0FFH+1  
 ; </h>
 ;
-; <h> Stack Space for reentrant functions in the LARGE model.      
-;  <q> XBPSTACK: Enable LARGE model reentrant stack
-;     <i> Stack space for reentrant functions in the LARGE model.
-XBPSTACK        EQU     0       ; set to 1 if large reentrant is used.
-;  <o> XBPSTACKTOP: End address of LARGE model stack <0x0-0xFFFF>
-;     <i> Set the top of the stack to the highest location.
-XBPSTACKTOP     EQU     0xFFFF +1   ; default 0FFFFH+1 
+; <h> LARGE模型中可重入函数的堆栈空间。     
+;  <q> XBPSTACK: 启用LARGE模型重入堆栈
+;     <i> LARGE模型中可重入函数的堆栈空间。
+XBPSTACK        EQU     0       ; 设置为1代表使用large型可重入模型。
+;  <o> XBPSTACKTOP: LARGE模型堆栈的结束地址 <0x0-0xFFFF>
+;     <i> 将堆栈顶部设置为最高位置。
+XBPSTACKTOP     EQU     0xFFFF +1   ; 默认 0FFFFH+1 
 ; </h>
 ;
-; <h> Stack Space for reentrant functions in the COMPACT model.    
-;  <q> PBPSTACK: Enable COMPACT model reentrant stack
-;     <i> Stack space for reentrant functions in the COMPACT model.
-PBPSTACK        EQU     0       ; set to 1 if compact reentrant is used.
+; <h> COMPACT模型中可重入函数的堆栈空间。   
+;  <q> PBPSTACK: 启用COMPACT模型可重入堆栈
+;     <i> COMPACT模型中可重入函数的堆栈空间。
+PBPSTACK        EQU     0       ; 设置为1代表使用compact型可重入模型。
 ;
-;   <o> PBPSTACKTOP: End address of COMPACT model stack <0x0-0xFFFF>
-;     <i> Set the top of the stack to the highest location.
-PBPSTACKTOP     EQU     0xFF +1     ; default 0FFH+1  
+;   <o> PBPSTACKTOP: COMPACT模型堆栈的结束地址 <0x0-0xFFFF>
+;     <i> 将堆栈顶部设置为最高位置。
+PBPSTACKTOP     EQU     0xFF +1     ; 默认 0FFH+1  
 ; </h>
 ;</h>
 ;------------------------------------------------------------------------------
 ;
-;  Memory Page for Using the Compact Model with 64 KByte xdata RAM
-;  <e>Compact Model Page Definition
+;  使用64kbyte xdata RAM的紧凑模型的内存页面
+;  <e>精简模型页面定义
 ;
-;  <i>Define the XDATA page used for PDATA variables. 
-;  <i>PPAGE must conform with the PPAGE set in the linker invocation.
+;  <i>定义用于PDATA变量的XDATA页面。 
+;  <i>page必须与链接器调用中设置的page一致。
 ;
-; Enable pdata memory page initalization
-PPAGEENABLE     EQU     0       ; set to 1 if pdata object are used.
+; 启用pdata内存页初始化
+PPAGEENABLE     EQU     0       ; 如果使用pdata对象，则设置为1。
 ;
-; <o> PPAGE number <0x0-0xFF> 
-; <i> uppermost 256-byte address of the page used for PDATA variables.
+; <o> PPAGE数量 <0x0-0xFF> 
+; <i>用于存放PDATA变量的页面数量。其地址最多为256字节。
 PPAGE           EQU     0
 ;
-; <o> SFR address which supplies uppermost address byte <0x0-0xFF> 
-; <i> most 8051 variants use P2 as uppermost address byte
+; <o> 提供高8位地址字节的SFR地址 <0x0-0xFF> 
+; <i>大多数8051和兼容型号使用P2作为高8位地址字节
 PPAGE_SFR       DATA    0A0H
 ;
 ; </e>
 ;------------------------------------------------------------------------------
 
-; Standard SFR Symbols 
+; 标准的SFR符号
 ACC     DATA    0E0H
 B       DATA    0F0H
 SP      DATA    81H

@@ -7,20 +7,20 @@
 
   <Targets>
     <Target>
-      <TargetName>STC8</TargetName>
+      <TargetName>ECBM V3</TargetName>
       <ToolsetNumber>0x0</ToolsetNumber>
       <ToolsetName>MCS-51</ToolsetName>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STC8A8K64S4A12</Device>
-          <Vendor>STC</Vendor>
-          <Cpu>IRAM(0-0xFF) XRAM(0-0x1FFF) IROM(0-0xFFF8) CLOCK(35000000) MODP2</Cpu>
+          <Device>8051 (all Variants)</Device>
+          <Vendor>Generic</Vendor>
+          <Cpu>IRAM(0-0x7F) IROM(0-0xFFF) CLOCK(12000000)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile>"LIB\STARTUP.A51" ("Standard 8051 Startup Code")</StartupFile>
           <FlashDriverDll></FlashDriverDll>
-          <DeviceId>63016</DeviceId>
-          <RegisterFile>ecbm_core.h</RegisterFile>
+          <DeviceId>2994</DeviceId>
+          <RegisterFile>REG51.H</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -36,8 +36,8 @@
           <BinPath></BinPath>
           <IncludePath></IncludePath>
           <LibPath></LibPath>
-          <RegisterFilePath>STC\</RegisterFilePath>
-          <DBRegisterFilePath>STC\</DBRegisterFilePath>
+          <RegisterFilePath></RegisterFilePath>
+          <DBRegisterFilePath></DBRegisterFilePath>
           <TargetStatus>
             <Error>0</Error>
             <ExitCodeStop>0</ExitCodeStop>
@@ -110,7 +110,7 @@
           <SimDllName>S8051.DLL</SimDllName>
           <SimDllArguments></SimDllArguments>
           <SimDlgDll>DP51.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pDP8051</SimDlgDllArguments>
+          <SimDlgDllArguments>-p51</SimDlgDllArguments>
           <TargetDllName>S8051.DLL</TargetDllName>
           <TargetDllArguments></TargetDllArguments>
           <TargetDlgDll>TP51.DLL</TargetDlgDll>
@@ -149,7 +149,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>9</TargetSelection>
+          <TargetSelection>10</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -196,11 +196,11 @@
             <UseMultipleDPTR>0</UseMultipleDPTR>
             <UseOnchipXram>0</UseOnchipXram>
             <HadIRAM>1</HadIRAM>
-            <HadXRAM>1</HadXRAM>
+            <HadXRAM>0</HadXRAM>
             <HadIROM>1</HadIROM>
             <Moda2>0</Moda2>
             <Moddp2>0</Moddp2>
-            <Modp2>1</Modp2>
+            <Modp2>0</Modp2>
             <Mod517dp>0</Mod517dp>
             <Mod517au>0</Mod517au>
             <Mode2>0</Mode2>
@@ -273,17 +273,17 @@
               <IRO>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0xfff9</Size>
+                <Size>0x1000</Size>
               </IRO>
               <IRA>
                 <Type>0</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x100</Size>
+                <Size>0x80</Size>
               </IRA>
               <XRA>
                 <Type>0</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x2000</Size>
+                <Size>0x0</Size>
               </XRA>
               <XRA512>
                 <Type>0</Type>
@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\ECBM_LIB;.\device;.\device\new_test;.\device\proj</IncludePath>
+              <IncludePath>.\ECBM_LIB;.\device</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -374,23 +374,28 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>USER</GroupName>
+          <GroupName>用户文件</GroupName>
           <Files>
-            <File>
-              <FileName>STARTUP.A51</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\STARTUP.A51</FilePath>
-            </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+            <File>
+              <FileName>STARTUP.A51</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\STARTUP.A51</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>LIB_LIST</GroupName>
+          <GroupName>配置文件/头文件</GroupName>
           <Files>
+            <File>
+              <FileName>ecbm_reg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\ecbm_reg.h</FilePath>
+            </File>
             <File>
               <FileName>ecbm_core.h</FileName>
               <FileType>5</FileType>
@@ -462,11 +467,6 @@
               <FilePath>.\ECBM_LIB\mdu16.h</FilePath>
             </File>
             <File>
-              <FileName>it.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\it.h</FilePath>
-            </File>
-            <File>
               <FileName>pca.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ECBM_LIB\pca.h</FilePath>
@@ -477,14 +477,54 @@
               <FilePath>.\ECBM_LIB\pwm.h</FilePath>
             </File>
             <File>
-              <FileName>ecbm.h</FileName>
+              <FileName>lcm.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\ECBM_LIB\ecbm.h</FilePath>
+              <FilePath>.\ECBM_LIB\lcm.h</FilePath>
+            </File>
+            <File>
+              <FileName>nvic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\nvic.h</FilePath>
+            </File>
+            <File>
+              <FileName>led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\led.h</FilePath>
+            </File>
+            <File>
+              <FileName>eds.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\eds.h</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\lcd.h</FilePath>
+            </File>
+            <File>
+              <FileName>stream.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\stream.h</FilePath>
+            </File>
+            <File>
+              <FileName>stream_ecp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\stream_ecp.h</FilePath>
+            </File>
+            <File>
+              <FileName>stream_fur.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\stream_fur.h</FilePath>
+            </File>
+            <File>
+              <FileName>stream_modbus.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\stream_modbus.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>ECBM_LIB</GroupName>
+          <GroupName>库本体/C文件</GroupName>
           <Files>
             <File>
               <FileName>ecbm_core.c</FileName>
@@ -557,19 +597,64 @@
               <FilePath>.\ECBM_LIB\mdu16.c</FilePath>
             </File>
             <File>
-              <FileName>it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ECBM_LIB\it.c</FilePath>
-            </File>
-            <File>
               <FileName>pca.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ECBM_LIB\pca.c</FilePath>
             </File>
+            <File>
+              <FileName>pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\lcm.c</FilePath>
+            </File>
+            <File>
+              <FileName>nvic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\nvic.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>eds.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\eds.c</FilePath>
+            </File>
+            <File>
+              <FileName>stream.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\stream.c</FilePath>
+            </File>
+            <File>
+              <FileName>stream_ecp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\stream_ecp.c</FilePath>
+            </File>
+            <File>
+              <FileName>stream_fur.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\stream_fur.c</FilePath>
+            </File>
+            <File>
+              <FileName>stream_modbus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\stream_modbus.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>DEVICE</GroupName>
+          <GroupName>器件驱动</GroupName>
         </Group>
       </Groups>
     </Target>
