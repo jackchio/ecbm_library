@@ -37,14 +37,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<100000=>100KHz  
 //<400000=>400KHz
 #define ECBM_IIC_WAIT (400000L)
-//<o.4..5>IICÄ¬ÈÏ¹Ü½Å
+//<o.4..5>IICÄ¬ÈÏ¹Ü½Å(È«ÏµÁÐ,³ýSTC8G1K08ºÍSTC8G1K08AÒÔÍâ)
 //<i>´ËÉèÖÃÖ»»á¸Ä¶¯³õÊ¼»¯µÄ¹Ü½Å£¬ÔÚÊµ¼ÊÓ¦ÓÃÖÐËæÊ±¿ÉÒÔÊ¹ÓÃiic_set_pinº¯ÊýÐÞ¸ÄIIC¹Ü½Å£¬´ïµ½·ÖÊ±¸´ÓÃµÄÐ§¹û¡£
-//<0=>SCL-P15|SDA-P14(È«ÏµÁÐ,³ýSTC8G1K08ºÍSTC8G1K08AÒÔÍâ)
-//<1=>SCL-P25|SDA-P24(È«ÏµÁÐ,³ýSTC8G1K08ºÍSTC8G1K08AÒÔÍâ) 
-//<2=>SCL-P77|SDA-P76(È«ÏµÁÐ,³ýSTC8G1K08ºÍSTC8G1K08AÒÔÍâ) 
-//<3=>SCL-P32|SDA-P33(È«ÏµÁÐ,³ýSTC8G1K08ºÍSTC8G1K08AÒÔÍâ)
-//<0=>SCL-P32|SDA-P33(½öÏÞSTC8G1K08ºÍSTC8G1K08A) 
-//<1=>SCL-P54|SDA-P55(½öÏÞSTC8G1K08ºÍSTC8G1K08A) 
+//<0=>SCL-P15|SDA-P14
+//<1=>SCL-P25|SDA-P24
+//<2=>SCL-P77|SDA-P76 
+//<3=>SCL-P32|SDA-P33
+//<o.4..5>IICÄ¬ÈÏ¹Ü½Å(½öÏÞSTC8G1K08ºÍSTC8G1K08A) 
+//<i>´ËÉèÖÃÖ»»á¸Ä¶¯³õÊ¼»¯µÄ¹Ü½Å£¬ÔÚÊµ¼ÊÓ¦ÓÃÖÐËæÊ±¿ÉÒÔÊ¹ÓÃiic_set_pinº¯ÊýÐÞ¸ÄIIC¹Ü½Å£¬´ïµ½·ÖÊ±¸´ÓÃµÄÐ§¹û¡£
+//<0=>SCL-P32|SDA-P33
+//<1=>SCL-P54|SDA-P55
 #define ECBM_IIC_IO (0)
 //<o>ÎÞÏìÓ¦³¬Ê±Ê±¼ä
 //<i>ÊäÈëµÄÊÇÊ±ÖÓÊý£¬¿ÉÒÔÊäÈë1000~65530¡£
@@ -110,19 +112,6 @@ extern u8  eiicp_data_buf_gu8a[ECBM_IIC_BUF_MAX];   //EIICPÖÐÓÃÓÚ±£´æÊý¾ÝµÄ»º´æ¡
 ÐÞ¸Ä¼ÇÂ¼£º
 -------------------------------------------------------*/
 extern void iic_set_pin(u8 group);
-/*-------------------------------------------------------
-º¯ÊýÃû£ºiic_set_pin_linkage
-Ãè  Êö£ºIICµÄÒý½ÅÉèÖÃº¯Êý£¨ÄÚÁª°æ£©¡£¸Ãº¯ÊýÖ»»á±»¿âº¯Êýµ÷ÓÃ¡£
-Êä  Èë£º
-    group   ÉèÖÃIICÊä³öµÄÒý½Å¡£¿ÉÒÔÊäÈëÒÔÉÏºê¶¨ÒåÇøÁÐ¾ÙµÄÒý½Å¡£
-Êä  ³ö£ºÎÞ
-·µ»ØÖµ£ºÎÞ
-´´½¨Õß£ºÄÎÌØ
-µ÷ÓÃÀý³Ì£ºÎÞ
-´´½¨ÈÕÆÚ£º2019-03-05
-ÐÞ¸Ä¼ÇÂ¼£º
--------------------------------------------------------*/
-extern void iic_set_pin_linkage(u8 group);
 /*-------------------------------------------------------
 º¯ÊýÃû£ºiic_reset_pin
 Ãè  Êö£ºIICµÄÒý½Å»¹Ô­º¯Êý¡£µ±IIC×ªÒÆµ½ÆäËû½ÅµÄÊ±ºò£¬½«Ô­À´µÄIO»Ö¸´Õý³£µÄÉèÖÃ¡£

@@ -40,7 +40,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_RVN (6)
 //BUG Version Number ·¢²¼°æ±¾ºÅ
 //Ã¿´Î·¢²¼µ½ÍøÉÏÊ±£¬ÈôÖ»ÊÇÐÞ¸ÄBUG£¬¸Ã°æ±¾ºÅ¼ÓÒ»¡£
-#define ECBM_BVN (3)
+#define ECBM_BVN (6)
 //<h>µ¥Æ¬»úÏµÍ³ÉèÖÃ
 //<i>¸Ã¿òÄÚµÄÑ¡ÏîÓÐ»¥³âµÄÑ¡Ïî£¬Çë×ÐÏ¸ÔÄ¶ÁÁË½âÁË½á¹ûÔÙÑ¡Ôñ¡£
 //<o>XDATAÇø³õÊ¼»¯µÄ´óÐ¡
@@ -201,6 +201,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<i>Ê¹ÄÜÖ®ºó¿ÉÒÔÊ¹ÓÃÇ¿´óµÄstream×é¼þ£¬µ«ÊÇÏà¹ØµÄÉèÖÃÇëÒÆ²½µ½stream.hÖÐÈ¥²Ù×÷¡£
 //<i>ÒÀÀµUART¿â¡£
 #define ECBM_STREAM_LIB_EN (0)
+//<q>·äÃùÆ÷¿â
+//<i>ÕâÊÇÇý¶¯ÓÐÔ´·äÃùÆ÷µÄ¿â£¬ÎÞÔ´·äÃùÆ÷²»ÄÜÊ¹ÓÃ¡£
+#define ECBM_BEEP_EN    (0)
 //</e>
 //</h>
 //<<< end of configuration section >>>
@@ -251,6 +254,7 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 // #include "stream_xmodem.h"Î´¿ª·¢
 #include "stream_ecp.h"
 #include "eds.h"
+#include "beep.h"
 /*--------------------------------------±äÁ¿¶¨Òå-----------------------------------*/
 extern bit     auto_download_en_gb;          //×Ô¶¯ÏÂÔØµÄÊ¹ÄÜ
 extern u8 data auto_download_old_char_gdu8;  //±£´æÉÏÒ»´Î½ÓÊÕµÄÊý¾Ý

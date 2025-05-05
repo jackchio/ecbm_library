@@ -147,7 +147,7 @@ u16 delay_set_us(u16 us){
             uart_printf(1,"OK\r\nID    :");for(i=0;i<7;i++){uart_printf(1,"%02X",(u16)(MCUID[i]));}uart_printf(1,"\r\n");        //输出唯一ID号
             uart_printf(1,"DATA  :128\tByte\r\n");//DATA区固定是128Byte
             uart_printf(1,"IDATA :128\tByte\r\n");//IDATA区固定是128Byte
-            uart_(1,"XDATA :%u\tByte\r\n",(u16)((ECBM_MCU&0x0F0000)>>16)*1024);//从配置文件中获取XDATA区大小
+            uart_printf(1,"XDATA :%u\tByte\r\n",(u16)((ECBM_MCU&0x0F0000)>>16)*1024);//从配置文件中获取XDATA区大小
             uart_printf(1,"FLASH :%lu\tByte\r\n",(u32)ECBM_MCU_ROM_SIZE*1024);//从配置文件中获取FLASH区大小
             uart_printf(1,"SYSCLK:%lu\tHz\r\n",ECBM_SYSCLK_SETTING);//输出内部晶振值，在图形界面上设置
             uart_printf(1,"BGV   :%u\tmV\r\n",REG_BGV);//输出内部电压基准值，需要在STC-ISP上设置
@@ -160,6 +160,7 @@ u16 delay_set_us(u16 us){
 /*-------------------------------------------------------
 库函数系统初始化函数
 -------------------------------------------------------*/
+extern void beep_init(void);
 void system_init(void){
     #if (SYSTEM_CLEAR_XDATA_LEN)//如果清零的数量不为0，就编译以下的代码：
     u16 i_u16;//计数变量。
@@ -179,38 +180,41 @@ void system_init(void){
     #if (ECBM_10MS_EN)
         #if     (ECBM_10MS_TIMER==0)
             TIMER0_SET_MODE_12T;    //设定更长的时间就要用12分频。
-            TIMER0_SET_REG_HL(65536UL-(u16)((ECBM_SYSCLK_SETTING*10000)/12/1000000));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
+            TIMER0_SET_REG_HL(65536UL-(u32)(ECBM_SYSCLK_SETTING/1200));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
             TIMER0_SET_MODE_TIMER;  //设置为定时器模式。
             TIMER0_IT_ENABLE;       //打开中断开关。
             TIMER0_POWER_ON;        //打开定时器。
         #elif   (ECBM_10MS_TIMER==1)
             TIMER1_SET_MODE_12T;    //设定更长的时间就要用12分频。
-            TIMER1_SET_REG_HL(65536UL-(u16)((ECBM_SYSCLK_SETTING*10000)/12/1000000));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
+            TIMER1_SET_REG_HL(65536UL-(u32)(ECBM_SYSCLK_SETTING/1200));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
             TIMER1_SET_MODE_TIMER;  //设置为定时器模式。
             TIMER1_IT_ENABLE;       //打开中断开关。
             TIMER1_POWER_ON;        //打开定时器。
         #elif   (ECBM_10MS_TIMER==2)
             TIMER2_SET_MODE_12T;    //设定更长的时间就要用12分频。
-            TIMER2_SET_REG_HL(65536UL-(u16)((ECBM_SYSCLK_SETTING*10000)/12/1000000));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
+            TIMER2_SET_REG_HL(65536UL-(u32)(ECBM_SYSCLK_SETTING/1200));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
             TIMER2_SET_MODE_TIMER;  //设置为定时器模式。
             TIMER2_IT_ENABLE;       //打开中断开关。
             TIMER2_POWER_ON;        //打开定时器。
         #elif   (ECBM_10MS_TIMER==3)
             TIMER3_SET_MODE_12T;    //设定更长的时间就要用12分频。
-            TIMER3_SET_REG_HL(65536UL-(u16)((ECBM_SYSCLK_SETTING*10000)/12/1000000));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
+            TIMER3_SET_REG_HL(65536UL-(u32)(ECBM_SYSCLK_SETTING/1200));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
             TIMER3_SET_MODE_TIMER;  //设置为定时器模式。
             TIMER3_IT_ENABLE;       //打开中断开关。
             TIMER3_POWER_ON;        //打开定时器。
         #elif   (ECBM_10MS_TIMER==4)
             TIMER4_SET_MODE_12T;    //设定更长的时间就要用12分频。
-            TIMER4_SET_REG_HL(65536UL-(u16)((ECBM_SYSCLK_SETTING*10000)/12/1000000));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
+            TIMER4_SET_REG_HL(65536UL-(u32)(ECBM_SYSCLK_SETTING/1200));//宏定义计算在编译期就能计算好，所以这里的公式保留原初样式能方便修改。
             TIMER4_SET_MODE_TIMER;  //设置为定时器模式。
             TIMER4_IT_ENABLE;       //打开中断开关。
             TIMER4_POWER_ON;        //打开定时器。
         #endif
         #if ((ECBM_STREAM_LIB_EN)&&(ECBM_STREAM_CH_COUNT))
             ecbm_stream_init();
-        #endif        
+        #endif
+        #if (ECBM_BEEP_EN)
+            beep_init();
+        #endif
     #endif    
     //-------------基本硬件设置------------//
     #if ((ECBM_POWER_LIB_EN)&&(ECBM_POWER_RST_CFG_EN))
@@ -247,9 +251,8 @@ void system_init(void){
 字符串查找函数。
 -------------------------------------------------------*/
 u16 str_find(s8 * dest,s8 * key){
-    u16 key_count_u16,key_first_u16,count_u16;
+    u16 key_count_u16,count_u16;
     key_count_u16=0;    //清零变量。
-    key_first_u16=0;
     count_u16    =0;
     while(*dest){       //判断目标字符串。
         if(key[key_count_u16]==(*dest)){//假如关键词字符串当前位比对成功，

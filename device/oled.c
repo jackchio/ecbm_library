@@ -8,6 +8,7 @@
 /*-------------------------------------------------------
 OLED设置引脚函数，用于软件IIC模式。
 -------------------------------------------------------*/
+extern u8 soft_iic_init_linkage(u8 scl,u8 sda);
 void oled_set_soft_iic(oled_def * dev,u8 scl,u8 sda){
     dev->mode   =(dev->mode&0x0F)|OLED_SOFT_IIC;//设置模式为软件IIC。
     dev->id     =soft_iic_init_linkage(scl,sda);//调用内联函数初始化软件IIC。
@@ -114,6 +115,7 @@ void oled_write_hard_iic_ex(oled_def * dev,u8 cd,u8 buf[],u16 len){
 /*-------------------------------------------------------
 OLED设置引脚函数，用于软件SPI模式。
 -------------------------------------------------------*/
+extern u8 soft_spi_init_linkage(u8 clk,u8 mosi,u8 miso,u8 mode);
 void oled_set_soft_spi(oled_def * dev,u8 scl,u8 sda,u8 dc,u8 rst,u8 cs){
     if(cs!=Dxx){                                //如果CS脚指定了，
         dev->mode=(dev->mode&0x0F)|OLED_SOFT_SPI|OLED_CS_ENABLE; //那么设置模式为软件SPI+CS，

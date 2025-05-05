@@ -123,42 +123,6 @@ extern void soft_spi_set_pin(soft_spi_def * dev);
 -------------------------------------------------------*/
 extern void soft_spi_init(soft_spi_def * dev,u8 clk,u8 mosi,u8 miso,u8 mode);
 /*-------------------------------------------------------
-函数名：soft_spi_set_pin_linkage
-描  述：软件SPI引脚切换函数（内联版）。主要用于其他库的调用，若不清楚原理请调用soft_spi_set_pin函数。
-输  入：
-    id      初始化软件SPI时分配的id号
-    clk     软件SPI的时钟脚
-    mosi    软件SPI的数据输出脚
-    miso    软件SPI的数据输入脚
-    mode    软件SPI的工作模式
-输  出：无
-返回值：无
-创建者：奈特
-调用例程：无
-创建日期：2019-10-22
-修改记录：
-2022-2-9：删除了CS脚。
--------------------------------------------------------*/
-extern void soft_spi_set_pin_linkage(u8 id,u8 clk,u8 mosi,u8 miso,u8 mode);
-/*-------------------------------------------------------
-函数名：soft_spi_init_linkage
-描  述：软件SPI初始化函数（内联版）。主要用于其他库的调用，若不清楚原理请调用soft_spi_init函数。
-输  入：
-    clk     软件SPI的时钟脚
-    mosi    软件SPI的数据输出脚
-    miso    软件SPI的数据输入脚
-    mode    软件SPI的工作模式
-输  出：无
-返回值：
-    初始化软件SPI时分配的id号
-创建者：奈特
-调用例程：无
-创建日期：2019-10-22
-修改记录：
-2022-2-9：删除了CS脚。
--------------------------------------------------------*/
-extern u8 soft_spi_init_linkage(u8 clk,u8 mosi,u8 miso,u8 mode);
-/*-------------------------------------------------------
 函数名：soft_spi_send
 描  述：软件SPI发送/接收函数。
 输  入：要发送的数据。

@@ -6,6 +6,8 @@ u8 xdata at24_model=0;
 /*-------------------------------------------------------
 设置工作状态函数，将一个器件设置为工作状态。
 -------------------------------------------------------*/
+extern void soft_iic_set_pin_linkage(u8 id,u8 scl,u8 sda);
+extern u8 soft_iic_init_linkage(u8 scl,u8 sda);
 void at24_set_work(at24_def * dev){
     soft_iic_set_pin_linkage(dev->id,dev->scl,dev->sda);//把当前器件信息切换到IIC的当前设置。	
     at24_model=dev->model;                              //把当前器件型号切换到AT24的当前设置。

@@ -207,6 +207,7 @@
 /*-------------------------------------------------------
 定时器系列中断服务程序
 -------------------------------------------------------*/
+extern void beep_run(void);
 #if ((ECBM_TIMER_LIB_EN)||(ECBM_10MS_EN))
     #if (((ECBM_TIMER0_EN)&&(ECBM_TIMER0_IT_EN))||(ECBM_10MS_TIMER==0))
         void nvic_timer0_function(void)interrupt 1{
@@ -215,6 +216,9 @@
             #endif
             #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==0)&&(ECBM_STREAM_LIB_EN))
                 ecbm_stream_timer_run();
+            #endif
+            #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==0)&&(ECBM_BEEP_EN))
+                beep_run();
             #endif
         }
     #endif
@@ -226,6 +230,9 @@
             #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==1)&&(ECBM_STREAM_LIB_EN))
                 ecbm_stream_timer_run();
             #endif
+            #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==1)&&(ECBM_BEEP_EN))
+                beep_run();
+            #endif
         }
     #endif
     #if (((ECBM_TIMER2_EN)&&(ECBM_TIMER2_IT_EN))||(ECBM_10MS_TIMER==2))
@@ -235,6 +242,9 @@
             #endif
             #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==2)&&(ECBM_STREAM_LIB_EN))
                 ecbm_stream_timer_run();
+            #endif
+            #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==2)&&(ECBM_BEEP_EN))
+                beep_run();
             #endif
         }
     #endif
@@ -246,6 +256,9 @@
             #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==3)&&(ECBM_STREAM_LIB_EN))
                 ecbm_stream_timer_run();
             #endif
+            #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==3)&&(ECBM_BEEP_EN))
+                beep_run();
+            #endif
         }
     #endif
     #if (((ECBM_TIMER4_EN)&&(ECBM_TIMER4_IT_EN))||(ECBM_10MS_TIMER==4))
@@ -255,6 +268,9 @@
             #endif
             #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==4)&&(ECBM_STREAM_LIB_EN))
                 ecbm_stream_timer_run();
+            #endif
+            #if ((ECBM_10MS_EN)&&(ECBM_10MS_TIMER==4)&&(ECBM_BEEP_EN))
+                beep_run();
             #endif
         }
     #endif    

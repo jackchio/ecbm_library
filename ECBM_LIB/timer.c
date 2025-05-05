@@ -131,46 +131,61 @@ void timer_out(u8 id,u8 en){
 -------------------------------------------------------*/
 void timer_init(void){
     #if (ECBM_TIMER0_EN)     //判断定时器0有没有使能。
-        TIMER0_SET_REG_AUXR    (ECBM_TIMER0_AUXR);//写上设定的数据。
-        TIMER0_SET_REG_TMOD    (ECBM_TIMER0_TMOD);//写上设定的数据。
-        TIMER0_SET_REG_HL    (65536-ECBM_TIMER0_COUNT);//写入初值。
+        TIMER0_SET_REG_AUXR (ECBM_TIMER0_AUXR);//写上设定的数据。
+        TIMER0_SET_REG_TMOD (ECBM_TIMER0_TMOD);//写上设定的数据。
+        TIMER0_SET_REG_HL   (65536-ECBM_TIMER0_COUNT);//写入初值。
         #if (ECBM_TIMER0_IT_EN)    //如果开启了中断。
             TIMER0_IT_ENABLE;
+        #endif
+        #if (ECBM_TIMER0_INTCLKO)
+            timer_out(0,1);
         #endif
     #endif
     
     #if (ECBM_TIMER1_EN)     //判断定时器1有没有使能。
-        TIMER1_SET_REG_AUXR(ECBM_TIMER1_AUXR);//写上设定的数据。
-        TIMER1_SET_REG_TMOD(ECBM_TIMER1_TMOD);//写上设定的数据。
-        TIMER1_SET_REG_HL(65536-ECBM_TIMER1_COUNT);//写入初值。
+        TIMER1_SET_REG_AUXR (ECBM_TIMER1_AUXR);//写上设定的数据。
+        TIMER1_SET_REG_TMOD (ECBM_TIMER1_TMOD);//写上设定的数据。
+        TIMER1_SET_REG_HL   (65536-ECBM_TIMER1_COUNT);//写入初值。
         #if (ECBM_TIMER1_IT_EN)  //如果开启了中断。
             TIMER1_IT_ENABLE;
+        #endif
+        #if (ECBM_TIMER1_INTCLKO)
+            timer_out(1,1);
         #endif
     #endif
     
     #if (ECBM_TIMER2_EN)     //判断定时器2有没有使能。
-        TIMER2_SET_REG_AUXR    (ECBM_TIMER2_AUXR);//写上设定的数据。
-        TIMER2_SET_REG_HL    (65536-ECBM_TIMER2_COUNT);//写入初值。
+        TIMER2_SET_REG_AUXR (ECBM_TIMER2_AUXR);//写上设定的数据。
+        TIMER2_SET_REG_HL   (65536-ECBM_TIMER2_COUNT);//写入初值。
         #if (ECBM_TIMER2_IT_EN)   //如果开启了中断。
             TIMER2_IT_ENABLE;
+        #endif
+        #if (ECBM_TIMER2_INTCLKO)
+            timer_out(2,1);
         #endif
     #endif
         
     #if (ECBM_TIMER3_EN)     //判断定时器3有没有使能。
-        TIMER3_SET_REG_T4T3M(ECBM_TIMER3_T4T3M);//写上设定的数据。
-        TIMER3_SET_REG_HL    (65536-ECBM_TIMER3_COUNT);//写入初值。
+        TIMER3_SET_REG_T4T3M    (ECBM_TIMER3_T4T3M);//写上设定的数据。
+        TIMER3_SET_REG_HL       (65536-ECBM_TIMER3_COUNT);//写入初值。
         #if (ECBM_TIMER3_IT_EN)    //如果开启了中断。
             TIMER3_IT_ENABLE;
+        #endif
+        #if (ECBM_TIMER3_T4T3M&0x01)
+            timer_out(3,1);
         #endif
     #endif
 
     #if (ECBM_TIMER4_EN)     //判断定时器4有没有使能。
-        TIMER4_SET_REG_T4T3M(ECBM_TIMER4_T4T3M);//写上设定的数据。
-        TIMER4_SET_REG_HL    (65536-ECBM_TIMER4_COUNT);//写入初值。
+        TIMER4_SET_REG_T4T3M    (ECBM_TIMER4_T4T3M);//写上设定的数据。
+        TIMER4_SET_REG_HL       (65536-ECBM_TIMER4_COUNT);//写入初值。
         #if (ECBM_TIMER4_IT_EN)    //如果开启了中断。
             TIMER4_IT_ENABLE;
         #endif
-    #endif
+        #if (ECBM_TIMER4_T4T3M&0x10)
+            timer_out(4,1);
+        #endif
+    #endif 
 }
 /*-------------------------------------------------------
 定时器设定定时模式函数。

@@ -73,6 +73,7 @@ void eeprom_erase(u16 addr){
     IAP_SET_REG_ADDR_HL(addr);  //设置IAP地址
     IAP_TRIG_ON;                //触发命令
     _nop_();_nop_();_nop_();_nop_();_nop_();_nop_();//稍稍等待一下
+    _nop_();_nop_();_nop_();_nop_();_nop_();_nop_();//稍稍等待一下
     eeprom_off();               //关闭IAP功能
 }
 /*-------------------------------------------------------
@@ -85,6 +86,7 @@ void eeprom_write(u16 addr,u8 dat){
     IAP_SET_REG_DATA(dat);      //写IAP数据
     IAP_TRIG_ON;                //触发命令
     _nop_();_nop_();_nop_();_nop_();_nop_();_nop_();//稍稍等待一下
+    _nop_();_nop_();_nop_();_nop_();_nop_();_nop_();//稍稍等待一下
     eeprom_off();               //关闭IAP功能
 }
 /*-------------------------------------------------------
@@ -96,6 +98,7 @@ u8 eeprom_read(u16 addr){
     IAP_CMD_READ;               //设置IAP读命令
     IAP_SET_REG_ADDR_HL(addr);  //设置IAP地址
     IAP_TRIG_ON;                //触发命令
+    _nop_();_nop_();_nop_();_nop_();_nop_();_nop_();//稍稍等待一下
     _nop_();_nop_();_nop_();_nop_();_nop_();_nop_();//稍稍等待一下
     dat_u8=IAP_GET_REG_DATA;    //读IAP数据
     eeprom_off();               //关闭IAP功能

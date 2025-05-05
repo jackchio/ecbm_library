@@ -507,6 +507,7 @@ void uart_set_baud(u8 id,u32 baud){
 #if (ECBM_UART_TX_MODE)
 #if (ECBM_UART1_EN)
 void uart1_tx_trig(void){
+    u8 ch=uart1_tx_buf[uart1_tx_buf_read_point];
     #if (ECBM_UART1_485_EN)
         UART1_485_RE_IO=1;
         UART1_485_DE_IO=1;
@@ -528,7 +529,7 @@ void uart1_tx_trig(void){
     #elif (ECBM_UART1_PARITY==4)
         UART1_SET_TXD_BYTE9_0;
     #endif
-    UART1_SET_REG_SBUF(uart1_tx_buf[uart1_tx_buf_read_point]);
+    UART1_SET_REG_SBUF(ch);
     uart1_tx_buf_read_point++;
     uart1_tx_buf_read_point&=ECBM_UART1_TX_BUF_MASK;
     uart1_busy_gb=1;
@@ -540,6 +541,7 @@ void uart1_tx_trig(void){
 #endif
 #if (ECBM_UART2_EN)
 void uart2_tx_trig(void){
+    u8 ch=uart2_tx_buf[uart2_tx_buf_read_point];
     #if (ECBM_UART2_485_EN)
         UART2_485_RE_IO=1;
         UART2_485_DE_IO=1;
@@ -561,7 +563,7 @@ void uart2_tx_trig(void){
     #elif (ECBM_UART2_PARITY==4)
         UART2_SET_TXD_BYTE9_0;
     #endif
-    UART2_SET_REG_S2BUF(uart2_tx_buf[uart2_tx_buf_read_point]);
+    UART2_SET_REG_S2BUF(ch);
     uart2_tx_buf_read_point++;
     uart2_tx_buf_read_point&=ECBM_UART2_TX_BUF_MASK;
     uart2_busy_gb=1;
@@ -573,6 +575,7 @@ void uart2_tx_trig(void){
 #endif
 #if (ECBM_UART3_EN)
 void uart3_tx_trig(void){
+    u8 ch=uart3_tx_buf[uart3_tx_buf_read_point];
     #if (ECBM_UART3_485_EN)
         UART3_485_RE_IO=1;
         UART3_485_DE_IO=1;
@@ -594,7 +597,7 @@ void uart3_tx_trig(void){
     #elif (ECBM_UART3_PARITY==4)
         UART3_SET_TXD_BYTE9_0;
     #endif
-    UART3_SET_REG_S3BUF(uart3_tx_buf[uart3_tx_buf_read_point]);
+    UART3_SET_REG_S3BUF(ch);
     uart3_tx_buf_read_point++;
     uart3_tx_buf_read_point&=ECBM_UART3_TX_BUF_MASK;
     uart3_busy_gb=1;
@@ -606,6 +609,7 @@ void uart3_tx_trig(void){
 #endif 
 #if (ECBM_UART4_EN)
 void uart4_tx_trig(void){
+    u8 ch=uart4_tx_buf[uart4_tx_buf_read_point];
     #if (ECBM_UART4_485_EN)
         UART4_485_RE_IO=1;
         UART4_485_DE_IO=1;
@@ -627,7 +631,7 @@ void uart4_tx_trig(void){
     #elif (ECBM_UART4_PARITY==4)
         UART4_SET_TXD_BYTE9_0;
     #endif
-    UART4_SET_REG_S4BUF(uart4_tx_buf[uart4_tx_buf_read_point]);
+    UART4_SET_REG_S4BUF(ch);
     uart4_tx_buf_read_point++;
     uart4_tx_buf_read_point&=ECBM_UART4_TX_BUF_MASK;
     uart4_busy_gb=1;

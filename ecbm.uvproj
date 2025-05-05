@@ -521,6 +521,16 @@
               <FileType>5</FileType>
               <FilePath>.\ECBM_LIB\stream_modbus.h</FilePath>
             </File>
+            <File>
+              <FileName>beep.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\beep.h</FilePath>
+            </File>
+            <File>
+              <FileName>pwm16_out.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ECBM_LIB\pwm16_out.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -650,6 +660,16 @@
               <FileName>stream_modbus.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ECBM_LIB\stream_modbus.c</FilePath>
+            </File>
+            <File>
+              <FileName>beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>pwm16_out.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ECBM_LIB\pwm16_out.c</FilePath>
             </File>
           </Files>
         </Group>
