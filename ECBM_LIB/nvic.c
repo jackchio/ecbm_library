@@ -265,6 +265,7 @@
 #if (ECBM_UART_LIB_EN)
     #if (ECBM_UART1_EN)
         extern bit uart1_busy_gb;//串口1发送忙标志位。
+        extern void uart1_tx_trig(void);//串口1发送触发函数。
         void nvic_uart1_function(void)interrupt 4{
             if(UART1_GET_RI_FLAG){//串口1接收中断。
                 UART1_CLR_RI_FLAG;//清掉串口1接收标志。
@@ -287,7 +288,15 @@
             }
             if(UART1_GET_TI_FLAG){//串口1发送中断。
                 UART1_CLR_TI_FLAG;//清掉串口1发送标志。
-                uart1_busy_gb=0;//通知串口3发送函数。
+                #if (ECBM_UART_TX_MODE)
+                    if(uart1_tx_buf_read_point!=uart1_tx_buf_write_point){
+                        uart1_tx_trig();
+                    }else{
+                        uart1_busy_gb=0;//通知串口1发送函数。
+                    }
+                #else
+                    uart1_busy_gb=0;//通知串口1发送函数。
+                #endif                
                 #if (ECBM_UART1_SEND_CALLBACK_EN)
                     uart1_send_callback();
                 #endif
@@ -296,6 +305,7 @@
     #endif
     #if (ECBM_UART2_EN)
         extern bit uart2_busy_gb;//串口2发送忙标志位。
+        extern void uart2_tx_trig(void);//串口2发送触发函数。
         void nvic_uart2_function(void)interrupt 8{
             if(UART2_GET_RI_FLAG){  //串口2接收中断。
                 UART2_CLR_RI_FLAG; //清掉串口2接收标志。
@@ -315,7 +325,15 @@
             }
             if(UART2_GET_TI_FLAG){  //串口2发送中断。
                 UART2_CLR_TI_FLAG; //清掉串口2发送标志。
-                uart2_busy_gb=0;//通知串口2发送函数。
+                #if (ECBM_UART_TX_MODE)
+                    if(uart2_tx_buf_read_point!=uart2_tx_buf_write_point){
+                        uart2_tx_trig();
+                    }else{
+                        uart2_busy_gb=0;//通知串口2发送函数。
+                    }
+                #else
+                    uart2_busy_gb=0;//通知串口2发送函数。
+                #endif  
                 #if (ECBM_UART2_SEND_CALLBACK_EN)
                     uart2_send_callback();
                 #endif
@@ -324,6 +342,7 @@
     #endif
     #if (ECBM_UART3_EN)
         extern bit uart3_busy_gb;//串口3发送忙标志位。
+        extern void uart3_tx_trig(void);//串口3发送触发函数。
         void nvic_uart3_function(void)interrupt 17{
             if(UART3_GET_RI_FLAG){  //串口3接收中断。
                 UART3_CLR_RI_FLAG; //清掉串口3接收标志。
@@ -343,7 +362,15 @@
             }
             if(UART3_GET_TI_FLAG){  //串口3发送中断。
                 UART3_CLR_TI_FLAG; //清掉串口3发送标志。
-                uart3_busy_gb=0;//通知串口3发送函数。
+                #if (ECBM_UART_TX_MODE)
+                    if(uart3_tx_buf_read_point!=uart3_tx_buf_write_point){
+                        uart3_tx_trig();
+                    }else{
+                        uart3_busy_gb=0;//通知串口3发送函数。
+                    }
+                #else
+                    uart3_busy_gb=0;//通知串口3发送函数。
+                #endif  
                 #if (ECBM_UART3_SEND_CALLBACK_EN)
                     uart3_send_callback();
                 #endif
@@ -352,6 +379,7 @@
     #endif
     #if (ECBM_UART4_EN)
         extern bit uart4_busy_gb;//串口4发送忙标志位。
+        extern void uart4_tx_trig(void);//串口4发送触发函数。
         void nvic_uart4_function(void)interrupt 18{
             if(UART4_GET_RI_FLAG){  //串口4接收中断。
                 UART4_CLR_RI_FLAG; //清掉串口4接收标志。
@@ -371,7 +399,15 @@
             }
             if(UART4_GET_TI_FLAG){  //串口4发送中断。
                 UART4_CLR_TI_FLAG; //清掉串口4发送标志。
-                uart4_busy_gb=0;//通知串口4发送函数。
+                #if (ECBM_UART_TX_MODE)
+                    if(uart4_tx_buf_read_point!=uart4_tx_buf_write_point){
+                        uart4_tx_trig();
+                    }else{
+                        uart4_busy_gb=0;//通知串口4发送函数。
+                    }
+                #else
+                    uart4_busy_gb=0;//通知串口4发送函数。
+                #endif  
                 #if (ECBM_UART4_SEND_CALLBACK_EN)
                     uart4_send_callback();
                 #endif

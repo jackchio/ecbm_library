@@ -33,6 +33,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ------------------------------------------------------------------------------------*/
 //-----------------以下是图形设置界面，可在Configuration Wizard界面设置-----------------
 //<<< Use Configuration Wizard in Context Menu >>>
+//<o>串口发送形式
+//<i>最初的算法就是阻塞式，适合以串口应用为主的项目或者串口优先级最高的项目。
+//<i>而缓存式发送则是建立了个数组用于缓存，由于取消了阻塞代码，所以可以在其他中断中调用串口发送。
+//<i>缓存式适合串口优先级较低的项目。同时这里的优先级不是指中断响应优先级，而是项目功能的优先级。
+//<i>比如一个串口陀螺仪模块，对加速度芯片的解析功能就是优先级最高的，将解析结果通过串口发送出去就是优先级比较低的功能。
+//<0=>阻塞式
+//<1=>缓存式
+#define ECBM_UART_TX_MODE (1)
 //<e>uart_printf函数
 #define ECBM_UART_PRINTF_EN (1)
 //<o>printf函数缓存
@@ -41,6 +49,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 //<e>串口1使能与设置
 #define ECBM_UART1_EN (1)
+//<o>发送缓存大小
+//<i>设定缓存数组的大小，当RAM足够的时候，可以设大一些，这样能输入的字也多一些。
+//<i>不过为了兼容更多的型号，目前最大值就是128字节，如果有更大的数据发送需求，还是得靠DMA发送。
+//<i>该选项只有在选择【串口发送形式】为【缓存式】时才有效。
+//<0x0F=>16字节
+//<0x1F=>32字节
+//<0x3F=>64字节
+//<0x7F=>128字节
+#define ECBM_UART1_TX_BUF_MASK (0x3F)
 //<o>波特率
 //<600=>600 
 //<1200=>1200 
@@ -175,6 +192,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 //<e>串口2使能与设置
 #define ECBM_UART2_EN (0)
+//<o>发送缓存大小
+//<i>设定缓存数组的大小，当RAM足够的时候，可以设大一些，这样能输入的字也多一些。
+//<i>不过为了兼容更多的型号，目前最大值就是128字节，如果有更大的数据发送需求，还是得靠DMA发送。
+//<i>该选项只有在选择【串口发送形式】为【缓存式】时才有效。
+//<0x0F=>16字节
+//<0x1F=>32字节
+//<0x3F=>64字节
+//<0x7F=>128字节
+#define ECBM_UART2_TX_BUF_MASK (0x0F)
 //<o>波特率
 //<600=>600 
 //<1200=>1200 
@@ -267,6 +293,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 //<e>串口3使能与设置
 #define ECBM_UART3_EN (0)
+//<o>发送缓存大小
+//<i>设定缓存数组的大小，当RAM足够的时候，可以设大一些，这样能输入的字也多一些。
+//<i>不过为了兼容更多的型号，目前最大值就是128字节，如果有更大的数据发送需求，还是得靠DMA发送。
+//<i>该选项只有在选择【串口发送形式】为【缓存式】时才有效。
+//<0x0F=>16字节
+//<0x1F=>32字节
+//<0x3F=>64字节
+//<0x7F=>128字节
+#define ECBM_UART3_TX_BUF_MASK (0x0F)
 //<o>波特率
 //<600=>600 
 //<1200=>1200 
@@ -361,6 +396,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //</e>
 //<e>串口4使能与设置
 #define ECBM_UART4_EN (0)
+//<o>发送缓存大小
+//<i>设定缓存数组的大小，当RAM足够的时候，可以设大一些，这样能输入的字也多一些。
+//<i>不过为了兼容更多的型号，目前最大值就是128字节，如果有更大的数据发送需求，还是得靠DMA发送。
+//<i>该选项只有在选择【串口发送形式】为【缓存式】时才有效。
+//<0x0F=>16字节
+//<0x1F=>32字节
+//<0x3F=>64字节
+//<0x7F=>128字节
+#define ECBM_UART4_TX_BUF_MASK (0x0F)
 //<o>波特率
 //<600=>600 
 //<1200=>1200 
@@ -480,6 +524,18 @@ extern bit uart1_busy_gb;//串口1发送忙标志位。
 extern bit uart2_busy_gb;//串口2发送忙标志位。
 extern bit uart3_busy_gb;//串口3发送忙标志位。
 extern bit uart4_busy_gb;//串口4发送忙标志位。
+extern u8 xdata uart1_tx_buf[ECBM_UART1_TX_BUF_MASK+1];//串口1发送缓冲区。
+extern u8 data  uart1_tx_buf_write_point;              //串口1发送缓冲区写指针。
+extern u8 data  uart1_tx_buf_read_point;               //串口1发送缓冲区读指针。
+extern u8 xdata uart2_tx_buf[ECBM_UART2_TX_BUF_MASK+1];//串口2发送缓冲区。
+extern u8 data  uart2_tx_buf_write_point;              //串口2发送缓冲区写指针。
+extern u8 data  uart2_tx_buf_read_point;               //串口2发送缓冲区读指针。
+extern u8 xdata uart3_tx_buf[ECBM_UART3_TX_BUF_MASK+1];//串口3发送缓冲区。
+extern u8 data  uart3_tx_buf_write_point;              //串口3发送缓冲区写指针。
+extern u8 data  uart3_tx_buf_read_point;               //串口3发送缓冲区读指针。
+extern u8 xdata uart4_tx_buf[ECBM_UART4_TX_BUF_MASK+1];//串口4发送缓冲区。
+extern u8 data  uart4_tx_buf_write_point;              //串口4发送缓冲区写指针。
+extern u8 data  uart4_tx_buf_read_point;               //串口4发送缓冲区读指针。
 /*--------------------------------------程序定义-----------------------------------*/
 /*-------------------------------------------------------
 函数名：uart_init

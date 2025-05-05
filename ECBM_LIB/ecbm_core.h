@@ -37,10 +37,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define ECBM_FVN (3)
 //Release Version Number ·¢²¼°æ±¾ºÅ
 //µ±·¢Éú¹Ø¼ü¿âÎÄ¼þÔö¼õÊ±£¬¸Ã°æ±¾ºÅ¼ÓÒ»¡£
-#define ECBM_RVN (5)
+#define ECBM_RVN (6)
 //BUG Version Number ·¢²¼°æ±¾ºÅ
 //Ã¿´Î·¢²¼µ½ÍøÉÏÊ±£¬ÈôÖ»ÊÇÐÞ¸ÄBUG£¬¸Ã°æ±¾ºÅ¼ÓÒ»¡£
-#define ECBM_BVN (1)
+#define ECBM_BVN (3)
 //<h>µ¥Æ¬»úÏµÍ³ÉèÖÃ
 //<i>¸Ã¿òÄÚµÄÑ¡ÏîÓÐ»¥³âµÄÑ¡Ïî£¬Çë×ÐÏ¸ÔÄ¶ÁÁË½âÁË½á¹ûÔÙÑ¡Ôñ¡£
 //<o>XDATAÇø³õÊ¼»¯µÄ´óÐ¡
@@ -73,7 +73,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<44236800UL=>44.2368M 
 //<45000000UL=>45.0000M 
 //<45158400UL=>45.1584M 
-#define ECBM_SYSCLK_SETTING (24000000L)
+#define ECBM_SYSCLK_SETTING (24000000UL)
 //<e>ÏµÍ³Ê±ÖÓÊä³ö
 //<i>¿ÉÒÔÊä³öÊ±ÖÓÆµÂÊÓÃÓÚÇý¶¯ÆäËûÍâÉè£¬»òÕßÓÃÓÚ¼ì²âÄÚ²¿µÄ¹¤×÷ÆµÂÊ¡£
 #define ECBM_SYSCLK_OUT_EN (0)
@@ -146,6 +146,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //<q>PWM¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þPWMÏà¹Ø²Ù×÷º¯Êý¡£
 #define ECBM_PWM_LIB_EN (0)
+//<q>PWM16_OUT¿â
+//<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8HµÄÓ²¼þPWMºÍÊä³öÓÐ¹ØµÄ²Ù×÷º¯Êý¡£Ä¿Ç°½öÔÚSTC8H8K64UÉÏ²âÊÔ¹ý¡£
+#define ECBM_PWM16_OUT_LIB_EN (0)
 //<q>LCM¿â
 //<i>¸Ã¿âÌá¹©ÁË¹ØÓÚSTC8µÄÓ²¼þLCMÏà¹Ø²Ù×÷º¯Êý¡£
 #define ECBM_LCM_LIB_EN (0)
@@ -238,6 +241,7 @@ sbit    LED       =P5^5;     //Í¨³£ECBMµÄ°å×Ó¶¼»á´øÒ»¸öLED£¬¸ÃLED²ÉÓÃµÍµçÆ½Çý¶¯¡
 #include "pca.h"
 #include "lcm.h"
 #include "pwm.h"
+#include "pwm16_out.h"
 #include "led.h"
 #include "lcd.h"
 #include "nvic.h"

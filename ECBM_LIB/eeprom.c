@@ -153,7 +153,7 @@ eeprom写函数延伸版(extension)。
                 }
                 eeprom_erase(area_start_addr_u16);      //清空扇区。
                 addr_offset_u16=address_u16-area_start_addr_u16;//获取地址偏移。
-                for(i_u16=0;i<area_addr_yu_u16;i_u16++){        //修改数据。
+                for(i_u16=0;i_u16<area_addr_yu_u16;i_u16++){        //修改数据。
                     eeprom_ex_buf_gxu8a[addr_offset_u16+i_u16]=dat[dat_offset_u16+i_u16];
                 }
                 for(i_u16=0;i_u16<512;i_u16++){                 //将数据写回去。
